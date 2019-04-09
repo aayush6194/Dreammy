@@ -51,27 +51,42 @@ class Dashboard extends React.Component {
   constructor(props) {super(props);
     this.state = {
                    data: {
-                     post: [{
-                            image: "",
-                            url: "",
-                            caption: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sedLorem ipsum dolor sit amet, consectetur adipiscing elit, sedLorem ipsum dolor sit amet, consectetur adipiscing elit, sedLorem ipsum dolor d Lorem ipsum dolor sit amet, consectetur adipiscing elit",
-                            time: 10,
-                            limit: 500,
-                            year: 2019,
-                            location: "US",
-                            poster: "",
-                            posterImg:"",
-                            link: "",
-                            comments: [{name: "Jane Doe", comment:"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sedLorem ipsum dolor sit amet, consectetur adipiscing elit, sedLorem ipsum dolor sit amet, consectetur adipiscing elit, sedLorem ipsum dolor d Lor", limit: 170, pic: "https://randomuser.me/api/portraits/women/79.jpg", time: 0},
-                                        {name: "Jane sDoe", comment:"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed", limit: 120},
-                                       {name: "Jane Dode", comment:"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed",limit: 120},
-                                      ]
-                      }
-                           ]
-                    }
-                   }
+                       post: [{
+                              image: "",
+                              url: "https://images.unsplash.com/photo-1553531384-ab9ba1a8b1e6?ixlib=rb-1.2.1&auto=format&fit=crop&w=700&q=80",
+                              caption: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sedLorem ipsum dolor sit amet",
+                              limit: 500,
+                              time: 10,
+                              year: 2019,
+                              location: "US",
+                              poster: "",
+                              posterImg:"",
+                              link: "",
+                              comments: [{name: "Jane Doe", comment:"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sedLorem ipsum dolor sit amet, consectetur adipiscing elit, sedLorem ipsum dolor sit amet, consectetur adipiscing elit, sedLorem ipsum dolor d", limit: 280, pic: "https://randomuser.me/api/portraits/women/79.jpg", time: 0},
+                                          {name: "Jane Doe", comment:"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed", limit: 120},
+                                         {name: "Jane Doe", comment:"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed",limit: 120},
+                                        ]
+                        },
+                         {
+                              image: "",
+                              url: "https://images.unsplash.com/photo-1515683359900-6922e4964be1?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
+                              caption: "",
+                              link: "",
+                              comments: [{name: "Jane Doe", comment:"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed", limit: 120},
+                                          {name: "Jane Doe", comment:"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed",limit: 120},
+                                         {name: "Jane Doe", comment:"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed",limit: 120},
+                                        ]
+                        }
+
+
+                             ]
+
+                     }
+
 
   }
+
+}
   render() {
     return (
        <div className="containerr">
