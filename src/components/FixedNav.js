@@ -27,13 +27,16 @@ const Float = styled.a`
   border-radius: 50%;
   padding: 1em;
 `;
-const Btn = styled.div``;
+const Btn = styled.div`
+align-self: end;
+`;
 
 const FixedNav = ()=>
              ( <div>
-                <Float className="hoverr white-txt pointer "><i className="material-icons">add</i></Float>
+                
+                <Float className="hoverr white-txt pointer "><i className="material-icons white-txt">add</i></Float>
                 <Fixed className="blue-bg">
-                   <Btn className="hover pointer grid"> <Link to="/"><i className="material-icons white-txt bold txt-xl">home</i></Link></Btn>
+                   <Btn className="hover pointer grid"> <Link className="" to="/"><i className="material-icons white-txt bold txt-xl">home</i></Link></Btn>
                     <Btn className="hover pointer grid"><Link to="/"><i className="material-icons white-txt bold txt-xl disabled">chat_bubble</i></Link></Btn>
                     <Btn className="hover pointer grid"><Link to="/setting"><i className="material-icons white-txt bold txt-xl">settings</i></Link></Btn>
                    <Btn className="hover pointer grid"><Link to="/profile"><i className="material-icons white-txt bold txt-xl">person</i></Link></Btn>

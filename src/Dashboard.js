@@ -35,8 +35,7 @@ const Grid = styled(Post)`
   display: inline-block;
   padding: 0;
   margin: 0.5em;
-  grid-row: 1 / span 2;
-`;
+  grid-row: 1 / span 2;`;
 
  const MdImg = styled(SmImg)`
   width: 7em;
@@ -44,54 +43,33 @@ const Grid = styled(Post)`
   display: inline-block;
   padding: 0;
   margin: 0.5em;
-  grid-row: 1 / span 3;
-`;
+  grid-row: 1 / span 3;`;
 
 class Dashboard extends React.Component {
-  constructor(props) {super(props);
-    this.state = {
-                   data: {
-                       post: [{
-                              image: "",
-                              url: "https://images.unsplash.com/photo-1553531384-ab9ba1a8b1e6?ixlib=rb-1.2.1&auto=format&fit=crop&w=700&q=80",
-                              caption: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sedLorem ipsum dolor sit amet",
-                              limit: 500,
-                              time: 10,
-                              year: 2019,
-                              location: "US",
-                              poster: "",
-                              posterImg:"",
-                              link: "",
-                              comments: [{name: "Jane Doe", comment:"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sedLorem ipsum dolor sit amet, consectetur adipiscing elit, sedLorem ipsum dolor sit amet, consectetur adipiscing elit, sedLorem ipsum dolor d", limit: 280, pic: "https://randomuser.me/api/portraits/women/79.jpg", time: 0},
-                                          {name: "Jane Doe", comment:"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed", limit: 120},
-                                         {name: "Jane Doe", comment:"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed",limit: 120},
-                                        ]
-                        },
-                         {
-                              image: "",
-                              url: "https://images.unsplash.com/photo-1515683359900-6922e4964be1?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
-                              caption: "",
-                              link: "",
-                              comments: [{name: "Jane Doe", comment:"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed", limit: 120},
-                                          {name: "Jane Doe", comment:"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed",limit: 120},
-                                         {name: "Jane Doe", comment:"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed",limit: 120},
-                                        ]
-                        }
+  constructor(props) {
+   super(props);
+}
+  componentDidMount(){
 
+     let API = "http://localhost:3009/posts";
+      fetch(API, {
+          method: 'POST', headers: {"Content-Type": "application/x-www-form-urlencoded"},
+          body: `email=${localStorage.getItem('email')}&token=${localStorage.getItem('token')}`,
+          }).then(function(response) {
+              return response.json();
+         }).then((data)=>{
 
-                             ]
+        this.props.setPosts(data[0].post);
 
-                     }
-
-
+         }).catch(function(err) {});
   }
 
-}
   render() {
     return (
        <div className="containerr">
         <div className="profile-box full">
           <Grid>
+
            <MdImg className="md" src="https://randomuser.me/api/portraits/women/79.jpg" alt="user" />
           <div style={{gridRow: "1 / span 2", alignSelf: "end"}}>
             <label htmlFor="textarea2">Share Your Dreams</label>
@@ -100,12 +78,13 @@ class Dashboard extends React.Component {
             <button style={{ float: "right"}} className="bordered">Post</button>
             <span style={{ float: "right"}}><i className="material-icons blue-txt">attachment</i> &nbsp; </span></div>
           </Grid>
-        <div className="main">
+        <div className="main full" >
             <Post style={{display: "grid", gridTemplateColumns: "1fr 45px"}}>
               <input id="search"  type="text" placeholder=" Search your dreams.."/>
                <i className="material-icons txt-lg blue-txt bold v-center pointer center">search</i>
             </Post>
-             {this.state.data.post.map((props) =><Posts key={props.toString()} post={props}/>)}
+            {this.props.data.post.map((data) =><Posts key={data.toString()} post={data}/>)}
+            {this.props.data.post.length == 0? <Post style={{marginTop: "2%", padding:"3em 0"}}><h4 className="center bold blue-txt">No Post to Show!</h4></Post> : null}
         </div>
          <div style={{ height: "9em"}}></div>
         </div>

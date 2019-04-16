@@ -2,7 +2,6 @@ import React from 'react';
 import styled from 'styled-components';
 import 'materialize-css/dist/css/materialize.min.css'
 
-
 const ProfileImg = styled.img`
  border-radius: 50%;
  display: block;
@@ -10,7 +9,7 @@ const ProfileImg = styled.img`
  margin: 0 auto;
  padding: 0.5em;
  width: 10em;
-`;
+ height: 10em;`;
 
 const Card = styled.div`
   border-top: 1px solid #2B547E;
@@ -23,21 +22,21 @@ const Card = styled.div`
    grid-template-columns: 1fr 1fr 1fr;
   min-height: 3.8em;
   align-items: center;
-
   @media(max-width: 400px){
      grid-template-columns: 1fr 1fr;
-  }
-`;
+  }`;
 
 class Setting extends React.Component {
-  constructor(props) {super(props)}
+
 
   render() {
     return (
        <div style={{minHeight: "100vh"}} className="containerr" >
         <div className="profile-box full">
+
           <div style={{minHeight: "100vh"}}  className="grid full">
            <ProfileImg className="" src="https://randomuser.me/api/portraits/women/79.jpg" alt="user" />
+            <button className="bordered hoverr white-txt pointer center" style={{margin: "1em"}} onClick={this.props.logout}>Logout </button>
         {
           [1,2,3,4,6,7,9,10].map(()=>(<Card>
                  <span className="bold text-md sp-2-sm">Name</span>

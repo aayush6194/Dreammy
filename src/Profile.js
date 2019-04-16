@@ -11,6 +11,7 @@ const ProfileImg = styled.img`
  margin: 0 auto;
  padding: 0.5em;
  width: 10em;
+ height: 10em;
 `;
 
 const Bar = styled.div`
@@ -43,45 +44,7 @@ const User = styled.div`
 
 
 class Profile extends React.Component {
-  constructor(props) {super(props);
-    this.state = {
-                   data: {
-                       post: [{
-                              image: "",
-                              url: "https://images.unsplash.com/photo-1553531384-ab9ba1a8b1e6?ixlib=rb-1.2.1&auto=format&fit=crop&w=700&q=80",
-                              caption: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sedLorem ipsum dolor sit amet",
-                              limit: 500,
-                              time: 10,
-                              year: 2019,
-                              location: "US",
-                              poster: "",
-                              posterImg:"",
-                              link: "",
-                              comments: [{name: "Jane Doe", comment:"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sedLorem ipsum dolor sit amet, consectetur adipiscing elit, sedLorem ipsum dolor sit amet, consectetur adipiscing elit, sedLorem ipsum dolor d", limit: 280, pic: "https://randomuser.me/api/portraits/women/79.jpg", time: 0},
-                                          {name: "Jane Doe", comment:"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed", limit: 120},
-                                         {name: "Jane Doe", comment:"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed",limit: 120},
-                                        ]
-                        },
-                         {
-                              image: "",
-                              url: "https://images.unsplash.com/photo-1554566058-ba42b9f2b7e5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80",
-                              caption: "",
-                              link: "",
-                              comments: [{name: "Jane Doe", comment:"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed", limit: 120},
-                                          {name: "Jane Doe", comment:"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed",limit: 120},
-                                         {name: "Jane Doe", comment:"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed",limit: 120},
-                                        ]
-                        }
-
-
-                             ]
-
-                     }
-
-
-  }
-
-  }
+  constructor(props) {super(props);}
 
   render() {
     return (
@@ -91,7 +54,7 @@ class Profile extends React.Component {
           <div className="bold blue-txt txt-md">Jane Doe</div>
           <div className="pad">Lives in <span className="blue-txt bold">Colarado, Denver</span></div>
           <div className="pad">Works at <span className="blue-txt bold">Google</span></div>
-         <div> <button className="hover bordered">Add</button> <button className="bordered hover">Message </button></div>
+         <div> <button className="hover bordered">Add</button> <button className="bordered hover" >Message </button></div>
 
           <Stats className="bold">
             <div className="blue-txt pointer">  <br/>Posts <div className=" txt-lg">25</div></div>
@@ -112,7 +75,8 @@ class Profile extends React.Component {
         </div>
         <div className="main">
          <div className="txt-lg blue-txt bold center">2019</div>
-             {this.state.data.post.map((props) =><Posts key={props.toString()} post={props}/> )}
+         {this.props.data.post.map((data) =><Posts key={data.toString()} post={data}/>)}
+         {this.props.data.post.length == 0? <div style={{marginTop: "2%", padding:"3em 0"}}><h4 className="center bold blue-txt">No Post to Show!</h4></div> : null}
         <div style={{ height: "9em"}}></div>
         </div>
 
