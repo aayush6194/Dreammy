@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import 'materialize-css/dist/css/materialize.min.css'
-
+import Cloudinary from './Cloudinary';
 const ProfileImg = styled.img`
  border-radius: 50%;
  display: block;
@@ -27,7 +26,14 @@ const Card = styled.div`
   }`;
 
 class Setting extends React.Component {
+constructor(props){
+  super(props);
 
+}
+  onCloudinaryResult(result) {
+    if (result)
+      this.props.onChange({target: { name: "imageUrl", value: [result] }});
+    }
 
   render() {
     return (
@@ -35,12 +41,14 @@ class Setting extends React.Component {
         <div className="profile-box full">
 
           <div style={{minHeight: "100vh"}}  className="grid full">
-           <ProfileImg className="" src="https://randomuser.me/api/portraits/women/79.jpg" alt="user" />
+           <ProfileImg className="" src={this.props.user.imageUrl} alt="user" />
             <button className="bordered hoverr white-txt pointer center" style={{margin: "1em"}} onClick={this.props.logout}>Logout </button>
+              <Cloudinary onResult={this.onCloudinaryResult.bind(this)}/>
+              <button className="bordered hoverr white-txt pointer center">Change Profile Picture</button>
         {
-          [1,2,3,4,6,7,9,10].map(()=>(<Card>
-                 <span className="bold text-md sp-2-sm">Name</span>
-                  <span className="bold text-md">Jane Doe</span>
+          ["First Name", "Last Name", "Location","Job", "Facebook", "Twitter", "Instagram"].map((i, index)=>(<Card>
+                 <span className="bold text-md sp-2-sm">{i}</span>
+                  <span className="bold text-md">{this.props.user.firstName}</span>
                  <i  style={{justifySelf: "end"}} className="material-icons end blue-txt">edit</i>
                  </Card>))
           }

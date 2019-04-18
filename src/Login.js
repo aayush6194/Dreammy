@@ -4,10 +4,12 @@ import Posts from  './components/Posts';
 import './App.css';
 import { BrowserRouter as  Router, Route, Link } from "react-router-dom";
 import Zoom from 'react-reveal/Zoom';
+import api from './api';
+import { setLocalStorage, getLocalStorage } from './utils/utils';
 
 const Grid = styled.div`
   display: grid;
-  grid-template-rows: 20px 1fr  1fr;
+  grid-template-rows: 20px 1fr  auto;
   border: 3px solid #006666;
   border-radius: .5em;
   padding: 0.5em;
@@ -29,27 +31,23 @@ class Login extends React.Component {
 constructor(props){super(props);}
 
 fetch = () =>{
- let API = "http://localhost:3009/login";
-  fetch(API, {
-      method: 'POST', headers: {"Content-Type": "application/x-www-form-urlencoded"},
-      body: `email=${this.props.email}&password=${this.props.password}`,
-      }).then(function(response) {
-          return response.json();
-     }).then((data)=>{
-        if(data.login){
-        alert("Logged In");
-        localStorage.email =this.props.email;
-        localStorage.token = data.token;
-         this.props.login();
+  api.login(this.props)
+    .then(res => {
+      if (res.success) {
+        setLocalStorage("user", res.user); setLocalStorage("token", res.token);
+        this.props.login(res.user);
 
-     } else{ alert("Try Again")}
-     }).catch(function(err) {});
+      }
+      else {alert("Try again");}
+    })
+    .catch(err => alert("Try again"));
 }
   render() {
     return (
        <div className="containerr">
-       <Zoom>
+     <Zoom >
         <div className="singup-box full">
+
           <Grid>
           <Link className="" to="/"> <i className="material-icons blue-txt pointer">arrow_back</i></Link>
           <h3 className="center bold" style={{fontSize: "3.5em"}}>Dreammy </h3>
@@ -85,8 +83,9 @@ fetch = () =>{
             </div>
             </div>
           </Grid>
+
         </div>
-        </Zoom>
+</Zoom>
       </div>
     );
   }

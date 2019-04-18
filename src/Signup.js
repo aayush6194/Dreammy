@@ -4,6 +4,8 @@ import Posts from  './components/Posts';
 import './App.css';
 import { BrowserRouter as  Router, Route, Link } from "react-router-dom";
 import Zoom from 'react-reveal/Zoom';
+import { setLocalStorage, getLocalStorage } from './utils/utils';
+import api from './api';
 
 const Grid = styled.div`
   display: grid;
@@ -30,20 +32,17 @@ class Signup extends React.Component {
 constructor(props){super(props);}
 
 fetch = () =>{
-
- let API = "http://localhost:3009/signup";
-  fetch(API, {
-      method: 'POST', headers: {"Content-Type": "application/x-www-form-urlencoded"},
-      body: `fname=${this.props.fname}&lname=${this.props.lname}&email=${this.props.email}&password=${this.props.password}`,
-      }).then(function(response) {
-          return response.json();
-     }).then((data)=>{
-        if(data.login){
-         this.props.login();
-     } else{ alert("Try Again")}
-     }).catch(function(err) {});
+  console.log(`login comp ${this.props.email} ${this.props.password}`);
+  api.signup(this.props)
+    .then(res => {
+      if (res.success) {
+        setLocalStorage("user", res.user); setLocalStorage("token", res.token);
+        this.props.login(res.user);
+      }
+      else {alert("Try again");}
+    })
+    .catch(err => alert("Try again"));
 }
-
 
   render() {
     return (
@@ -58,11 +57,11 @@ fetch = () =>{
             <form>
                 <div className="row">
                   <div className="input-field col s6">
-                    <input placeholder="Placeholder" id="first_name" name="fname" type="text" className="validate" onChange={this.props.onChange}/>
+                    <input placeholder="Placeholder" id="first_name" name="firstName" type="text" className="validate" onChange={this.props.onChange}/>
                     <label className="active" htmlFor="first_name">First Name</label>
                   </div>
                   <div className="input-field col s6">
-                    <input id="last_name" type="text" name="lname" className="validate" onChange={this.props.onChange}/>
+                    <input id="last_name" type="text" name="lastName" className="validate" onChange={this.props.onChange}/>
                     <label className="active" htmlFor="last_name">Last Name</label>
                   </div>
                 </div>

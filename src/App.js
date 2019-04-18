@@ -9,60 +9,78 @@ import FixedNav from './components/FixedNav.js';
 import Posts from  './components/Posts';
 import { BrowserRouter as Router,  Route, Link, Switch } from "react-router-dom";
 import {hashHistory} from "react-router";
-import Loader from  './components/Loader';
+import Loader from  './components/Loader2';
+import api from './api';
+import { getLocalStorage, setLocalStorage }  from './utils/utils';
+
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      loggedin: false,
-      tokenChecked: false,
+      loggedin: false, tokenChecked: false, contentLoaded: false,
       fields:{},
-      data:{
-        post: [ ]
+      user: {},
+      data:{post: [] },
+      modal:{
+        imageUrl:"", text: "", show: false
       }
     };
-//    this.postSet = this.postSet.bind(this)
   }
-//
-// postSet(i){
-//  return 0;
-//
-//   }
-  componentWillMount() {this.fetch()}
+  componentWillMount() {this.checkToken()}
 
-  fetch = () =>{
-    let API = "http://localhost:3009/token";
-    let email = localStorage.getItem('email'), token = localStorage.getItem('token');
-
-  if(token != null){
-    fetch(API, {
-        method: 'POST', headers: {"Content-Type": "application/x-www-form-urlencoded"},
-        body: `email=${email}&token=${token}`,
-        }).then(function(response) {
-            return response.json();
-       }).then((data)=>{
-         if(data.loggedin){
-          this.setState({loggedin: true, tokenChecked: true});
-         }
-         else{this.setState({ tokenChecked: true});}
-       }).catch(function(err) {});
-   } else{
-     this.setState({ tokenChecked: true});
-   }
+  checkToken = () =>{
+    api.checkToken()
+      .then(res => {
+        if(res.success)
+          this.setState({loggedin: true, tokenChecked: true, user: getLocalStorage("user")});
+        else
+          this.setState({ tokenChecked: true});
+        })
+      .catch(err => {this.setState({ tokenChecked: true});
+      });
   }
 
-  login = ()=>{this.setState({loggedin: true, tokenChecked: true})};
-  logout = ()=>{this.setState({loggedin: false});  localStorage.token = null; localStorage.email = null;  };
-  onChange = e =>{
+  login = (res) => {this.setState({loggedin: true, tokenChecked: true, user: res})};
+  logout = () => {this.setState({loggedin: false});  localStorage.token = null; localStorage.email = null;  };
+  onChange = e => {
     const{target: {value, name}} = e;
     this.setState({
-      ...this.state,
-      fields:{...this.state.fields, [name]: value}
+  ...this.state,fields:{...this.state.fields, [name]: value}
   });}
 
-  clear = ()=>{this.setState({...this.state, fields:{}})};
+  clear = () => {this.setState({...this.state, fields:{}})};
 
-  setPosts= (e)=>{console.log(e); this.setState({...this.state, data: {...this.state.data, post: e}});}
+  triggerModal = (content,action) => { this.setState({...this.state, modal: {show: true}})}
+  contentNotLoaded = () => { this.setState({contentLoaded: false})}
+  setPosts= (e) => { this.setState({...this.state, data: {...this.state.data, post: e}});}
+  submitPost = () => {
+    api.addPost(this.state.fields)
+      .then(res => {
+        if (res.success) {
+          this.refreshAllPosts();
+        }
+      });
+  }
+
+  refreshAllPosts = () => {
+    return api.getAllPosts()
+    .then(res => {
+      if (res.success) {
+        this.setPosts(res.data);
+        this.setState({contentLoaded: true});
+      }
+    });
+  }
+
+  refreshMyPosts = () => {
+    return api.getPosts()
+    .then(res => {
+      if (res.success) {
+        this.setPosts(res.data);
+        this.setState({contentLoaded: true});
+      }
+    });
+  }
 
   render() {
   if(this.state.tokenChecked){
@@ -70,9 +88,16 @@ class App extends React.Component {
       return (<Router>
                <FixedNav className="blue-bg"/>
                 <Switch>
-                  <Route path="/profile" render={()=> <Profile {...this.state} />}  />
+                  <Route path="/profile" render={()=> <Profile {...this.state} contentNotLoaded = {this.contentNotLoaded}
+                                                        refreshMyPosts = {this.refreshMyPosts} />}  />
                   <Route path="/setting" render={()=> <Setting {...this.state} logout={this.logout}/>} />
-                  <Route path="/" render={()=> <Dashboard {...this.state}  setPosts={this.setPosts}/>   }/>
+                  <Route path="/" render={()=> <Dashboard
+                    {...this.state}
+                    onChange={this.onChange}
+                    setPosts={this.setPosts}
+                    contentNotLoaded = {this.contentNotLoaded}
+                    refreshAllPosts = {this.refreshAllPosts}
+                    submitPost={this.submitPost} />   }/>
                 </Switch>
               </Router>
     )} else {return(<Router>
@@ -85,5 +110,4 @@ class App extends React.Component {
     )}
       } else{return <Loader/>}
   }}
-
 export default App;

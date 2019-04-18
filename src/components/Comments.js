@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import './App.css';
+
 const ProfileImg = styled.img`
  border-radius: 50%;
  display: block;

@@ -1,8 +1,11 @@
 import React from 'react';
+import Cloudinary from './Cloudinary';
 import styled from 'styled-components';
 import Posts from  './components/Posts';
+import AllPosts from  './components/AllPosts';
 import './App.css';
-
+import { timingSafeEqual } from 'crypto';
+import Loader2 from  './components/Loader2';
 const ProfileImg = styled.img`
  border-radius: 50%;
  display: block;
@@ -19,7 +22,6 @@ const Post = styled.div`
   border-radius: .5em;
   border: 3px solid transparent;
 `;
-
 
 const Grid = styled(Post)`
   display: grid;
@@ -47,44 +49,56 @@ const Grid = styled(Post)`
 
 class Dashboard extends React.Component {
   constructor(props) {
-   super(props);
-}
+    super(props);
+    this.cloudinaryRef = React.createRef();
+  }
+
+  componentWillMount(){
+    this.props.contentNotLoaded();
+  }
+
   componentDidMount(){
+    this.props.refreshAllPosts();
+  }
 
-     let API = "http://localhost:3009/posts";
-      fetch(API, {
-          method: 'POST', headers: {"Content-Type": "application/x-www-form-urlencoded"},
-          body: `email=${localStorage.getItem('email')}&token=${localStorage.getItem('token')}`,
-          }).then(function(response) {
-              return response.json();
-         }).then((data)=>{
+  //result is a string of format v1112313/abc.jpg
+  onCloudinaryResult(result) {
+    if (result)
+      this.props.onChange({target: { name: "imageUrl", value: [result] }});
+    }
 
-        this.props.setPosts(data[0].post);
-
-         }).catch(function(err) {});
+  onAttachmentClick = () => {this.cloudinaryRef.current.openImagePicker();
   }
 
   render() {
+    const {contentLoaded, data} = this.props;
     return (
        <div className="containerr">
+
         <div className="profile-box full">
           <Grid>
-
-           <MdImg className="md" src="https://randomuser.me/api/portraits/women/79.jpg" alt="user" />
+           <MdImg className="md" src={this.props.user.imageUrl} alt="user" />
           <div style={{gridRow: "1 / span 2", alignSelf: "end"}}>
             <label htmlFor="textarea2">Share Your Dreams</label>
-            <textarea id="textarea2"  defaultValue="" className="materialize-textarea" data-length="1000" ></textarea>
-       </div><div  style={{justifySelf: "stretch"}}>
-            <button style={{ float: "right"}} className="bordered">Post</button>
-            <span style={{ float: "right"}}><i className="material-icons blue-txt">attachment</i> &nbsp; </span></div>
+            <textarea id="textarea2"  defaultValue="" name="caption" className="materialize-textarea" data-length="1000" onChange={this.props.onChange}></textarea>
+          </div>
+          <div  style={{justifySelf: "stretch"}}>
+            <form>
+              <button style={{ float: "right"}} className="bordered" onClick={e =>{ e.preventDefault(); this.props.submitPost(); }}>Post</button>
+              <Cloudinary onResult={this.onCloudinaryResult.bind(this)} ref={this.cloudinaryRef}/>
+              <div style={{float: "right", height: "2.7em"}} onClick={this.onAttachmentClick} ><i  className="material-icons blue-txt cursor">image</i> &nbsp; </div>
+            </form>
+          </div>
           </Grid>
         <div className="main full" >
             <Post style={{display: "grid", gridTemplateColumns: "1fr 45px"}}>
               <input id="search"  type="text" placeholder=" Search your dreams.."/>
                <i className="material-icons txt-lg blue-txt bold v-center pointer center">search</i>
             </Post>
-            {this.props.data.post.map((data) =><Posts key={data.toString()} post={data}/>)}
-            {this.props.data.post.length == 0? <Post style={{marginTop: "2%", padding:"3em 0"}}><h4 className="center bold blue-txt">No Post to Show!</h4></Post> : null}
+
+            {!contentLoaded? <div><Loader2 /><div style={{height: "80em"}}></div></div> : null}
+            {contentLoaded && data.post.length == 0?
+              <Post className="pad"><h4 className="center bold blue-txt">No Post to Show!</h4></Post> : data.post.map((data, i) =><Posts key={i} post={data}/>)}
         </div>
          <div style={{ height: "9em"}}></div>
         </div>
@@ -92,5 +106,4 @@ class Dashboard extends React.Component {
     );
   }
 }
-
 export default Dashboard;

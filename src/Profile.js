@@ -45,15 +45,24 @@ const User = styled.div`
 
 class Profile extends React.Component {
   constructor(props) {super(props);}
+  componentWillMount(){
+    this.props.contentNotLoaded();
+  }
 
+  componentDidMount(){
+    this.props.refreshMyPosts();
+  }
   render() {
+    console.log(this.props);
+    const {firstName, lastName} = this.props.user;
     return (
        <div className="containerr">
+
           <div className="profile-box border">
-          <ProfileImg src="https://randomuser.me/api/portraits/women/79.jpg" alt="user" />
-          <div className="bold blue-txt txt-md">Jane Doe</div>
-          <div className="pad">Lives in <span className="blue-txt bold">Colarado, Denver</span></div>
-          <div className="pad">Works at <span className="blue-txt bold">Google</span></div>
+          <ProfileImg src={this.props.user.imageUrl} alt="user" />
+          <div className="bold blue-txt txt-md capitalize">{firstName + " "+ lastName}</div>
+          <div className="">Lives in <span className="blue-txt bold">{this.props.user.location}</span></div>
+          <div className="">Works at <span className="blue-txt bold">Google</span></div>
          <div> <button className="hover bordered">Add</button> <button className="bordered hover" >Message </button></div>
 
           <Stats className="bold">
@@ -75,8 +84,8 @@ class Profile extends React.Component {
         </div>
         <div className="main">
          <div className="txt-lg blue-txt bold center">2019</div>
-         {this.props.data.post.map((data) =><Posts key={data.toString()} post={data}/>)}
-         {this.props.data.post.length == 0? <div style={{marginTop: "2%", padding:"3em 0"}}><h4 className="center bold blue-txt">No Post to Show!</h4></div> : null}
+         {this.props.data.post.map((data) =><Posts key={data.toString()+ Math.random() * 100} post={data}/>)}
+         {this.props.data.post.length == 0? <div style={{marginTop: "5%", padding:"3em 0"}}><h4 className="center bold blue-txt">No Post to Show!</h4></div> : null}
         <div style={{ height: "9em"}}></div>
         </div>
 

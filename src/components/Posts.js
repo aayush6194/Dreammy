@@ -1,7 +1,8 @@
 import React from 'react';
  import styled from 'styled-components';
 import Comments from  './Comments';
-
+import { cloudinaryUrl } from '../utils/utils';
+import '../App.css';
 const ProfileImg = styled.img`
  border-radius: 50%;
  display: block;
@@ -29,33 +30,45 @@ const User = styled.div`
   display: inline-block;
   padding: 0;
   margin: 0.5em;
-  grid-row: 1 / span 2;
+  grid-row: 1 / span 3;
 `;
 
+const Badge = styled.div`
+  color: white;
+  background: #42a5f5;
+  padding: 0.3em;
+  margin: 0.4em;
+  text-align: center;
+  border-radius: 7px;
+  font-weight: bold
+`;
 
   const Posts =({post})=>{
+
+    const {firstName, lastName, imageUrl} = post.userId;
+    const date = new Date(post.createdAt).toDateString();
+    const limit = 300;
     return(
     <Post>
-        <div style={{background: "linear-gradient(45deg, #E0E0E0, #BFC9CA)",}}>
+        <div style={{background: "linear-gradient(45deg, #E0E0E0, #BFC9CA)"}}>
          <User>
-                <SmImg className="sm" src="https://randomuser.me/api/portraits/women/79.jpg" alt="user" />
-                <div className="blue-txt bold txt-md" style={{alignSelf: "end"}}>{} Jane Doe</div>
-                <div className="" style={{alignSelf: "top", color: "gray"}}>{} 8:00, Today</div>
-               {//<div className="blue-txt" style={{alignSelf: "center"}}>{} CA, US</div>
-               }
+                <SmImg className="sm" src={imageUrl} alt="user" />
+                <div className="blue-txt bold txt-md capitalize align-end"> {firstName + " " + lastName}  </div>
+                <div className="" style={{alignSelf: "top", color: "gray"}}>{date}</div>
           </User>
-          {post.caption.length > 0? <div style={{padding: "0 0.7em 0.5em 0.7em"}}>{post.caption.substring(0, post.limit)}</div> : null}
-          {post.caption.length> post.limit?
+          {post.caption.length > 0? <div style={{padding: "0 0.7em 0.5em 0.7em", whiteSpace: "pre-wrap"}}>{post.caption.substring(0, limit)}</div> : null}
+          {post.caption.length> limit?
              <span style={{justifySelf: "end", cursor: "pointer"}} className="blue-txt bold"> See More&nbsp;<i className="material-icons br-50">expand_more</i>&nbsp; </span> : null}
-          {post.imageURL.length > 0?  <img src={post.imageURL} alt="user" /> : null}
-          </div>
-            <div className="blue-bg ">
-              <button className="btn hover blue-bg half" style={{background: "#006666"}}><i className="material-icons">thumb_up</i></button>
+          {post.imageUrl && post.imageUrl.length > 0?  <img src={cloudinaryUrl(post.imageUrl[0])} alt="user" /> : null}
+        </div>
+        <div className="blue-bg ">
+              <button className="btn hoverr blue-bg half" style={{background: "#006666"}}><i className="material-icons">thumb_up</i></button>
               <button className="btn hover blue-bg half" style={{background: "#006666"}}><i className="material-icons">comment</i></button>
-            </div>
-             {post.comments.map(({name, comment}) =>
-               <Comments  key={name.toString()+comment.toString()} name={name} comment={comment} limit={200}/>
-             )}
+        </div>
+        <User><SmImg className="sm" src="https://randomuser.me/api/portraits/women/79.jpg" alt="user" /><input name="comment" placeholder="Type Your Comment Here..."/></User>
+        {post.comments.map(({text}, index) =>
+          <Comments  key={index} name={"name"} comment={text} limit={200}/>
+        )}
        </Post>
 
     );
