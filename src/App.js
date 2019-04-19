@@ -21,9 +21,7 @@ class App extends React.Component {
       fields:{},
       user: {},
       data:{post: [] },
-      modal:{
-        imageUrl:"", text: "", show: false
-      }
+      modal:{imageUrl:"", text: "", show: false}
     };
   }
   componentWillMount() {this.checkToken()}
@@ -82,6 +80,16 @@ class App extends React.Component {
     });
   }
 
+  submitChange = ()=>{
+    api.setFields(this.state.fields)
+      .then(res => {
+        if (true) {
+        alert()
+        }
+      }).catch((err)=>{console.log(err)});
+
+  }
+
   render() {
   if(this.state.tokenChecked){
       if(this.state.loggedin){
@@ -89,8 +97,8 @@ class App extends React.Component {
                <FixedNav className="blue-bg"/>
                 <Switch>
                   <Route path="/profile" render={()=> <Profile {...this.state} contentNotLoaded = {this.contentNotLoaded}
-                                                        refreshMyPosts = {this.refreshMyPosts} />}  />
-                  <Route path="/setting" render={()=> <Setting {...this.state} logout={this.logout}/>} />
+                                                        refreshMyPosts = {this.refreshMyPosts}/>}  />
+                  <Route path="/setting" render={()=> <Setting {...this.state} logout={this.logout}  submitChange={this.submitChange}/>} />
                   <Route path="/" render={()=> <Dashboard
                     {...this.state}
                     onChange={this.onChange}

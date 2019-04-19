@@ -1,13 +1,13 @@
 import React from 'react';
 import {Image, Video, Transformation, CloudinaryContext} from 'cloudinary-react'
 
-const CLOUD_NAME = "danu5qwvx",
-  PRESET = "cjllhjjj";
+const CLOUD_NAME = "dqklw4e9q",
+  PRESET = "ncuacbjd";
 
 
 function uploadFile(file) {
 
-  var url = `https://api.cloudinary.com/v1_1/${CLOUD_NAME}/upload`;
+  var url = `https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`;
   var xhr = new XMLHttpRequest();
   var fd = new FormData();
 
@@ -80,7 +80,7 @@ export default class Cloudinary extends React.Component{
   render() {
     return (
       <div>
-        <input style={{display: "none"}} type="file" name="file"  onChange={this.onChange.bind(this)} ref={this.inputRef}/>
+        <input  type="file" name="file"  onChange={this.onChange.bind(this)} ref={this.inputRef}/>
 
       </div>
 

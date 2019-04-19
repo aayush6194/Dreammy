@@ -16,14 +16,14 @@ function getLocalStorage(key) {
 }
 
 const cloudinaryUrl = (function() {
-  let prefixA = "https://res.cloudinary.com/danu5qwvx/image/upload/";
-  let prefixB = "https://res.cloudinary.com/danu5qwvx/image/upload";
+  let prefixA = "https://res.cloudinary.com/dqklw4e9q/image/upload/";
+  let prefixB = "https://res.cloudinary.com/dqklw4e9q/image/upload";
 
   return function(partialUrl) {
     if (!partialUrl)
       return "";
     let prefix = (partialUrl[0] === "/")? prefixB: prefixA;
-    
+
     return prefix + partialUrl;
   }
 })();

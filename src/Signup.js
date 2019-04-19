@@ -52,7 +52,7 @@ fetch = () =>{
         <Grid>
          <Link className="" to="/"> <i className="material-icons blue-txt pointer">arrow_back</i></Link>
           <div style={{alignSelf: "center"}}>
-          <MdImg className="md" src="https://randomuser.me/api/portraits/women/79.jpg" alt="user" />
+          <MdImg className="md" src={"https://res.cloudinary.com/danu5qwvx/image/upload/v1555553124/xfkxduguslygi2ses8pt.png"} alt="user" />
             <div className="row">
             <form>
                 <div className="row">
@@ -76,7 +76,7 @@ fetch = () =>{
                     <label className="active" htmlFor="password">Password</label>
                   </div>
                 </div>
-                            </div>
+                </div>
                 <div  style={{justifySelf: "stretch"}}>
                   <button style={{ float: "right"}} className="bordered" onClick={()=>this.fetch()}>Submit</button>
                 </div>

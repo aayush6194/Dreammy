@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import Posts from  './components/Posts';
 import './App.css';
 
-
 const ProfileImg = styled.img`
  border-radius: 50%;
  display: block;
@@ -54,6 +53,7 @@ class Profile extends React.Component {
   }
   render() {
     console.log(this.props);
+
     const {firstName, lastName} = this.props.user;
     return (
        <div className="containerr">
@@ -81,6 +81,7 @@ class Profile extends React.Component {
             <a className="blue-txt pointer start bold">Saved Posts</a>
             <a className="blue-txt pointer end bold">More Info</a>
           </div>
+
         </div>
         <div className="main">
          <div className="txt-lg blue-txt bold center">2019</div>

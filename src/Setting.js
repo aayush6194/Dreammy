@@ -39,12 +39,12 @@ constructor(props){
     return (
        <div style={{minHeight: "100vh"}} className="containerr" >
         <div className="profile-box full">
-
+          <button  style={{justifySelf:"end", margin: "1em", width:"5em"}} className="bordered hoverr white-txt pointer center" onClick={this.props.logout}>Logout </button>
           <div style={{minHeight: "100vh"}}  className="grid full">
            <ProfileImg className="" src={this.props.user.imageUrl} alt="user" />
-            <button className="bordered hoverr white-txt pointer center" style={{margin: "1em"}} onClick={this.props.logout}>Logout </button>
               <Cloudinary onResult={this.onCloudinaryResult.bind(this)}/>
-              <button className="bordered hoverr white-txt pointer center">Change Profile Picture</button>
+              <button className="bordered hoverr white-txt pointer center" >Change Profile Picture</button>
+              <button className="bordered hoverr white-txt pointer center" onClick={this.props.submitChange}>Save Changes</button>
         {
           ["First Name", "Last Name", "Location","Job", "Facebook", "Twitter", "Instagram"].map((i, index)=>(<Card>
                  <span className="bold text-md sp-2-sm">{i}</span>
@@ -54,7 +54,6 @@ constructor(props){
           }
           <div style={{ height: "9em"}}></div>
           </div>
-
         </div>
 
       </div>

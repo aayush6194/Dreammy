@@ -1,12 +1,13 @@
 import { getLocalStorage, setLocalStorage } from '../utils/utils';
-
+const URL = "http://localhost:3007";
 const API = {
-  checkToken: "http://localhost:3007/check-token",
-  login: "http://localhost:3007/login",
-  signup: "http://localhost:3007/signup",
-  addPost: "http://localhost:3007/posts",
-  getAllPosts: "http://localhost:3007/posts/all",
-  getPosts: "http://localhost:3007/posts"
+  checkToken: URL+ "/check-token",
+  login: URL + "/login",
+  signup: URL + "/signup",
+  addPost: URL + "/posts",
+  getAllPosts: URL + "/posts/all",
+  getPosts: URL + "/posts",
+  setFields: URL + "/change"
 }
 
 function header() {
@@ -73,5 +74,8 @@ export default {
   },
   getPosts: function() {
     return authGet(API.getPosts);
+  },
+  setFields: function({imageUrl}) {
+    return authPost(API.setFields, {imageUrl});
   }
 };
