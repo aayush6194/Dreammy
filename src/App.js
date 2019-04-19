@@ -18,14 +18,15 @@ class App extends React.Component {
     super(props);
     this.state = {
       loggedin: false, tokenChecked: false, contentLoaded: false,
-      fields:{},
-      user: {},
+      fields:{}, user: {},
       data:{post: [] },
       modal:{imageUrl:"", text: "", show: false}
     };
   }
-  componentWillMount() {this.checkToken()}
-
+ componentWillMount() {this.checkToken()}
+ componentDidCatch(err, info){
+   alert("error")
+ }
   checkToken = () =>{
     api.checkToken()
       .then(res => {
@@ -38,7 +39,7 @@ class App extends React.Component {
       });
   }
 
-  login = (res) => {this.setState({loggedin: true, tokenChecked: true, user: res})};
+  login = res => {this.setState({loggedin: true, tokenChecked: true, user: res})};
   logout = () => {this.setState({loggedin: false});  localStorage.token = null; localStorage.email = null;  };
   onChange = e => {
     const{target: {value, name}} = e;
@@ -50,28 +51,25 @@ class App extends React.Component {
 
   triggerModal = (content,action) => { this.setState({...this.state, modal: {show: true}})}
   contentNotLoaded = () => { this.setState({contentLoaded: false})}
-  setPosts= (e) => { this.setState({...this.state, data: {...this.state.data, post: e}});}
+  setPosts= e => { this.setState({...this.state, data: {...this.state.data, post: e}});}
   submitPost = () => {
     api.addPost(this.state.fields)
       .then(res => {
         if (res.success) {
-          this.refreshAllPosts();
+          this.refreshPosts("all");
         }
       });
   }
 
-  refreshAllPosts = () => {
-    return api.getAllPosts()
-    .then(res => {
-      if (res.success) {
-        this.setPosts(res.data);
-        this.setState({contentLoaded: true});
-      }
-    });
-  }
-
-  refreshMyPosts = () => {
-    return api.getPosts()
+ addComments = (id, obj)=>{
+   const post = this.state.data.post.filter((i)=> i._id === id )[0];
+   const newComment = post.comments;
+   newComment.push(obj);
+   this.setState({...this.state, data: {...this.state.data, post: [...this.state.data.post, post]}})
+   console.log(post);
+}
+  refreshPosts = s => {
+    return api.getPosts(s)
     .then(res => {
       if (res.success) {
         this.setPosts(res.data);
@@ -84,10 +82,8 @@ class App extends React.Component {
     api.setFields(this.state.fields)
       .then(res => {
         if (true) {
-        alert()
-        }
+        alert()}
       }).catch((err)=>{console.log(err)});
-
   }
 
   render() {
@@ -97,15 +93,15 @@ class App extends React.Component {
                <FixedNav className="blue-bg"/>
                 <Switch>
                   <Route path="/profile" render={()=> <Profile {...this.state} contentNotLoaded = {this.contentNotLoaded}
-                                                        refreshMyPosts = {this.refreshMyPosts}/>}  />
+                                                              refreshPosts = {this.refreshPosts}/>}  />
                   <Route path="/setting" render={()=> <Setting {...this.state} logout={this.logout}  submitChange={this.submitChange}/>} />
-                  <Route path="/" render={()=> <Dashboard
-                    {...this.state}
-                    onChange={this.onChange}
-                    setPosts={this.setPosts}
-                    contentNotLoaded = {this.contentNotLoaded}
-                    refreshAllPosts = {this.refreshAllPosts}
-                    submitPost={this.submitPost} />   }/>
+                  <Route path="/" render={()=> <Dashboard {...this.state}
+                                                 onChange={this.onChange}
+                                                 setPosts={this.setPosts}
+                                                contentNotLoaded = {this.contentNotLoaded}
+                                                refreshPosts = {this.refreshPosts}
+                                                submitPost={this.submitPost}
+                                                addComments = {this.addComments} />   }/>
                 </Switch>
               </Router>
     )} else {return(<Router>

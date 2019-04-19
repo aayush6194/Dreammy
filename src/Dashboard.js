@@ -58,9 +58,8 @@ class Dashboard extends React.Component {
   }
 
   componentDidMount(){
-    this.props.refreshAllPosts();
+    this.props.refreshPosts("all");
   }
-
   //result is a string of format v1112313/abc.jpg
   onCloudinaryResult(result) {
     if (result)
@@ -74,7 +73,6 @@ class Dashboard extends React.Component {
     const {contentLoaded, data} = this.props;
     return (
        <div className="containerr">
-
         <div className="profile-box full">
           <Grid>
            <MdImg className="md" src={this.props.user.imageUrl} alt="user" />
@@ -90,15 +88,15 @@ class Dashboard extends React.Component {
             </form>
           </div>
           </Grid>
+
         <div className="main full" >
             <Post style={{display: "grid", gridTemplateColumns: "1fr 45px"}}>
               <input id="search"  type="text" placeholder=" Search your dreams.."/>
                <i className="material-icons txt-lg blue-txt bold v-center pointer center">search</i>
             </Post>
-
             {!contentLoaded? <div><Loader2 /><div style={{height: "80em"}}></div></div> : null}
             {contentLoaded && data.post.length == 0?
-              <Post className="pad"><h4 className="center bold blue-txt">No Post to Show!</h4></Post> : data.post.map((data, i) =><Posts key={i} post={data}/>)}
+              <Post className="pad"><h4 className="center bold blue-txt">No Post to Show!</h4></Post> : data.post.map((data, i) =><Posts key={i} addComments={this.props.addComments} post={data}/>)}
         </div>
          <div style={{ height: "9em"}}></div>
         </div>

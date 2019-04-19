@@ -1,7 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import './start.css';
-import logo from './images/logo.png'
+import logo from './images/logo.png';
+import img1 from './images/img.png'
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 const Post = styled.div`
   border-top: 1px solid #2B547E;
@@ -14,10 +15,10 @@ const Post = styled.div`
 const Header = styled.header`
 display: grid;
 grid-template-columns: 1fr 1fr 1fr;
-@media(max-width: 600px){
+@media(max-width: 800px){
   grid-template-columns: 1fr;
-}
-`;
+}`;
+
 class Startpage extends React.Component {
   constructor(props){
     super(props);
@@ -28,7 +29,7 @@ class Startpage extends React.Component {
       <div className="main grid-start">
         <Header>
           <img className="sm-logo" src={logo} alt="Logo" style={{margin: 0}}/>
-          <img  className="img" src="https://scontent.fmem1-1.fna.fbcdn.net/v/t1.15752-9/55835899_2315883065360436_2904164234520690688_n.png?_nc_cat=106&_nc_ht=scontent.fmem1-1.fna&oh=aef9b0bdce22b63568c0e263f7b79227&oe=5D06746F" alt="pic"/>
+          <img  className="img pad" src={img1} alt="pic"/>
         </Header>
 
         <div>

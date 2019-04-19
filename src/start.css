@@ -105,8 +105,8 @@ font-family: 'Montserrat';
 }
 .img{
   place-self: center;
-  max-height: 18em;
-  max-width: 18em;
+  max-height: 30em;
+  max-width: 30em;
 }
 
 .top{
@@ -139,33 +139,23 @@ font-family: 'Montserrat';
 }
 
 
-@media(max-width: 600px){
+@media(max-width: 800px){
   body{
     font-size: 13px;
   }
   .img{
-    width: 12em;
-    height: 12em;
+    width: 100%;
+    height: auto;
   }
   .sm-logo{
-    width: 7em;
-    height: 7em;
+    width: 10em;
+    height: 10em;
   }
 }
 
 @media(max-width: 400px){
   body{
-    font-size: 14px;
-  }
-  .img{
-    width: 10em;
-    height: 10em;
-    padding: 0;
-    margin: 0;
-  }
-  .sm-logo{
-    width: 5em;
-    height: 5em;
+    font-size: 12px;
   }
    h3{
      font-size: 200%;

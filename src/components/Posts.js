@@ -3,26 +3,30 @@ import React from 'react';
 import Comments from  './Comments';
 import { cloudinaryUrl } from '../utils/utils';
 import '../App.css';
+import api from '../api';
+import { getLocalStorage}  from '../utils/utils';
+
 const ProfileImg = styled.img`
  border-radius: 50%;
  display: block;
  border: 2px solid #006666;
  margin: 0 auto;
  padding: 0.5em;
- width: 10em;
-`;
+ width: 10em;`;
+
 const Post = styled.div`
   border-top: 1px solid #2B547E;
   margin: 0.7em;
   box-shadow: 0 .25em .5em rgba(0,0,0,.5);
   border-radius: .5em;
-  border: 3px solid transparent;
-`;
+  border: 3px solid transparent;`;
 
 const User = styled.div`
-  display: grid;
- grid-template-columns: auto 1fr;
-`;
+display: grid;
+ grid-template-columns: auto 1fr;`;
+
+const Grid = styled(User)`
+grid-template-columns: auto 1fr auto;`;
 
  const SmImg = styled(ProfileImg)`
   width: 4em;
@@ -30,8 +34,7 @@ const User = styled.div`
   display: inline-block;
   padding: 0;
   margin: 0.5em;
-  grid-row: 1 / span 3;
-`;
+  grid-row: 1 / span 3;`;
 
 const Badge = styled.div`
   color: white;
@@ -40,14 +43,20 @@ const Badge = styled.div`
   margin: 0.4em;
   text-align: center;
   border-radius: 7px;
-  font-weight: bold
-`;
+  font-weight: bold`;
 
-  const Posts =({post})=>{
-
+  const Posts =(props)=>{
+    const post = props.post;
     const {firstName, lastName, imageUrl} = post.userId;
+    const textInput = React.createRef()
     const date = new Date(post.createdAt).toDateString();
     const limit = 300;
+    const fetch = (e)=>{
+                  const obj = {text: textInput.current.value, _id: post._id, createdAt: new Date(), user:  getLocalStorage("user")};
+                  api.comment({text: textInput.current.value, _id: post._id, token:  getLocalStorage("user")._id})
+                  .then(res => {if(res.success){textInput.current.value = ""; props.addComments(post._id, obj )}})
+                  .catch(err => {alert(err)})
+                    }
     return(
     <Post>
         <div style={{background: "linear-gradient(45deg, #E0E0E0, #BFC9CA)"}}>
@@ -65,9 +74,13 @@ const Badge = styled.div`
               <button className="btn hoverr blue-bg half" style={{background: "#006666"}}><i className="material-icons">thumb_up</i></button>
               <button className="btn hover blue-bg half" style={{background: "#006666"}}><i className="material-icons">comment</i></button>
         </div>
-        <User><SmImg className="sm" src="https://randomuser.me/api/portraits/women/79.jpg" alt="user" /><input name="comment" placeholder="Type Your Comment Here..."/></User>
-        {post.comments.map(({text}, index) =>
-          <Comments  key={index} name={"name"} comment={text} limit={200}/>
+        <Grid>
+          <SmImg className="sm" src={imageUrl} alt="user" />
+          <input name="comment" placeholder="Type Your Comment Here..." ref={textInput}/>
+          <button className="btn" style={{alignSelf: "center"}} onClick={()=>fetch("poop")}><i className="material-icons">add</i></button>
+        </Grid>
+        {post.comments.map((data, index) =>
+          <Comments  key={index} name={data.user.firstName + " " + data.user.lastName} imageUrl={data.user.imageUrl}  comment={data.text} limit={200}/>
         )}
        </Post>
 

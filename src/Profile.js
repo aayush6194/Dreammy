@@ -10,14 +10,12 @@ const ProfileImg = styled.img`
  margin: 0 auto;
  padding: 0.5em;
  width: 10em;
- height: 10em;
-`;
+ height: 10em;`;
 
 const Bar = styled.div`
    border: 1px solid #B0BEC5;
    margin: 1.2em;
-   opacity: 0.4;
-`;
+   opacity: 0.4;`;
 
 const Stats = styled.div`
   display: grid;
@@ -49,7 +47,7 @@ class Profile extends React.Component {
   }
 
   componentDidMount(){
-    this.props.refreshMyPosts();
+    this.props.refreshPosts();
   }
   render() {
     console.log(this.props);

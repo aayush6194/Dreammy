@@ -4,7 +4,6 @@ import {Image, Video, Transformation, CloudinaryContext} from 'cloudinary-react'
 const CLOUD_NAME = "dqklw4e9q",
   PRESET = "ncuacbjd";
 
-
 function uploadFile(file) {
 
   var url = `https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`;
