@@ -74,7 +74,7 @@ export default {
   getPosts: function(s) {
     if(s === "all")
       return authGet(API.getAllPosts);
-  return authGet(API.getAllPosts);
+  return authGet(API.getPosts);
   },
   setFields: function({imageUrl}) {
     return authPost(API.setFields, {imageUrl});

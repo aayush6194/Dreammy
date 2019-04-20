@@ -20,7 +20,8 @@ class App extends React.Component {
       loggedin: false, tokenChecked: false, contentLoaded: false,
       fields:{}, user: {},
       data:{post: [] },
-      modal:{imageUrl:"", text: "", show: false}
+      modal:{imageUrl:"", text: "", show: false},
+      error: false
     };
   }
  componentWillMount() {this.checkToken()}
@@ -93,8 +94,8 @@ class App extends React.Component {
                <FixedNav className="blue-bg"/>
                 <Switch>
                   <Route path="/profile" render={()=> <Profile {...this.state} contentNotLoaded = {this.contentNotLoaded}
-                                                              refreshPosts = {this.refreshPosts}/>}  />
-                  <Route path="/setting" render={()=> <Setting {...this.state} logout={this.logout}  submitChange={this.submitChange}/>} />
+                                                              refreshPosts = {this.refreshPosts}    contentNotLoaded = {this.contentNotLoaded} addComments = {this.addComments}   />}  />
+                  <Route path="/setting" render={()=> <Setting {...this.state} logout={this.logout}   />} />
                   <Route path="/" render={()=> <Dashboard {...this.state}
                                                  onChange={this.onChange}
                                                  setPosts={this.setPosts}

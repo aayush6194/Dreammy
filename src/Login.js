@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import Posts from  './components/Posts';
 import './App.css';
 import { BrowserRouter as  Router, Route, Link } from "react-router-dom";
 import Zoom from 'react-reveal/Zoom';
@@ -73,13 +72,13 @@ fetch = () =>{
                   <span>Remember me</span>
                   </div>
                   <div className="input-field col s6">
-                  <a href="#" className="forgetpass" style={{float: "right"}}>Forgot Password?</a>
+                  <a href="#" className="forgetpass" style={{float: "right"}}  onClick={()=>{alert("Feature Under Constuction")}}>Forgot Password?</a>
                   </div>
                  </div>
                 <div >
                   <button  className="bordered" style={{width: "100%"}} onClick={()=>this.fetch()}>Submit</button>
                 </div>
-                <a href="#" className="dnthave">Don’t have an account? Sign up</a>
+                <a href="/signup" className="dnthave"  >Don’t have an account? Sign up</a>
             </div>
             </div>
           </Grid>

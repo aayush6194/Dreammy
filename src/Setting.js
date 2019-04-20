@@ -32,7 +32,7 @@ constructor(props){
 }
   onCloudinaryResult(result) {
     if (result)
-      this.props.onChange({target: { name: "imageUrl", value: [result] }});
+      console.log()
     }
 
   render() {

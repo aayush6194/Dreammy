@@ -1,11 +1,13 @@
 import React from 'react';
 import styled from 'styled-components';
-import Posts from  './components/Posts';
 import './App.css';
+import Cloudinary from './Cloudinary';
 import { BrowserRouter as  Router, Route, Link } from "react-router-dom";
 import Zoom from 'react-reveal/Zoom';
 import { setLocalStorage, getLocalStorage } from './utils/utils';
 import api from './api';
+import countryList from 'react-select-country-list';
+import Select from 'react-select'
 
 const Grid = styled.div`
   display: grid;
@@ -25,25 +27,35 @@ const Grid = styled.div`
   display: inline-block;
   padding: 0;
   display: block;
-  margin: 3em auto;
-`;
+  margin: 1em auto;`;
 
 class Signup extends React.Component {
-constructor(props){super(props);}
+  constructor(props){
+  super(props);
+  this.firstName = React.createRef();
+  this.lastName = React.createRef();
+  this.country = React.createRef();
+  this.image = React.createRef();
+}
 
 fetch = () =>{
-  console.log(`login comp ${this.props.email} ${this.props.password}`);
   api.signup(this.props)
     .then(res => {
       if (res.success) {
         setLocalStorage("user", res.user); setLocalStorage("token", res.token);
         this.props.login(res.user);
       }
-      else {alert("Try again");}
+      else {alert(res.message);}
     })
     .catch(err => alert("Try again"));
 }
+onAttachmentClick = () => {this.cloudinaryRef.current.openImagePicker();
+}
 
+onCloudinaryResult(result) {
+  if (result)
+  console.log(result)
+  }
   render() {
     return (
        <div className="containerr">
@@ -51,10 +63,14 @@ fetch = () =>{
         <div className="singup-box full">
         <Grid>
          <Link className="" to="/"> <i className="material-icons blue-txt pointer">arrow_back</i></Link>
-          <div style={{alignSelf: "center"}}>
+          <div style={{alignSelf: "center" }}>
           <MdImg className="md" src={"https://res.cloudinary.com/danu5qwvx/image/upload/v1555553124/xfkxduguslygi2ses8pt.png"} alt="user" />
-            <div className="row">
-            <form>
+          <div>
+            <Cloudinary onResult={this.onCloudinaryResult.bind(this)} ref={this.image}/>
+            <button className="bordered" style={{display:"block", margin:"auto"}}>Add a Picture </button>
+          </div>
+            <div className="row" >
+            <form >
                 <div className="row">
                   <div className="input-field col s6">
                     <input placeholder="Placeholder" id="first_name" name="firstName" type="text" className="validate" onChange={this.props.onChange}/>
@@ -76,6 +92,10 @@ fetch = () =>{
                     <label className="active" htmlFor="password">Password</label>
                   </div>
                 </div>
+                  <Select name="country"
+                          onChange={(e)=>{this.props.onChange({target:{name: "country", value: e.value}})}}
+                          options={countryList().getData()}
+                  />
                 </div>
                 <div  style={{justifySelf: "stretch"}}>
                   <button style={{ float: "right"}} className="bordered" onClick={()=>this.fetch()}>Submit</button>

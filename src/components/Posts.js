@@ -16,10 +16,11 @@ const ProfileImg = styled.img`
 
 const Post = styled.div`
   border-top: 1px solid #2B547E;
-  margin: 0.7em;
+  margin: 2em 0.7em;
   box-shadow: 0 .25em .5em rgba(0,0,0,.5);
   border-radius: .5em;
-  border: 3px solid transparent;`;
+  border: 3px solid transparent;
+  `;
 
 const User = styled.div`
 display: grid;
@@ -34,7 +35,9 @@ grid-template-columns: auto 1fr auto;`;
   display: inline-block;
   padding: 0;
   margin: 0.5em;
-  grid-row: 1 / span 3;`;
+  grid-row: 1 / span 3;
+
+  `;
 
 const Badge = styled.div`
   color: white;
@@ -56,19 +59,19 @@ const Badge = styled.div`
                   api.comment({text: textInput.current.value, _id: post._id, token:  getLocalStorage("user")._id})
                   .then(res => {if(res.success){textInput.current.value = ""; props.addComments(post._id, obj )}})
                   .catch(err => {alert(err)})
-                    }
+   }
     return(
     <Post>
-        <div style={{background: "linear-gradient(45deg, #E0E0E0, #BFC9CA)"}}>
+        <div style={{background: "linear-gradient(45deg, #E0E0E0, #BFC9CA)", paddingTop: "0.5em"}}>
          <User>
                 <SmImg className="sm" src={imageUrl} alt="user" />
-                <div className="blue-txt bold txt-md capitalize align-end"> {firstName + " " + lastName}  </div>
+                <div className="blue-txt bold txt-md capitalize align-end" style={{paddingTop: "0.5em"}}> {firstName + " " + lastName}  </div>
                 <div className="" style={{alignSelf: "top", color: "gray"}}>{date}</div>
           </User>
           {post.caption.length > 0? <div style={{padding: "0 0.7em 0.5em 0.7em", whiteSpace: "pre-wrap"}}>{post.caption.substring(0, limit)}</div> : null}
           {post.caption.length> limit?
              <span style={{justifySelf: "end", cursor: "pointer"}} className="blue-txt bold"> See More&nbsp;<i className="material-icons br-50">expand_more</i>&nbsp; </span> : null}
-          {post.imageUrl && post.imageUrl.length > 0?  <img src={cloudinaryUrl(post.imageUrl[0])} alt="user" /> : null}
+          {post.imageUrl && post.imageUrl.length > 0?  <img  src={cloudinaryUrl(post.imageUrl[0])} alt="user" /> : null}
         </div>
         <div className="blue-bg ">
               <button className="btn hoverr blue-bg half" style={{background: "#006666"}}><i className="material-icons">thumb_up</i></button>

@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import Posts from  './components/Posts';
 import './App.css';
-
+import Loader2 from  './components/Loader2';
 const ProfileImg = styled.img`
  border-radius: 50%;
  display: block;
@@ -23,6 +23,14 @@ const Stats = styled.div`
   grid-template-columns: 1fr auto 1fr auto 1fr;
   justify-items: stretch;
   text-align: center;
+`;
+
+const Post = styled.div`
+  border-top: 1px solid #2B547E;
+  margin: 0.7em;
+  box-shadow: 0 .25em .5em rgba(0,0,0,.5);
+  border-radius: .5em;
+  border: 3px solid transparent;
 `;
 
 const User = styled.div`
@@ -50,8 +58,7 @@ class Profile extends React.Component {
     this.props.refreshPosts();
   }
   render() {
-    console.log(this.props);
-
+    const {contentLoaded, data} = this.props;
     const {firstName, lastName} = this.props.user;
     return (
        <div className="containerr">
@@ -64,11 +71,11 @@ class Profile extends React.Component {
          <div> <button className="hover bordered">Add</button> <button className="bordered hover" >Message </button></div>
 
           <Stats className="bold">
-            <div className="blue-txt pointer">  <br/>Posts <div className=" txt-lg">25</div></div>
+            <div className="blue-txt pointer">  <br/>Posts <div className=" txt-lg">{this.props.data.post.length}</div></div>
             <Bar></Bar>
-            <div className="blue-txt pointer">  <br/>Friends <div className="txt-lg">25</div></div>
+            <div className="blue-txt pointer">  <br/>Friends <div className="txt-lg">0</div></div>
             <Bar></Bar>
-            <div className="blue-txt pointer">  <br/>Likes  <div className="txt-lg">25</div></div>
+            <div className="blue-txt pointer">  <br/>Likes  <div className="txt-lg">0</div></div>
           </Stats>
          <div className="blue-txt">
           <i className="fab fa-facebook txt-xl"></i>&nbsp;&nbsp;
@@ -83,8 +90,10 @@ class Profile extends React.Component {
         </div>
         <div className="main">
          <div className="txt-lg blue-txt bold center">2019</div>
-         {this.props.data.post.map((data) =><Posts key={data.toString()+ Math.random() * 100} post={data}/>)}
-         {this.props.data.post.length == 0? <div style={{marginTop: "5%", padding:"3em 0"}}><h4 className="center bold blue-txt">No Post to Show!</h4></div> : null}
+         {!contentLoaded? <div><Loader2 /><div style={{height: "80em"}}></div></div> : null}
+         {contentLoaded && data.post.length == 0?
+        <Post className="pad"><h4 className="center bold blue-txt">No Post to Show!</h4></Post> : data.post.map((data, i) =><Posts key={i} addComments={this.props.addComments} post={data}/>)}
+
         <div style={{ height: "9em"}}></div>
         </div>
 

@@ -6,6 +6,7 @@ import AllPosts from  './components/AllPosts';
 import './App.css';
 import { timingSafeEqual } from 'crypto';
 import Loader2 from  './components/Loader2';
+
 const ProfileImg = styled.img`
  border-radius: 50%;
  display: block;
