@@ -39,6 +39,11 @@ function post(url, body) {
       .then(response => response.json());
 }
 
+function headerPost(url, body, header) {
+    return fetch(url, { method: 'POST', headers: { "Content-Type": "application/json", header }})
+      .then(response => response.json());
+}
+
 function authPost(url, body) {
   return fetch(url, { method: 'POST', headers: authHeader(), body: JSON.stringify(body) })
   .then(response => response.json());

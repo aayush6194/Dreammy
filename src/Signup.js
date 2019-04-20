@@ -47,7 +47,7 @@ fetch = () =>{
       }
       else {alert(res.message);}
     })
-    .catch(err => {alert("Try again");   window.location.reload();});
+    .catch(err => {alert("Try again"); });
 }
 onAttachmentClick = () => {this.cloudinaryRef.current.openImagePicker();
 }
@@ -70,7 +70,6 @@ onCloudinaryResult(result) {
             <button className="bordered" style={{display:"block", margin:"auto"}}>Add a Picture </button>
           </div>
             <div className="row" >
-            <form >
                 <div className="row">
                   <div className="input-field col s6">
                     <input placeholder="Placeholder" id="first_name" name="firstName" type="text" className="validate" onChange={this.props.onChange}/>
@@ -100,7 +99,6 @@ onCloudinaryResult(result) {
                 <div  style={{justifySelf: "stretch"}}>
                   <button style={{ float: "right"}} className="bordered" onClick={()=>this.fetch()}>Submit</button>
                 </div>
-          </form>
             </div>
             </div>
           </Grid>
