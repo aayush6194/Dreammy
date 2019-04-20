@@ -1,6 +1,6 @@
 import React from 'react';
 import {Image, Video, Transformation, CloudinaryContext} from 'cloudinary-react'
-
+import Loader from  './components/Loader';
 const CLOUD_NAME = "dqklw4e9q",
   PRESET = "ncuacbjd";
 
@@ -9,7 +9,6 @@ function uploadFile(file) {
   var url = `https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`;
   var xhr = new XMLHttpRequest();
   var fd = new FormData();
-
   xhr.open('POST', url, true);
   xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
 
@@ -59,16 +58,19 @@ export default class Cloudinary extends React.Component{
   constructor(props) {
     super(props);
     this.inputRef = React.createRef();
+    this.state = {uploading: false, finised: false};
   }
 
   onChange(event) {
+   this.setState({uploading: true, finished: false});
     var file = event.target.files[0];
     uploadFile(file)
       .then(result => {
         this.props.onResult(`v${result.version}/${result.public_id}.${result.format}`);
+        this.setState({uploading: false, finished: true});
       })
       .catch(err => {
-        //todo error is swalloed for now
+        alert("Error Uploading");
       })
   }
 
@@ -80,7 +82,8 @@ export default class Cloudinary extends React.Component{
     return (
       <div>
         <input  type="file" name="file"  onChange={this.onChange.bind(this)} ref={this.inputRef}/>
-
+        {this.state.uploading? <Loader /> : null}
+        {this.state.finished? <i className="material-icons blue-txt bold">done</i> : null}
       </div>
 
     )
