@@ -47,7 +47,7 @@ fetch = () =>{
       }
       else {alert(res.message);}
     })
-    .catch(err => alert("Try again"));
+    .catch(err => {alert("Try again");   window.location.reload();});
 }
 onAttachmentClick = () => {this.cloudinaryRef.current.openImagePicker();
 }
