@@ -4,9 +4,10 @@ import styled from 'styled-components';
 import Posts from  './components/Posts';
 import AllPosts from  './components/AllPosts';
 import './App.css';
+import { cloudinaryUrl } from './utils/utils';
 import { timingSafeEqual } from 'crypto';
 import Loader2 from  './components/Loader2';
-
+import Modal from  './components/Modal';
 const ProfileImg = styled.img`
  border-radius: 50%;
  display: block;
@@ -26,7 +27,7 @@ const Post = styled.div`
 
 const Grid = styled(Post)`
   display: grid;
-  grid-template-columns: auto 1fr;
+  grid-template-columns: 7em 1fr;
   width: 100%;
   border-color: #006666;
   padding: 0.5em;
@@ -47,6 +48,12 @@ const Grid = styled(Post)`
   padding: 0;
   margin: 0.5em;
   grid-row: 1 / span 3;`;
+
+ const Grid3 = styled.div`
+justifySelf: stretch;
+display: grid;
+grid-template-columns: auto 1fr;
+ `;
 
 class Dashboard extends React.Component {
   constructor(props) {
@@ -74,20 +81,21 @@ class Dashboard extends React.Component {
     const {contentLoaded, data} = this.props;
     return (
        <div className="containerr">
+       <Modal />
         <div className="profile-box full">
           <Grid>
-           <MdImg className="md" src={this.props.user.imageUrl} alt="user" />
+           <MdImg className="md" src={cloudinaryUrl(this.props.user.imageUrl)} alt="user" />
           <div style={{gridRow: "1 / span 2", alignSelf: "end"}}>
             <label htmlFor="textarea2">Share Your Dreams</label>
             <textarea id="textarea2"  defaultValue="" name="caption" className="materialize-textarea" data-length="1000" onChange={this.props.onChange}></textarea>
           </div>
-          <div  style={{justifySelf: "stretch"}}>
-            <form>
-              <button style={{ float: "right"}} className="bordered" onClick={e =>{ e.preventDefault(); this.props.submitPost(); }}>Post</button>
-              <Cloudinary onResult={this.onCloudinaryResult.bind(this)} ref={this.cloudinaryRef}/>
-              <div style={{float: "right", height: "2.7em"}} onClick={this.onAttachmentClick} ><i  className="material-icons blue-txt cursor">image</i> &nbsp; </div>
-            </form>
+          <Grid3  className="blue-txt">
+           <Cloudinary onResult={this.onCloudinaryResult.bind(this)} ref={this.cloudinaryRef}/>
+           <div>
+            <div style={{height: "2.7em", cursor:"pointer"}} onClick={this.onAttachmentClick} >Photo <i  className="material-icons blue-txt">image</i> &nbsp; </div>
+            <button className="bordered" onClick={e =>{ e.preventDefault(); this.props.submitPost(); }}>Post</button>
           </div>
+          </Grid3>
           </Grid>
 
         <div className="main full" >

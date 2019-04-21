@@ -62,16 +62,20 @@ export default class Cloudinary extends React.Component{
   }
 
   onChange(event) {
-   this.setState({uploading: true, finished: false});
     var file = event.target.files[0];
+    this.setState({finished: false});
+    if(file){
+    this.setState({uploading: true, finished: false});
     uploadFile(file)
       .then(result => {
         this.props.onResult(`v${result.version}/${result.public_id}.${result.format}`);
         this.setState({uploading: false, finished: true});
       })
       .catch(err => {
+        this.setState({uploading: false});
         alert("Error Uploading");
       })
+     }
   }
 
   openImagePicker() {
@@ -81,9 +85,9 @@ export default class Cloudinary extends React.Component{
   render() {
     return (
       <div>
-        <input  type="file" name="file"  onChange={this.onChange.bind(this)} ref={this.inputRef}/>
+        <input  style={{display: "none"}} type="file" name="file"  onChange={this.onChange.bind(this)} ref={this.inputRef}/>
         {this.state.uploading? <Loader /> : null}
-        {this.state.finished? <i className="material-icons blue-txt bold">done</i> : null}
+        {this.state.finished? <div><i className="material-icons blue-txt bold">done</i></div> : null}
       </div>
 
     )

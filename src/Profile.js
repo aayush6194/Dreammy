@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import Posts from  './components/Posts';
 import './App.css';
+import { cloudinaryUrl } from './utils/utils';
 import Loader2 from  './components/Loader2';
 const ProfileImg = styled.img`
  border-radius: 50%;
@@ -49,7 +50,11 @@ const User = styled.div`
 
 
 class Profile extends React.Component {
-  constructor(props) {super(props);}
+  constructor(props) {
+    super(props);
+
+
+  }
   componentWillMount(){
     this.props.contentNotLoaded();
   }
@@ -64,7 +69,7 @@ class Profile extends React.Component {
        <div className="containerr">
 
           <div className="profile-box border">
-          <ProfileImg src={this.props.user.imageUrl} alt="user" />
+          <ProfileImg src={cloudinaryUrl(this.props.user.imageUrl)} alt="user" />
           <div className="bold blue-txt txt-md capitalize">{firstName + " "+ lastName}</div>
           <div className="">Lives in <span className="blue-txt bold">{this.props.user.location}</span></div>
           <div className="">Works at <span className="blue-txt bold">Google</span></div>

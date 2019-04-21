@@ -8,7 +8,8 @@ const API = {
   getAllPosts: URL + "/posts/all",
   getPosts: URL + "/posts",
   setFields: URL + "/change",
-  comment: URL + "/comment"
+  comment: URL + "/comment",
+  change: URL + "/change"
 }
 
 function header() {
@@ -86,5 +87,8 @@ export default {
   },
   comment: function(body) {
     return authPut(API.comment, body);
+  },
+  ChangeFields: (body)=>{
+    return authPut(API.change, body);
   }
 };

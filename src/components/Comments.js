@@ -28,7 +28,7 @@ const Comment = styled.div`
               <Comment>
                 <SmImg className="" src={imageUrl} alt="user" />
                 <div  className="blue-txt bold" style={{alignSelf: "center"}}>{name}</div>
-                <div style={{alignSelf: "start"}}>{comment.substring(0, limit-50)}</div><span></span>
+                <div style={{alignSelf: "start", whiteSpace: "pre-wrap"}}>{comment.substring(0, limit-50)}</div><span></span>
               { comment.length > limit-50? <span style={{justifySelf: "end", cursor: "pointer"}} className="blue-txt bold"> See More&nbsp;<i className="material-icons br-50">expand_more</i>&nbsp; </span> : null}
               </Comment>
             </CommentBox>
