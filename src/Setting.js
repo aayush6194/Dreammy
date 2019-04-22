@@ -4,11 +4,12 @@ import Cloudinary from './Cloudinary';
 import Modal from './components/Modal';
 import api from './api';
 import { cloudinaryUrl } from './utils/utils';
+
 const ProfileImg = styled.img`
  border-radius: 50%;
  display: block;
  border: 2px solid #006666;
- margin: 0 auto;
+ margin: 0.5em auto;
  padding: 0.5em;
  width: 10em;
  height: 10em;`;
@@ -28,9 +29,15 @@ const Card = styled.div`
      grid-template-columns: 1fr 1fr;
   }`;
 
+  const Grid2 = styled.div`
+   display: grid;
+   grid-template-columns: 1fr 1fr;
+  `;
+
 class Setting extends React.Component {
 constructor(props){
   super(props);
+  console.log(props)
   this.state = {
     modal: false,
     firstNameEdit: false,
@@ -45,10 +52,11 @@ constructor(props){
 }
 
   submit= ()=>{
-    api.ChangeFields(this.state.fields)
+    api.ChangeFields(this.state)
       .then(res => {
         if (res.success) {
           alert("Changed Sucessfully");
+          this.props.changeSucess(this.state);
         } else{
             alert("Error");
         }
@@ -62,19 +70,18 @@ constructor(props){
   onAttachmentClick = () => {this.cloudinaryRef.current.openImagePicker();
     }
 
-
   render() {
     return (
        <div style={{minHeight: "100vh"}} className="containerr" >
         <div className="profile-box full">
-         <Modal show={false}/>
-          <button  style={{justifySelf:"end", margin: "1em", width:"5em"}} className="bordered hoverr white-txt pointer center" onClick={this.props.logout}>Logout </button>
+          <button  style={{justifySelf:"end", margin: "1em", width:"5em"}} className="bordered-blue hoverr pointer center" onClick={this.props.logout}>Logout </button>
           <div style={{minHeight: "100vh"}}  className="grid full">
-           <ProfileImg className="" src={cloudinaryUrl(this.state.imageUrl)} alt="user" />
-              <Cloudinary ref={this.cloudinaryRef} onResult={this.onCloudinaryResult.bind(this)}/>
-              <button className="bordered hoverr white-txt pointer center" onClick={this.onAttachmentClick} >Change Profile Picture</button>
-              <button className="bordered hoverr white-txt pointer center" onClick={this.submit}>Save Changes</button>
-
+              <ProfileImg className="" src={cloudinaryUrl(this.state.imageUrl)} alt="user" />
+              <div className="center" style={{height: "2em"}}> <Cloudinary ref={this.cloudinaryRef} onResult={this.onCloudinaryResult.bind(this)}/></div>
+              <Grid2>
+              <button style={{marginRight: "0.2em"}} className="bordered end hoverr white-txt pointer" onClick={this.onAttachmentClick} >Change Profile Picture</button>
+              <button className="bordered start hoverr white-txt pointer" onClick={this.submit}>Save Changes</button>
+              </Grid2>
               <Card>
                 <span className="bold text-md sp-2-sm">First Name</span>
 
@@ -118,25 +125,25 @@ constructor(props){
            <Card>
                  <span className="bold text-md sp-2-sm">Country</span>
                   <span className="bold text-md"></span>
-                 <i  style={{justifySelf: "end"}}  className="material-icons end blue-txt">edit</i>
+                 <i  style={{justifySelf: "end"}}  className="material-icons end disabled">edit</i>
            </Card>
 
            <Card>
                  <span className="bold text-md sp-2-sm">Facebook</span>
                   <span className="bold text-md"></span>
-                 <i  style={{justifySelf: "end"}} className="material-icons end blue-txt">edit</i>
+                 <i  style={{justifySelf: "end"}} className="material-icons end disabled">edit</i>
            </Card>
 
            <Card>
                  <span className="bold text-md sp-2-sm">Instagram</span>
                   <span className="bold text-md"></span>
-                 <i  style={{justifySelf: "end"}} className="material-icons end blue-txt">edit</i>
+                 <i  style={{justifySelf: "end"}} className="material-icons end disabled">edit</i>
            </Card>
 
            <Card>
                  <span className="bold text-md sp-2-sm">Twitter</span>
                   <span className="bold text-md"></span>
-                 <i  style={{justifySelf: "end"}} className="material-icons end blue-txt">edit</i>
+                 <i  style={{justifySelf: "end"}} className="material-icons end disabled">edit</i>
            </Card>
 
 

@@ -23,13 +23,18 @@ const Comment = styled.div`
   margin: 0.5em;
   grid-row: 1 / span 2;`;
 
- const Comments = ({name, comment, limit, imageUrl})=>{
+ const Comments = ({name, comment, limit, imageUrl, createdAt})=>{
+   const date = new Date(createdAt).toDateString();
   return ( <CommentBox>
               <Comment>
                 <SmImg className="" src={imageUrl} alt="user" />
-                <div  className="blue-txt bold" style={{alignSelf: "center"}}>{name}</div>
+                <div style={{alignSelf: "center"}}>
+                  <div className="blue-txt bold">{name}</div>
+                  <div className="" style={{alignSelf: "top", color: "gray", fontSize: "90%"}}>{date}</div>
+                </div>
                 <div style={{alignSelf: "start", whiteSpace: "pre-wrap"}}>{comment.substring(0, limit-50)}</div><span></span>
               { comment.length > limit-50? <span style={{justifySelf: "end", cursor: "pointer"}} className="blue-txt bold"> See More&nbsp;<i className="material-icons br-50">expand_more</i>&nbsp; </span> : null}
+
               </Comment>
             </CommentBox>
    )

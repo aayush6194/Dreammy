@@ -1,7 +1,8 @@
 import React from 'react';
  import styled from 'styled-components';
 import Comments from  './Comments';
-import { cloudinaryUrl } from '../utils/utils';
+import Audio from  './Audio';
+import { cloudinaryUrl, cloudinaryVideoUrl } from '../utils/utils';
 import '../App.css';
 import api from '../api';
 import { getLocalStorage}  from '../utils/utils';
@@ -34,24 +35,24 @@ grid-template-columns: auto 1fr auto;`;
   display: inline-block;
   padding: 0;
   margin: 0.5em;
-  grid-row: 1 / span 3;
-
-  `;
+  grid-row: 1 / span 3;`;
 
 const Badge = styled.div`
   color: white;
   background: #42a5f5;
   padding: 0.3em;
+  display: inline-block;
   margin: 0.4em;
+  max-width: 7em;
   text-align: center;
   border-radius: 7px;
   font-weight: bold`;
 
   const Posts =(props)=>{
     const post = props.post;
-    const {firstName, lastName, imageUrl} = post.userId;
+    const {firstName, lastName, imageUrl, _id} = post.userId;
+    console.log(post);
     const isImage = (/\.(gif|jpg|jfif|bmp|jpeg|tiff|png|svg)$/i).test(post.imageUrl[0]);
-  //  alert(isImage);
     const textInput = React.createRef()
     const date = new Date(post.createdAt).toDateString();
     const limit = 300;
@@ -63,11 +64,14 @@ const Badge = styled.div`
    }
     return(
     <Post>
+
         <div style={{background: "linear-gradient(45deg, #E0E0E0, #BFC9CA)", paddingTop: "0.5em"}}>
+        {post.category && post.category.length > 3? <Badge style={{float: "right"}}>{post.category}</Badge>: null}
          <User>
                 <SmImg className="sm" src={cloudinaryUrl(imageUrl)} alt="user" />
-                <div className="blue-txt bold txt-md capitalize align-end" style={{paddingTop: "0.5em"}}> {firstName + " " + lastName}  </div>
+                <div className="blue-txt bold txt-md capitalize align-end" style={{paddingTop: "0.5em"}}><a href={"/profile?user="+_id}> {firstName + " " + lastName}</a> </div>
                 <div className="" style={{alignSelf: "top", color: "gray"}}>{date}</div>
+
           </User>
           {post.caption.length > 0? <div style={{padding: "0 0.7em 0.5em 0.7em", whiteSpace: "pre-wrap"}}>{post.caption.substring(0, limit)}</div> : null}
           {post.caption.length> limit?
@@ -75,6 +79,7 @@ const Badge = styled.div`
 
           {isImage && post.imageUrl && post.imageUrl.length > 0?  <img  src={cloudinaryUrl(post.imageUrl[0])} alt="user" /> : null}
           {!isImage? <a href={cloudinaryUrl(post.imageUrl[0])}>{post.imageUrl[0]}</a>: null}
+          {post.videoUrl && post.videoUrl.length > 0? <Audio url={cloudinaryVideoUrl(post.videoUrl[0])} /> : null}
         </div>
         <div className="blue-bg ">
               <button className="btn hoverr blue-bg half" style={{background: "#006666"}}><i className="material-icons">thumb_up</i></button>
@@ -86,7 +91,7 @@ const Badge = styled.div`
           <button className="btn" style={{alignSelf: "center"}} onClick={()=>fetch("poop")}><i className="material-icons">add</i></button>
         </Grid>
         {post.comments.map((data, index) =>
-          <Comments  key={index} name={data.user.firstName + " " + data.user.lastName} imageUrl={cloudinaryUrl(data.user.imageUrl)}  comment={data.text} limit={200}/>
+          <Comments  key={index} name={data.user.firstName + " " + data.user.lastName} imageUrl={cloudinaryUrl(data.user.imageUrl)} createdAt={data.createdAt} comment={data.text} limit={200}/>
         )}
        </Post>
 

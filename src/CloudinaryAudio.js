@@ -6,7 +6,7 @@ const CLOUD_NAME = "dqklw4e9q",
 
 function uploadFile(file) {
 
-  var url = `https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`;
+  var url = `https://api.cloudinary.com/v1_1/${CLOUD_NAME}/video/upload`;
   var xhr = new XMLHttpRequest();
   var fd = new FormData();
   xhr.open('POST', url, true);

@@ -4,6 +4,7 @@ import Posts from  './components/Posts';
 import './App.css';
 import { cloudinaryUrl } from './utils/utils';
 import Loader2 from  './components/Loader2';
+
 const ProfileImg = styled.img`
  border-radius: 50%;
  display: block;
@@ -52,7 +53,11 @@ const User = styled.div`
 class Profile extends React.Component {
   constructor(props) {
     super(props);
-
+    this.param = this.getUrlVars()["user"];
+    this.state ={
+      firstName: this.props.user.firstName,
+      lastName: this.props.user.lastName
+    };
 
   }
   componentWillMount(){
@@ -60,11 +65,23 @@ class Profile extends React.Component {
   }
 
   componentDidMount(){
+  if(this.param === "me")
+     this.props.refreshPosts();
+  else
     this.props.refreshPosts();
   }
+
+ getUrlVars() {
+    var vars = {};
+    var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
+        vars[key] = value;
+    });
+    return vars;
+ }
   render() {
     const {contentLoaded, data} = this.props;
     const {firstName, lastName} = this.props.user;
+
     return (
        <div className="containerr">
 
@@ -72,9 +89,8 @@ class Profile extends React.Component {
           <ProfileImg src={cloudinaryUrl(this.props.user.imageUrl)} alt="user" />
           <div className="bold blue-txt txt-md capitalize">{firstName + " "+ lastName}</div>
           <div className="">Lives in <span className="blue-txt bold">{this.props.user.location}</span></div>
-          <div className="">Works at <span className="blue-txt bold">Google</span></div>
+          <div className="">Works at <span className="blue-txt bold"></span></div>
          <div> <button className="hover bordered">Add</button> <button className="bordered hover" >Message </button></div>
-
           <Stats className="bold">
             <div className="blue-txt pointer">  <br/>Posts <div className=" txt-lg">{this.props.data.post.length}</div></div>
             <Bar></Bar>
@@ -83,13 +99,13 @@ class Profile extends React.Component {
             <div className="blue-txt pointer">  <br/>Likes  <div className="txt-lg">0</div></div>
           </Stats>
          <div className="blue-txt">
-          <i className="fab fa-facebook txt-xl"></i>&nbsp;&nbsp;
-          <i className="fab fa-twitter-square txt-xl"></i>&nbsp;&nbsp;
-          <i className="fab fa-linkedin txt-xl"></i>&nbsp;&nbsp;
+          <i className="fab fa-facebook txt-xl disabled"></i>&nbsp;&nbsp;
+          <i className="fab fa-twitter-square txt-xl disabled"></i>&nbsp;&nbsp;
+          <i className="fab fa-linkedin txt-xl disabled"></i>&nbsp;&nbsp;
           </div>
           <div className="grid-2">
-            <a className="blue-txt pointer start bold">Saved Posts</a>
-            <a className="blue-txt pointer end bold">More Info</a>
+            <a className="start blue-txt pointer  bold">Saved Posts</a>
+            <a className="end blue-txt pointer  bold">More Info</a>
           </div>
 
         </div>
@@ -98,10 +114,8 @@ class Profile extends React.Component {
          {!contentLoaded? <div><Loader2 /><div style={{height: "80em"}}></div></div> : null}
          {contentLoaded && data.post.length == 0?
         <Post className="pad"><h4 className="center bold blue-txt">No Post to Show!</h4></Post> : data.post.map((data, i) =><Posts key={i} addComments={this.props.addComments} post={data}/>)}
-
         <div style={{ height: "9em"}}></div>
         </div>
-
         </div>
 
     );

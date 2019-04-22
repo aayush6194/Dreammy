@@ -45,12 +45,12 @@ padding: 0;
 const FixedNav = ()=>
              ( <div>
 
-                <Float className="hoverr white-txt pointer "><i className="material-icons white-txt">add</i></Float>
+                <Float className="hoverr white-txt pointer " onClick={()=>{alert("Feature Under Construction")}}><i className="material-icons white-txt">add</i></Float>
                 <Fixed className="blue-bg">
                    <Btn className="hoverr pointer grid"> <Link style={{display: "grid", placeItems: "center"}} to="/"><I  className="material-icons white-txt bold txt-xl">home</I></Link></Btn>
-                    <Btn className="hover pointer grid"><Link style={{display: "grid", placeItems: "center"}} to="/"><I className="material-icons white-txt bold txt-xl disabled">chat_bubble</I></Link></Btn>
+                    <Btn className="hover pointer grid"><Link style={{display: "grid", placeItems: "center"}} to="/chat"><I className="material-icons white-txt bold txt-xl disabled">chat_bubble</I></Link></Btn>
                     <Btn className="hover pointer grid"><Link style={{display: "grid", placeItems: "center"}} to="/setting"><I className="material-icons white-txt bold txt-xl">settings</I></Link></Btn>
-                   <Btn className="hover pointer grid"><Link style={{display: "grid", placeItems: "center"}} to="/profile"><I className="material-icons white-txt bold txt-xl">person</I></Link></Btn>
+                   <Btn className="hover pointer grid"><Link style={{display: "grid", placeItems: "center"}} to="/profile?user=me"><I className="material-icons white-txt bold txt-xl">person</I></Link></Btn>
                   </Fixed>
                 </div>
               );

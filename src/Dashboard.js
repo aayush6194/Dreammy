@@ -1,5 +1,6 @@
 import React from 'react';
 import Cloudinary from './Cloudinary';
+import CloudinaryAudio from './CloudinaryAudio';
 import styled from 'styled-components';
 import Posts from  './components/Posts';
 import AllPosts from  './components/AllPosts';
@@ -7,7 +8,9 @@ import './App.css';
 import { cloudinaryUrl } from './utils/utils';
 import { timingSafeEqual } from 'crypto';
 import Loader2 from  './components/Loader2';
+import Loader from  './components/Loader';
 import Modal from  './components/Modal';
+import SelectInput from './components/SelectInput';
 const ProfileImg = styled.img`
  border-radius: 50%;
  display: block;
@@ -39,7 +42,7 @@ const Grid = styled(Post)`
   display: inline-block;
   padding: 0;
   margin: 0.5em;
-  grid-row: 1 / span 2;`;
+  grid-row: 1 / span 3;`;
 
  const MdImg = styled(SmImg)`
   width: 7em;
@@ -47,18 +50,20 @@ const Grid = styled(Post)`
   display: inline-block;
   padding: 0;
   margin: 0.5em;
-  grid-row: 1 / span 3;`;
+  grid-row: 1 / span 4;`;
 
  const Grid3 = styled.div`
 justifySelf: stretch;
 display: grid;
-grid-template-columns: auto 1fr;
+grid-template-columns: 1fr auto auto auto;
  `;
 
 class Dashboard extends React.Component {
   constructor(props) {
     super(props);
     this.cloudinaryRef = React.createRef();
+    this.cloudinaryRef2 = React.createRef();
+    this.category = ["Nature", "Meditation", "Outdoors"]
   }
 
   componentWillMount(){
@@ -68,7 +73,15 @@ class Dashboard extends React.Component {
   componentDidMount(){
     this.props.refreshPosts("all");
   }
-  //result is a string of format v1112313/abc.jpg
+
+  onCloudinaryResult2(result) {
+    if (result)
+      this.props.onChange({target: { name: "videoUrl", value: [result] }});
+    }
+
+  onAttachmentClick2 = () => {this.cloudinaryRef2.current.openImagePicker();
+  }
+
   onCloudinaryResult(result) {
     if (result)
       this.props.onChange({target: { name: "imageUrl", value: [result] }});
@@ -78,10 +91,9 @@ class Dashboard extends React.Component {
   }
 
   render() {
-    const {contentLoaded, data} = this.props;
+    const {contentLoaded, data, submitting} = this.props;
     return (
        <div className="containerr">
-       <Modal />
         <div className="profile-box full">
           <Grid>
            <MdImg className="md" src={cloudinaryUrl(this.props.user.imageUrl)} alt="user" />
@@ -89,12 +101,16 @@ class Dashboard extends React.Component {
             <label htmlFor="textarea2">Share Your Dreams</label>
             <textarea id="textarea2"  defaultValue="" name="caption" className="materialize-textarea" data-length="1000" onChange={this.props.onChange}></textarea>
           </div>
+            <div style={{height: "2em"}}>
+              {submitting? <Loader text={"Uploading"}/> : <Cloudinary onResult={this.onCloudinaryResult.bind(this)} ref={this.cloudinaryRef}/>}
+              {submitting? <Loader text={"Uploading"}/> :<CloudinaryAudio onResult={this.onCloudinaryResult2.bind(this)} ref={this.cloudinaryRef2}/>}
+            </div>
           <Grid3  className="blue-txt">
-           <Cloudinary onResult={this.onCloudinaryResult.bind(this)} ref={this.cloudinaryRef}/>
-           <div>
-            <div style={{height: "2.7em", cursor:"pointer"}} onClick={this.onAttachmentClick} >Photo <i  className="material-icons blue-txt">image</i> &nbsp; </div>
+            <div><SelectInput arr={this.category} action={this.props.onChange}/></div>
+            <div className="pointer end" style={{height: "2.7em"}} onClick={this.onAttachmentClick2} ><span className="hide-on-sm">Audio </span><i  className="material-icons blue-txt">audiotrack</i> &nbsp; </div>
+            <div className="pointer end" style={{height: "2.7em"}} onClick={this.onAttachmentClick} ><span className="hide-on-sm">Photo </span><i  className="material-icons blue-txt">image</i> &nbsp; </div>
             <button className="bordered" onClick={e =>{ e.preventDefault(); this.props.submitPost(); }}>Post</button>
-          </div>
+
           </Grid3>
           </Grid>
 

@@ -1,5 +1,5 @@
 import { getLocalStorage, setLocalStorage } from '../utils/utils';
-const URL = "https://dreammy-api.herokuapp.com";
+const URL = "http://localhost:3007";
 const API = {
   checkToken: URL+ "/check-token",
   login: URL + "/login",
@@ -20,8 +20,6 @@ function authHeader() {
   let user = getLocalStorage("user");
   let authtoken = getLocalStorage("token");
   let email = user? user.email: null;
-  console.log(user);
-  console.log(authtoken);
   return { "Content-Type": "application/json", email, authtoken };
 }
 
@@ -69,12 +67,12 @@ export default {
     return post(API.login, { email, password });
   },
 
-  signup: function({email, password, firstName, lastName}) {
-    return post(API.signup, { email, password, firstName, lastName });
+  signup: function({email, password, firstName, lastName, imageUrl}) {
+    return post(API.signup, { email, password, firstName, lastName, imageUrl });
   },
 
-  addPost: function({ caption, imageUrl }) {
-    return authPost(API.addPost, { caption, imageUrl });
+  addPost: function({ caption, imageUrl , videoUrl, category}) {
+    return authPost(API.addPost, { caption, imageUrl, videoUrl, category });
   },
 
   getPosts: function(s) {
@@ -89,6 +87,6 @@ export default {
     return authPut(API.comment, body);
   },
   ChangeFields: (body)=>{
-    return authPut(API.change, body);
+    return authPost(API.change, body);
   }
 };

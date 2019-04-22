@@ -8,7 +8,7 @@ import { setLocalStorage, getLocalStorage } from './utils/utils';
 import api from './api';
 import countryList from 'react-select-country-list';
 import Select from 'react-select'
-
+import { cloudinaryUrl } from './utils/utils';
 const Grid = styled.div`
   display: grid;
   grid-template-rows: auto  1fr;
@@ -35,27 +35,30 @@ class Signup extends React.Component {
   this.firstName = React.createRef();
   this.lastName = React.createRef();
   this.country = React.createRef();
-  this.image = React.createRef();
+  this.cloudinaryRef = React.createRef();
 }
 
 fetch = () =>{
   api.signup(this.props)
     .then(res => {
+      console.log(res)
       if (res.success) {
         setLocalStorage("user", res.user); setLocalStorage("token", res.token);
         this.props.login(res.user);
       }
       else {alert(res.message);}
     })
-    .catch(err => {alert("Try again"); });
+    .catch(err => {  console.log(err) });
 }
 onAttachmentClick = () => {this.cloudinaryRef.current.openImagePicker();
 }
 
 onCloudinaryResult(result) {
-  if (result)
-  console.log(result)
-  }
+  if (result){
+  this.props.setImageUrl(result);
+  this.props.onChange({target:{name: "imageUrl", value: result}})
+}
+}
   render() {
     return (
        <div className="containerr">
@@ -64,10 +67,10 @@ onCloudinaryResult(result) {
         <Grid>
          <Link className="" to="/"> <i className="material-icons blue-txt pointer">arrow_back</i></Link>
           <div style={{alignSelf: "center" }}>
-          <MdImg className="md" src={"https://res.cloudinary.com/danu5qwvx/image/upload/v1555553124/xfkxduguslygi2ses8pt.png"} alt="user" />
-          <div>
-            <Cloudinary onResult={this.onCloudinaryResult.bind(this)} ref={this.image}/>
-            <button className="bordered" style={{display:"block", margin:"auto"}}>Add a Picture </button>
+          <MdImg className="md" src={cloudinaryUrl(this.props.image)} alt="user" />
+          <div >
+          <div className="center" style={{height: "2em"}}> <Cloudinary ref={this.cloudinaryRef} onResult={this.onCloudinaryResult.bind(this)}/></div>
+            <button className="bordered" style={{display:"block", margin:"auto"}} onClick={this.onAttachmentClick}>Add a Picture </button>
           </div>
             <div className="row" >
                 <div className="row">
@@ -93,8 +96,7 @@ onCloudinaryResult(result) {
                 </div>
                   <Select name="country"
                           onChange={(e)=>{this.props.onChange({target:{name: "country", value: e.value}})}}
-                          options={countryList().getData()}
-                  />
+                          options={countryList().getData()}/>
                 </div>
                 <div  style={{justifySelf: "stretch"}}>
                   <button style={{ float: "right"}} className="bordered" onClick={()=>this.fetch()}>Submit</button>
@@ -102,7 +104,6 @@ onCloudinaryResult(result) {
             </div>
             </div>
           </Grid>
-
         </div>
           </Zoom>
       </div>

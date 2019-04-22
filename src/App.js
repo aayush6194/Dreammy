@@ -8,7 +8,7 @@ import Login from './Login.js';
 import FixedNav from './components/FixedNav.js';
 import Posts from  './components/Posts';
 import { BrowserRouter as Router,  Route, Link, Switch } from "react-router-dom";
-import {hashHistory} from "react-router";
+import {withRouter} from 'react-router';
 import Loader from  './components/Loader2';
 import api from './api';
 import { getLocalStorage, setLocalStorage }  from './utils/utils';
@@ -17,8 +17,8 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      loggedin: false, tokenChecked: false, contentLoaded: false,
-      fields:{}, user: {},
+      loggedin: false, tokenChecked: false, contentLoaded: false, submitting: false,
+      fields:{}, user: {imageUrl: "v1555894582/a/zvw5nufptxzutn9yo7yc.png"},
       data:{post: [] },
       modal:{imageUrl:"", text: "", show: false},
       error: false
@@ -54,12 +54,14 @@ class App extends React.Component {
   contentNotLoaded = () => { this.setState({contentLoaded: false})}
   setPosts= e => { this.setState({...this.state, data: {...this.state.data, post: e}});}
   submitPost = () => {
+    this.setState({submitting: true, fields: {}})
     api.addPost(this.state.fields)
       .then(res => {
         if (res.success) {
           this.refreshPosts("all");
         }
-      });
+      }).catch(err=>{alert("Could not submit your post!")});
+    setTimeout(()=>{this.setState({submitting: false})}, 200);
   }
 
  addComments = (id, obj)=>{
@@ -67,7 +69,6 @@ class App extends React.Component {
    const newComment = post.comments;
    newComment.push(obj);
    this.setState({...this.state, data: {...this.state.data, post: [...this.state.data.post, post]}})
-   console.log(post);
 }
   refreshPosts = s => {
     return api.getPosts(s)
@@ -79,23 +80,22 @@ class App extends React.Component {
     });
   }
 
-  submitChange = ()=>{
-    api.setFields(this.state.fields)
-      .then(res => {
-        if (true) {
-        alert()}
-      }).catch((err)=>{console.log(err)});
+ setImageUrl= (imageUrl)=> {
+   this.setState({user: { ...this.state.user, imageUrl: imageUrl  }})
+ }
+  changeSucess = (user)=>{
+    this.setState({user});
   }
 
   render() {
   if(this.state.tokenChecked){
       if(this.state.loggedin){
       return (<Router>
-               <FixedNav className="blue-bg"/>
-                <Switch>
+                 <FixedNav className="blue-bg"/>
+                 <Switch>
                   <Route path="/profile" render={()=> <Profile {...this.state} contentNotLoaded = {this.contentNotLoaded}
                                                               refreshPosts = {this.refreshPosts}    contentNotLoaded = {this.contentNotLoaded} addComments = {this.addComments}   />}  />
-                  <Route path="/setting" render={()=> <Setting {...this.state} logout={this.logout}   />} />
+                  <Route path="/setting" render={()=> <Setting {...this.state} changeSucess={this.changeSucess} logout={this.logout}   />} />
                   <Route path="/" render={()=> <Dashboard {...this.state}
                                                  onChange={this.onChange}
                                                  setPosts={this.setPosts}
@@ -103,12 +103,12 @@ class App extends React.Component {
                                                 refreshPosts = {this.refreshPosts}
                                                 submitPost={this.submitPost}
                                                 addComments = {this.addComments} />   }/>
-                </Switch>
+                  </Switch>
               </Router>
     )} else {return(<Router>
                     <Switch>
                       <Route path="/login"  render={()=>  <Login onChange={this.onChange} login={this.login} clear={this.clear} {...this.state.fields}/>}/>
-                      <Route path="/signup"  render={()=> <Signup onChange={this.onChange} login={this.login} clear={this.clear} {...this.state.fields}/>}/>
+                      <Route path="/signup"  render={()=> <Signup onChange={this.onChange}  login={this.login} image={this.state.user.imageUrl} setImageUrl={this.setImageUrl} ogin={this.login} clear={this.clear} {...this.state.fields}/>}/>
                       <Route path="/" component={Startpage} />
                     </Switch>
                   </Router>

@@ -44,9 +44,9 @@ class Startpage extends React.Component {
         <Link className="" to="/signup">  <button className="btn bordered long">Sign Up</button></Link>
         </Post>
         </div>
-        <button className="btn-floating blue-bg btn-large bottom">
+        <a className="btn-floating blue-bg btn-large bottom" href="mailto:help@dreammy.net?Subject=Help">
             <i className="material-icons font-lg">message</i>
-        </button>
+        </a>
         </div>
         </div>
     );

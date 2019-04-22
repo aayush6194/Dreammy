@@ -28,4 +28,17 @@ const cloudinaryUrl = (function() {
   }
 })();
 
-export { setLocalStorage, getLocalStorage, cloudinaryUrl };
+const cloudinaryVideoUrl = (function() {
+  let prefixA = "https://res.cloudinary.com/dqklw4e9q/video/upload/";
+  let prefixB = "https://res.cloudinary.com/dqklw4e9q/video/upload";
+
+  return function(partialUrl) {
+    if (!partialUrl)
+      return "";
+    let prefix = (partialUrl[0] === "/")? prefixB: prefixA;
+
+    return prefix + partialUrl;
+  }
+})();
+
+export { setLocalStorage, getLocalStorage, cloudinaryUrl, cloudinaryVideoUrl };
