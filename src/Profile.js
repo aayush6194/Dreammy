@@ -71,7 +71,8 @@ class Profile extends React.Component {
         lastName: this.props.user.lastName,
         imageUrl: this.props.user.imageUrl
       },
-      user: true
+      user: true,
+      me: !this.notMe
     };
 
   }
@@ -116,7 +117,11 @@ class Profile extends React.Component {
           <div className="bold blue-txt txt-md capitalize">{firstName + " "+ lastName}</div>
           <div className="">Lives in <span className="blue-txt bold">{this.props.user.location}</span></div>
           <div className="">Works at <span className="blue-txt bold"></span></div>
-         <div> <button className="hover bordered">Add</button> <button className="bordered hover" >Message </button></div>
+          {!this.state.me?
+            <div>
+              <button className="hover bordered">Add</button>
+              <button className="bordered hover">Message</button>
+            </div>: <div><a href="/setting"><button className="bordered hover" >Change Details</button></a></div>}
           <Stats className="bold">
             <div className="blue-txt pointer">  <br/>Posts <div className=" txt-lg">{this.props.data.post.length}</div></div>
             <Bar></Bar>
