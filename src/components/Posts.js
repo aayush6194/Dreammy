@@ -48,6 +48,8 @@ const Badge = styled.div`
   border-radius: 7px;
   font-weight: bold`;
 
+const A = styled.a``;
+
   const Posts =(props)=>{
     const post = props.post;
     const {firstName, lastName, imageUrl, _id} = post.userId;
@@ -91,7 +93,7 @@ const Badge = styled.div`
           <button className="btn" style={{alignSelf: "center"}} onClick={()=>fetch("poop")}><i className="material-icons">add</i></button>
         </Grid>
         {post.comments.map((data, index) =>
-          <Comments  key={index} name={data.user.firstName + " " + data.user.lastName} imageUrl={cloudinaryUrl(data.user.imageUrl)} createdAt={data.createdAt} comment={data.text} limit={200}/>
+          <Comments  key={index} id={data.user._id} name={data.user.firstName + " " + data.user.lastName} imageUrl={cloudinaryUrl(data.user.imageUrl)} createdAt={data.createdAt} comment={data.text} limit={200}/>
         )}
        </Post>
 

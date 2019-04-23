@@ -4,7 +4,7 @@ import Cloudinary from './Cloudinary';
 import Modal from './components/Modal';
 import api from './api';
 import { cloudinaryUrl } from './utils/utils';
-
+import { setLocalStorage, getLocalStorage } from './utils/utils';
 const ProfileImg = styled.img`
  border-radius: 50%;
  display: block;
@@ -46,7 +46,8 @@ constructor(props){
     firstName: this.props.user.firstName,
     lastName: this.props.user.lastName,
     imageUrl: this.props.user.imageUrl,
-    email:  this.props.user.email
+    email:  this.props.user.email,
+    _id: this.props.user._id
   };
   this.cloudinaryRef = React.createRef();
 }
@@ -57,6 +58,7 @@ constructor(props){
         if (res.success) {
           alert("Changed Sucessfully");
           this.props.changeSucess(this.state);
+          setLocalStorage("user", this.props.user);
         } else{
             alert("Error");
         }

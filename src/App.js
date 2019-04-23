@@ -23,6 +23,15 @@ class App extends React.Component {
       modal:{imageUrl:"", text: "", show: false},
       error: false
     };
+    this.actions = {
+      checkToken: this.changeToken,
+      onChange: this.onChange,
+      setPosts: this.setPosts,
+     contentNotLoaded : this.contentNotLoaded,
+     refreshPosts : this.refreshPosts,
+     submitPost : this.submitPost,
+     addComments : this.addComments
+    }
   }
  componentWillMount() {this.checkToken()}
  componentDidCatch(err, info){
@@ -93,16 +102,9 @@ class App extends React.Component {
       return (<Router>
                  <FixedNav className="blue-bg"/>
                  <Switch>
-                  <Route path="/profile" render={()=> <Profile {...this.state} contentNotLoaded = {this.contentNotLoaded}
-                                                              refreshPosts = {this.refreshPosts}    contentNotLoaded = {this.contentNotLoaded} addComments = {this.addComments}   />}  />
+                  <Route path="/profile" render={()=> <Profile {...this.state} {...this.actions}  />}  />
                   <Route path="/setting" render={()=> <Setting {...this.state} changeSucess={this.changeSucess} logout={this.logout}   />} />
-                  <Route path="/" render={()=> <Dashboard {...this.state}
-                                                 onChange={this.onChange}
-                                                 setPosts={this.setPosts}
-                                                contentNotLoaded = {this.contentNotLoaded}
-                                                refreshPosts = {this.refreshPosts}
-                                                submitPost={this.submitPost}
-                                                addComments = {this.addComments} />   }/>
+                  <Route path="/" render={()=> <Dashboard {...this.state} {...this.actions} />   }/>
                   </Switch>
               </Router>
     )} else {return(<Router>

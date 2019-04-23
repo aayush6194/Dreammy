@@ -23,13 +23,13 @@ const Comment = styled.div`
   margin: 0.5em;
   grid-row: 1 / span 2;`;
 
- const Comments = ({name, comment, limit, imageUrl, createdAt})=>{
+ const Comments = ({name, comment, limit, imageUrl, createdAt, id})=>{
    const date = new Date(createdAt).toDateString();
   return ( <CommentBox>
               <Comment>
                 <SmImg className="" src={imageUrl} alt="user" />
                 <div style={{alignSelf: "center"}}>
-                  <div className="blue-txt bold">{name}</div>
+                  <div className="blue-txt bold"><a href={"/profile?user="+ id}>{name}</a></div>
                   <div className="" style={{alignSelf: "top", color: "gray", fontSize: "90%"}}>{date}</div>
                 </div>
                 <div style={{alignSelf: "start", whiteSpace: "pre-wrap"}}>{comment.substring(0, limit-50)}</div><span></span>

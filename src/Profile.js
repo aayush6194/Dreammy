@@ -4,7 +4,7 @@ import Posts from  './components/Posts';
 import './App.css';
 import { cloudinaryUrl } from './utils/utils';
 import Loader2 from  './components/Loader2';
-
+import api from './api';
 const ProfileImg = styled.img`
  border-radius: 50%;
  display: block;
@@ -49,26 +49,53 @@ const User = styled.div`
   grid-row: 1 / span 2;
 `;
 
-
+// //this returns all posts ... friends later
+// app.post('/posts/user', async (req, res, next) => {
+//   try {
+//     let data =await postModel.getPostsOfUser(req.body._id).catch(err=>console.log(err));
+//     await res.send({success: true, data: data});
+//     console.log("data");
+//   }
+//   catch(err) {
+//     next(err);
+//   }
+// });
 class Profile extends React.Component {
   constructor(props) {
     super(props);
     this.param = this.getUrlVars()["user"];
+    this.notMe = this.param && !(this.param === "me" || this.param === "" || this.param === this.props.user._id);
     this.state ={
-      firstName: this.props.user.firstName,
-      lastName: this.props.user.lastName
+      data:{
+        firstName: this.props.user.firstName,
+        lastName: this.props.user.lastName,
+        imageUrl: this.props.user.imageUrl
+      },
+      user: true
     };
 
   }
   componentWillMount(){
     this.props.contentNotLoaded();
+  if(this.notMe){
+    api.getDetails({_id: this.param}).
+    then(res=>{
+      if(res.success){
+      this.setState({data: res.data})}
+      else{
+        alert("User Not Found");
+        this.setState({user: false})
+      }
+    }).
+    catch(err=>{alert(err); this.setState({user: false});});
+  }
   }
 
   componentDidMount(){
-  if(this.param === "me")
-     this.props.refreshPosts();
+  if(this.notMe)
+    this.props.refreshPosts(this.param);
   else
-    this.props.refreshPosts();
+    this.props.refreshPosts("me");
   }
 
  getUrlVars() {
@@ -80,13 +107,12 @@ class Profile extends React.Component {
  }
   render() {
     const {contentLoaded, data} = this.props;
-    const {firstName, lastName} = this.props.user;
+    const {firstName, lastName} = this.state.data;
 
     return (
-       <div className="containerr">
-
+         <div className="containerr">
           <div className="profile-box border">
-          <ProfileImg src={cloudinaryUrl(this.props.user.imageUrl)} alt="user" />
+          <ProfileImg src={cloudinaryUrl(this.state.data.imageUrl)} alt="user" />
           <div className="bold blue-txt txt-md capitalize">{firstName + " "+ lastName}</div>
           <div className="">Lives in <span className="blue-txt bold">{this.props.user.location}</span></div>
           <div className="">Works at <span className="blue-txt bold"></span></div>
