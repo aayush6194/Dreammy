@@ -1,5 +1,5 @@
 import { getLocalStorage, setLocalStorage } from '../utils/utils';
-const URL = "http://localhost:3007";
+const URL = "https://dreammy-api.herokuapp.com/";
 const API = {
   checkToken: URL+ "/check-token",
   login: URL + "/login",
