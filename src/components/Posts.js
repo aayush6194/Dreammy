@@ -6,13 +6,6 @@ import { cloudinaryUrl, cloudinaryVideoUrl } from '../utils/utils';
 import '../App.css';
 import api from '../api';
 import { getLocalStorage}  from '../utils/utils';
-const ProfileImg = styled.img`
- border-radius: 50%;
- display: block;
- border: 2px solid #006666;
- margin: 0 auto;
- padding: 0.5em;
- width: 10em;`;
 
 const Post = styled.div`
   border-top: 1px solid #2B547E;
@@ -29,9 +22,12 @@ display: grid;
 const Grid = styled(User)`
 grid-template-columns: auto 1fr auto;`;
 
- const SmImg = styled(ProfileImg)`
+ const SmImg = styled.img`
+ border-radius: 50%;
+ border: 2px solid #006666;
   width: 4em;
   height: 4em;
+  object-fit: cover;
   display: inline-block;
   padding: 0;
   margin: 0.5em;
@@ -49,11 +45,9 @@ const Badge = styled.div`
   font-weight: bold`;
 
 const A = styled.a``;
-
   const Posts =(props)=>{
     const post = props.post;
     const {firstName, lastName, imageUrl, _id} = post.userId;
-    console.log(post);
     const isImage = (/\.(gif|jpg|jfif|bmp|jpeg|tiff|png|svg)$/i).test(post.imageUrl[0]);
     const textInput = React.createRef()
     const date = new Date(post.createdAt).toDateString();
@@ -88,7 +82,7 @@ const A = styled.a``;
               <button className="btn hover blue-bg half" style={{background: "#006666"}}><i className="material-icons">comment</i></button>
         </div>
         <Grid>
-          <SmImg className="sm" src={cloudinaryUrl(imageUrl)} alt="user" />
+          <SmImg className="sm" src={cloudinaryUrl(props.userImage)} alt="user" />
           <textarea className="materialize-textarea" placeholder="Type Your Comment Here..."  name="comment" ref={textInput}></textarea>
           <button className="btn" style={{alignSelf: "center"}} onClick={()=>fetch("poop")}><i className="material-icons">add</i></button>
         </Grid>
@@ -96,7 +90,6 @@ const A = styled.a``;
           <Comments  key={index} id={data.user._id} name={data.user.firstName + " " + data.user.lastName} imageUrl={cloudinaryUrl(data.user.imageUrl)} createdAt={data.createdAt} comment={data.text} limit={200}/>
         )}
        </Post>
-
     );
   }
 

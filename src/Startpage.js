@@ -31,15 +31,12 @@ class Startpage extends React.Component {
           <img className="sm-logo" src={logo} alt="Logo" style={{margin: 0}}/>
           <img  className="img pad" src={img1} alt="pic"/>
         </Header>
-
         <div>
           <h3 className="blue-txt center stack">Connecting to Your Dreams!</h3>
           <h5 className="blue-txt center stack">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusm</h5>
         </div>
         <div className="center" >
         <Post className="stack">
-          {//<button className="btn bordered long" onClick={this.props.login}>Login</button>
-          }
         <Link className="" to="/login">  <button className="btn bordered long">Log In</button></Link>
         <Link className="" to="/signup">  <button className="btn bordered long">Sign Up</button></Link>
         </Post>

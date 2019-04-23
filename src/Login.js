@@ -78,7 +78,7 @@ fetch = () =>{
                 <div >
                   <button  className="bordered" style={{width: "100%"}} onClick={()=>this.fetch()}>Submit</button>
                 </div>
-                <a href="/signup" className="dnthave"  >Don’t have an account? Sign up</a>
+                <Link to="/signup" className="dnthave" >Don’t have an account? Sign up</Link>
             </div>
             </div>
           </Grid>

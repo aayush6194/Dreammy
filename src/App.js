@@ -24,12 +24,9 @@ class App extends React.Component {
       error: false
     };
     this.actions = {
-      checkToken: this.changeToken,
-      onChange: this.onChange,
-      setPosts: this.setPosts,
-     contentNotLoaded : this.contentNotLoaded,
-     refreshPosts : this.refreshPosts,
-     submitPost : this.submitPost,
+      checkToken: this.changeToken, onChange: this.onChange,
+      setPosts: this.setPosts, contentNotLoaded : this.contentNotLoaded,
+     refreshPosts : this.refreshPosts,submitPost : this.submitPost,
      addComments : this.addComments
     }
   }
@@ -40,8 +37,9 @@ class App extends React.Component {
   checkToken = () =>{
     api.checkToken()
       .then(res => {
-        if(res.success)
-          this.setState({loggedin: true, tokenChecked: true, user: getLocalStorage("user")});
+        if(res.success){
+          this.setState({loggedin: true, tokenChecked: true, user: res.user});
+        }
         else
           this.setState({ tokenChecked: true});
         })
@@ -63,10 +61,11 @@ class App extends React.Component {
   contentNotLoaded = () => { this.setState({contentLoaded: false})}
   setPosts= e => { this.setState({...this.state, data: {...this.state.data, post: e}});}
   submitPost = () => {
-    this.setState({submitting: true, fields: {}})
+    this.setState({submitting: true})
     api.addPost(this.state.fields)
       .then(res => {
         if (res.success) {
+          this.setState({fields: {}});
           this.refreshPosts("all");
         }
       }).catch(err=>{alert("Could not submit your post!")});
@@ -86,8 +85,7 @@ class App extends React.Component {
         this.setPosts(res.data);
         this.setState({contentLoaded: true});
       }
-    });
-  }
+    });}
 
  setImageUrl= (imageUrl)=> {
    this.setState({user: { ...this.state.user, imageUrl: imageUrl  }})

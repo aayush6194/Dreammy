@@ -1,25 +1,20 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const ProfileImg = styled.img`
- border-radius: 50%;
- display: block;
- border: 2px solid #006666;
- margin: 0 auto;
- padding: 0.5em;
- width: 10em;`;
-
 const CommentBox = styled.div``;
 const Comment = styled.div`
   display: grid;
   border-top: 1px solid #2B547E;
   grid-template-columns: auto 1fr;`;
 
- const SmImg = styled(ProfileImg)`
+ const SmImg = styled.img`
+  border-radius: 50%;
+  border: 2px solid #006666;
   width: 4em;
   height: 4em;
   display: inline-block;
   padding: 0;
+  object-fit: cover;
   margin: 0.5em;
   grid-row: 1 / span 2;`;
 

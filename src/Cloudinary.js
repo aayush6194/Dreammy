@@ -1,21 +1,17 @@
 import React from 'react';
 import {Image, Video, Transformation, CloudinaryContext} from 'cloudinary-react'
 import Loader from  './components/Loader';
-const CLOUD_NAME = "dqklw4e9q",
-  PRESET = "ncuacbjd";
+const CLOUD_NAME = "dqklw4e9q", PRESET = "ncuacbjd";
 
 function uploadFile(file) {
-
   var url = `https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`;
   var xhr = new XMLHttpRequest();
   var fd = new FormData();
   xhr.open('POST', url, true);
   xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
-
   fd.append('upload_preset', PRESET);
   fd.append('file', file);
   xhr.send(fd);
-
   return new Promise((resolve, reject) => {
     xhr.onreadystatechange = function(e) {
       if (xhr.readyState == 4) {
@@ -23,7 +19,6 @@ function uploadFile(file) {
           return reject();
         }
         else {
-          // File uploaded successfully
           var response = JSON.parse(xhr.responseText);
           resolve(response);
         }
@@ -33,7 +28,6 @@ function uploadFile(file) {
 }
 
 export default class Cloudinary extends React.Component{
-
   constructor(props) {
     super(props);
     this.inputRef = React.createRef();
@@ -68,7 +62,6 @@ export default class Cloudinary extends React.Component{
         {this.state.uploading? <Loader text={"Loading"}/> : null}
         {this.state.finished? <div><i className="material-icons blue-txt bold">done</i></div> : null}
       </div>
-
     )
   }
 }
