@@ -88,7 +88,7 @@ class Dashboard extends React.Component {
            <MdImg className="md" src={cloudinaryUrl(user.imageUrl)} alt="user" />
           <div style={{gridRow: "1 / span 2", alignSelf: "end"}}>
             <label htmlFor="textarea2">Share Your Dreams</label>
-            <textarea id="textarea2" ref={this.textBox} defaultValue="" name="caption" className="materialize-textarea" data-length="1000" onChange={this.props.onChange}></textarea>
+            <textarea style={{marginLeft: "0.5em"}} id="textarea2" ref={this.textBox} defaultValue="" name="caption" className="materialize-textarea" data-length="1000" onChange={this.props.onChange}></textarea>
           </div>
             <div style={{height: "2em"}}>
               {submitting? <Loader text={"Uploading"}/> : <Cloudinary onResult={this.onCloudinaryResult.bind(this)} ref={this.cloudinaryRef}/>}
