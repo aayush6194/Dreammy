@@ -20,7 +20,7 @@ export const ProfileHeader = ({firstName, lastName, location, work, imageUrl, fa
     <div className="bold blue-txt txt-mdd capitalize">{firstName + " "+ lastName}</div>
     {location? <div className="gray">Lives in <span className="blue-txt bold">{location}</span></div>:
            <Link to="/setting" className="bold pointer gray">Add location<i className="material-icons txt-sm">add</i></Link>}
-    {work? <div className="gray">Works At <span className="blue-txt bold">{work}</span></div>:
+    {work? <div className="gray">Work <span className="blue-txt bold">{work}</span></div>:
            <Link to="/setting" className="bold pointer gray">Add Work <i className="material-icons txt-sm">add</i></Link>}
     {me?
       <div>
