@@ -92,6 +92,7 @@ class Dashboard extends React.Component {
             <TextField defaultValue="" multiline  style={{width:"100%"}}
                onChange={this.props.onChange}
                name="caption"
+               inputRef={this.textBox}
                margin="normal" />
           </div>
             <div style={{height: "2em"}}>
@@ -102,7 +103,7 @@ class Dashboard extends React.Component {
             <div><SelectInput arr={this.category} action={onChange}/></div>
             <div className="pointer end" style={{height: "2.7em"}} onClick={this.onAttachmentClick2} ><span className="hide-on-sm">Audio </span><i  className="material-icons blue-txt">audiotrack</i> &nbsp; </div>
             <div className="pointer end" style={{height: "2.7em"}} onClick={this.onAttachmentClick} ><span className="hide-on-sm">Photo </span><i  className="material-icons blue-txt">image</i> &nbsp; </div>
-            <button className="bordered" onClick={e =>{ this.textBox.current.value = ""; this.props.submitPost(); }}>Post</button>
+            <button className="bordered" onClick={e =>{ console.log(this.textBox.current.value); this.props.submitPost(); }}>Post</button>
           </Grid3>
           </Grid>
         <div className="main full" >
