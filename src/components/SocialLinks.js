@@ -1,7 +1,7 @@
 import React from 'react';
 
 const facebookUrl = "https://www.facebook.com/";
-const instagramUrl = "https://www.facebook.com/";
+const instagramUrl = "https://www.instagram.com/";
 const twitterUrl = "https://www.twitter.com/";
 
 
