@@ -11,7 +11,7 @@ import Loader2 from  './components/Loader2';
 import Loader from  './components/Loader';
 import Modal from  './components/Modal';
 import SelectInput from './components/SelectInput';
-
+import TextField from '@material-ui/core/TextField';
 const Post = styled.div`
   border-top: 1px solid #2B547E;
   margin: 0.7em;
@@ -88,7 +88,11 @@ class Dashboard extends React.Component {
            <MdImg className="md" src={cloudinaryUrl(user.imageUrl)} alt="user" />
           <div style={{gridRow: "1 / span 2", alignSelf: "end"}}>
             <label htmlFor="textarea2">Share Your Dreams</label>
-            <textarea style={{marginLeft: "0.5em"}} id="textarea2" ref={this.textBox} defaultValue="" name="caption" className="materialize-textarea" data-length="1000" onChange={this.props.onChange}></textarea>
+
+            <TextField defaultValue="" multiline  style={{width:"100%"}}
+               onChange={this.props.onChange}
+               name="caption"
+               margin="normal" />
           </div>
             <div style={{height: "2em"}}>
               {submitting? <Loader text={"Uploading"}/> : <Cloudinary onResult={this.onCloudinaryResult.bind(this)} ref={this.cloudinaryRef}/>}
