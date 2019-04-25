@@ -29,14 +29,16 @@ export const ProfileHeader = ({firstName, lastName, location, work, imageUrl, fa
       <div>
       <button className="hover bordered">Add</button>
         <button className="bordered hover">Message</button>
-      </div>: <div><Link to="/setting"><button className="bordered hover" >Change Details</button></Link></div>}
+      </div>: <div>
+                <Link style={{marginRight: "0.1em"}} to="/category"><button className="bordered hover" >Saved Posts</button></Link>
+                <Link to="/setting"><button className="bordered hover" >Change Details</button></Link>
+              </div>}
       <Stats numPosts={numPosts}/>
       <SocialLinks facebook={facebook} instagram={instagram} twitter = {twitter} />
    <div className="blue-txt">
     </div>
-      <div className="grid-2">
-         <Link to="/category" className="bold pointer start blue-txt">Saved Posts</Link>
-        <a className="end gray pointer bold">More Info</a>
+      <div className="">
+        <a  style={{padding: "0.5em", float: "right"}}  className="end gray txt-md pointer bold">More Info</a>
       </div>
     </div>
 );

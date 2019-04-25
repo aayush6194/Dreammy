@@ -184,7 +184,7 @@ a{
 
 .hover:hover{
   background: #00897b ;
-  color: white;
+  color: white !important;
 }
 .hoverr:hover{
   background:#00897b ;
