@@ -61,13 +61,14 @@ class Profile extends React.Component {
     const {firstName, lastName, work, location, facebook, instagram, twitter} = this.state.data;
     return (
       <div className="containerr">
-        <ProfileHeader {...this.state.data} numPosts={this.props.data.post.length}/>
+        <ProfileHeader {...this.state.data} me={this.state.me} numPosts={this.props.data.post.length}/>
 
         <div className="main">
          <div className="txt-lg blue-txt bold center">2019</div>
          {!contentLoaded? <div><Loader2 /><div style={{height: "80em"}}></div></div> : null}
          {contentLoaded && data.post.length == 0?
-        <Post className="pad"><h4 className="center bold blue-txt">No Post to Show!</h4></Post> : data.post.map((data, i) =><Posts key={i} userImage={this.props.user.imageUrl} addComments={this.props.addComments} post={data}/>)}
+        <Post className="pad"><h4 className="center bold blue-txt">No Post to Show!</h4></Post> :
+        data.post.map((data, i) =><Posts key={i} userImage={this.props.user.imageUrl} addComments={this.props.addComments} post={data}/>)}
         <div style={{ height: "9em"}}></div>
         </div>
         </div>

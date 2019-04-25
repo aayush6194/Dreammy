@@ -16,13 +16,16 @@ const ProfileImg = styled.img`;
 
 export const ProfileHeader = ({firstName, lastName, location, work, imageUrl, facebook, instagram, twitter, me, numPosts})=>(
   <div className="profile-box border">
+  {console.log(me)}
     <ProfileImg src={cloudinaryUrl(imageUrl)} alt="user" />
     <div className="bold blue-txt txt-mdd capitalize">{firstName + " "+ lastName}</div>
     {location? <div className="gray">Lives in <span className="blue-txt bold">{location}</span></div>:
            <Link to="/setting" className="bold pointer gray">Add location<i className="material-icons txt-sm">add</i></Link>}
     {work? <div className="gray">Work <span className="blue-txt bold">{work}</span></div>:
            <Link to="/setting" className="bold pointer gray">Add Work <i className="material-icons txt-sm">add</i></Link>}
-    {me?
+
+
+    {!me?
       <div>
       <button className="hover bordered">Add</button>
         <button className="bordered hover">Message</button>
@@ -32,8 +35,8 @@ export const ProfileHeader = ({firstName, lastName, location, work, imageUrl, fa
    <div className="blue-txt">
     </div>
       <div className="grid-2">
-        <a className="start blue-txt pointer bold">Saved Posts</a>
-        <a className="end blue-txt pointer bold">More Info</a>
+         <Link to="/category" className="bold pointer start blue-txt">Saved Posts</Link>
+        <a className="end gray pointer bold">More Info</a>
       </div>
     </div>
 );

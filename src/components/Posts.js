@@ -44,7 +44,6 @@ const Badge = styled.div`
   border-radius: 7px;
   font-weight: bold`;
 
-const A = styled.a``;
   const Posts =(props)=>{
     const post = props.post;
     const {firstName, lastName, imageUrl, _id} = post.userId;
@@ -52,15 +51,24 @@ const A = styled.a``;
     const textInput = React.createRef()
     const date = new Date(post.createdAt).toDateString();
     const limit = 300;
-    const fetch = (e)=>{
+    const fetch = ()=>{
                   const obj = {text: textInput.current.value, _id: post._id, createdAt: new Date(), user:  getLocalStorage("user")};
                   api.comment({text: textInput.current.value, _id: post._id, token:  getLocalStorage("user")._id})
                   .then(res => {if(res.success){textInput.current.value = ""; props.addComments(post._id, obj )}})
                   .catch(err => {alert(err)})
+                }
+   const savePost = ()=>{
+                api.savePost({_id: post._id})
+                .then(res => {
+                    if(res.success){
+                    alert("Saved Successfully!");
+                  }else{
+                    alert(res.message);
+                }}).catch(err=>{alert(err)})
    }
+
     return(
     <Post>
-
         <div style={{background: "linear-gradient(45deg, #E0E0E0, #BFC9CA)", paddingTop: "0.5em"}}>
         {post.category && post.category.length > 3? <Badge style={{float: "right"}}>{post.category}</Badge>: null}
          <User>
@@ -69,22 +77,22 @@ const A = styled.a``;
                 <div className="" style={{alignSelf: "top", color: "gray"}}>{date}</div>
 
           </User>
-          {post.caption.length > 0? <div style={{padding: "0 0.7em 0.5em 0.7em", whiteSpace: "pre-wrap"}}>{post.caption.substring(0, limit)}</div> : null}
+          {post.caption.length > 0? <div style={{padding: "0 0.7em 0.5em 0.7em", maxHeight: "20em",  overflow: "hidden",textOverflow: "ellipsis" ,whiteSpace: "pre-wrap"}}>{post.caption.substring(0, limit)}</div> : null}
           {post.caption.length> limit?
-             <span style={{justifySelf: "end", cursor: "pointer"}} className="blue-txt bold"> See More&nbsp;<i className="material-icons br-50">expand_more</i>&nbsp; </span> : null}
+             <span style={{justifySelf: "end", cursor: "pointer"}} onClick={()=>{limit = 1000}} className="blue-txt bold"> See More&nbsp;<i className="material-icons br-50">expand_more</i>&nbsp; </span> : null}
 
           {isImage && post.imageUrl && post.imageUrl.length > 0?  <img  src={cloudinaryUrl(post.imageUrl[0])} alt="user" /> : null}
           {!isImage? <a href={cloudinaryUrl(post.imageUrl[0])}>{post.imageUrl[0]}</a>: null}
           {post.videoUrl && post.videoUrl.length > 0? <Audio url={cloudinaryVideoUrl(post.videoUrl[0])} /> : null}
         </div>
         <div className="blue-bg ">
-              <button className="btn hoverr blue-bg half" style={{background: "#006666"}}><i className="material-icons">thumb_up</i></button>
-              <button className="btn hover blue-bg half" style={{background: "#006666"}}><i className="material-icons">comment</i></button>
+              <button className="btn hoverr blue-bg half"><i className="material-icons">thumb_up</i></button>
+              <button className="btn hover blue-bg half" onClick={()=>savePost()} ><i className="material-icons">save</i></button>
         </div>
         <Grid>
           <SmImg className="sm" src={cloudinaryUrl(props.userImage)} alt="user" />
           <textarea className="materialize-textarea" placeholder="Type Your Comment Here..."  name="comment" ref={textInput}></textarea>
-          <button className="btn" style={{alignSelf: "center"}} onClick={()=>fetch("poop")}><i className="material-icons">add</i></button>
+          <button className="btn" style={{alignSelf: "center"}} onClick={()=>fetch()}><i className="material-icons">add</i></button>
         </Grid>
         {post.comments.map((data, index) =>
           <Comments  key={index} id={data.user._id} name={data.user.firstName + " " + data.user.lastName} imageUrl={cloudinaryUrl(data.user.imageUrl)} createdAt={data.createdAt} comment={data.text} limit={200}/>

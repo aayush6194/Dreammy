@@ -4,6 +4,7 @@ import Profile from './Profile.js';
 import Setting from './Setting.js';
 import Startpage from './Startpage.js';
 import Signup from './Signup.js';
+import Category from './Category';
 import Login from './Login.js';
 import FixedNav from './components/FixedNav.js';
 import Posts from  './components/Posts';
@@ -82,6 +83,7 @@ class App extends React.Component {
     return api.getPosts(s)
     .then(res => {
       if (res.success) {
+        console.log(res)
         this.setPosts(res.data);
         this.setState({contentLoaded: true});
       }
@@ -100,6 +102,7 @@ class App extends React.Component {
       return (<Router>
                  <FixedNav className="blue-bg"/>
                  <Switch>
+                   <Route path="/category" render={()=> <Category {...this.state} {...this.actions} />   }/>
                   <Route path="/profile" render={()=> <Profile {...this.state} {...this.actions}  />}  />
                   <Route path="/setting" render={()=> <Setting {...this.state} changeSucess={this.changeSucess} logout={this.logout}   />} />
                   <Route path="/" render={()=> <Dashboard {...this.state} {...this.actions} />   }/>

@@ -12,7 +12,9 @@ const API = {
   setFields: URL + "/change",
   comment: URL + "/comment",
   change: URL + "/change",
-  getDetails: URL + "/details"
+  getDetails: URL + "/details",
+  getSavedPosts: URL + "/saved-posts",
+  savePost: URL + "/save-post"
 }
 
 function header() {
@@ -67,7 +69,7 @@ export default {
   },
 
   login: function({email, password}) {
-    return post(API.login, { email, password });
+    return post(API.login, {email, password });
   },
 
   signup: function({email, password, firstName, lastName, imageUrl}) {
@@ -83,6 +85,8 @@ export default {
       return authGet(API.getAllPosts);
    else if(s === "me")
       return authGet(API.getPosts);
+   else if(s === "saved")
+    return authGet(API.getSavedPosts);
   return authPost(API.getPostsUser, {_id: s});
   },
   setFields: function({imageUrl}) {
@@ -96,5 +100,11 @@ export default {
   },
   getDetails: (body)=>{
     return authPost(API.getDetails, body);
+  },
+  savePost: (body)=>{
+    return authPut(API.savePost, body);
+  },
+  getSavedPosts: ()=>{
+    return authGet(API.getSavedPosts);
   }
 };

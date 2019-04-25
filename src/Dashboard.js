@@ -21,7 +21,7 @@ const Post = styled.div`
 
 const Grid = styled(Post)`
   display: grid;
-  grid-template-columns: 7em 1fr;
+  grid-template-columns: 8em 1fr;
   width: 100%;
   border-color: #006666;
   padding: 0.5em;`;
@@ -35,7 +35,7 @@ const Grid = styled(Post)`
   object-fit: cover;
   display: inline-block;
   padding: 0;
-  margin: 0.5em;
+  margin-right: 1em;
   grid-row: 1 / span 3;`;
 
  const Grid3 = styled.div`
@@ -50,7 +50,7 @@ class Dashboard extends React.Component {
     this.cloudinaryRef = React.createRef();
     this.cloudinaryRef2 = React.createRef();
     this.textBox = React.createRef();
-    this.category = ["Nature", "Meditation", "Outdoors", "Help Me out"]
+    this.category = ["Dreams","Nature", "Thoughts","Meditation", "Outdoors", "Help Me out"]
   }
 
   componentWillMount(){
