@@ -32,13 +32,21 @@ class Category extends React.Component {
   }
 
   componentDidMount(){
-        this.props.refreshPosts("me")
+        this.props.refreshPosts("saved")
+    // api.getPosts("saved").
+    // then(res=>{
+    //   console.log(res);
+    //   this.setState({post: [...post,res.posts]})}).
+    //   catch(err=>{alert("Saver Error!")});
+    // //
+
   }
 
   render() {
     const {contentLoaded, data, user} = this.props;
     return (
        <div className="containerr">
+
         <div className="profile-box full">
         <div className="main full" >
             <Post style={{display: "grid", gridTemplateColumns: "1fr 45px"}}>
@@ -50,12 +58,9 @@ class Category extends React.Component {
             {contentLoaded && data.post.length == 0?
            <Post className="pad"><h4 className="center bold blue-txt">No Post to Show!</h4></Post> :
            data.post.map((data, i) =>{
-           if(data.category == this.state.category){
+           if(data.category == this.state.category || this.state.category == ""){
            return(
            <Posts key={i} userImage={this.props.user.imageUrl} addComments={this.props.addComments} post={data}/>)
-         }else if(data.category && (data.category.length >  2 &&  this.state.category.length < 2)){
-           return(
-            <Posts key={i} userImage={this.props.user.imageUrl} addComments={this.props.addComments} post={data}/>)
          }else{
            return null;
          }

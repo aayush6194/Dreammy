@@ -15,17 +15,26 @@ background-color: rgba(0,0,0,0.4);
 const Modall = styled.div`
 background-color: #fefefe;
 margin: 10% auto;
-padding: 2em;
 border: 1px solid #888;
 width: 80%;
+padding: 0;
+max-width: 800px;
 color: black;`;
 
 const Btn = styled.button`
-border-radius: 50%;
 color: white;
 background: #006666;
 border: 0;
 width: 3em;
+height: 3em;
+margin: 0;
+`;
+
+const Header = styled.div`
+color: white;
+background: #006666;
+border: 0;
+margin: 0;
 height: 3em;
 `;
 
@@ -34,11 +43,16 @@ const Modal = props =>{
 if(props.show){
     return (<Wrapper>
               <Modall>
-                <Btn style={{float: "right"}} onClick={props.close} className="bt right-corner"> &nbsp;X&nbsp; </Btn>
-                <input type="text" className="pad" />
-                <div className="row">
-                 <div className="col s1 offset-s11">
-                 <button style={{float: "right"}} className="bordered">Submit</button>
+              <Header>
+                <Btn style={{float: "right"}} onClick={props.close} className="bt right-corner"  onClick={props.onClose}> &nbsp;X&nbsp; </Btn>
+              </Header>
+                <div >
+                <div style={{height: "5em", padding: "2em"}} className="blue-txt center bold txt-md">
+                {props.text}
+                </div>
+                 <div>
+                  <button  className="btn hoverr blue-bg half" onClick={props.onConfirm}>{props.buttonText}</button>
+                   <button className="btn hoverr blue-bg half" onClick={props.onClose}>Cancel</button>
                 </div>
               </div>
               </Modall>

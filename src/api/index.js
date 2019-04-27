@@ -14,7 +14,8 @@ const API = {
   change: URL + "/change",
   getDetails: URL + "/details",
   getSavedPosts: URL + "/saved-posts",
-  savePost: URL + "/save-post"
+  savePost: URL + "/save-post",
+  deletePost: URL + "/delete-post"
 }
 
 function header() {
@@ -106,5 +107,8 @@ export default {
   },
   getSavedPosts: ()=>{
     return authGet(API.getSavedPosts);
+  },
+  deletePost: (body)=>{
+      return authPut(API.deletePost, body);
   }
 };

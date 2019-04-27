@@ -6,7 +6,7 @@ import { cloudinaryUrl, cloudinaryVideoUrl } from '../utils/utils';
 import '../App.css';
 import api from '../api';
 import { getLocalStorage}  from '../utils/utils';
-
+import Modal from  './Modal';
 const Post = styled.div`
   border-top: 1px solid #2B547E;
   margin: 2em 0.7em;
@@ -44,13 +44,33 @@ const Badge = styled.div`
   border-radius: 7px;
   font-weight: bold`;
 
-  const Posts =(props)=>{
+  class Posts extends React.Component {
+    constructor(props) {
+      super(props);
+      this.state= {
+        limit: 200,
+        showMore: true,
+        commentLimit: 3,
+        showMoreComments: true,
+        modal: false
+      }
+  }
+
+  render(){
+    const props = this.props;
     const post = props.post;
+    const modalText = "Do you want to Delete your Post?";
+    const {comments} = post;
+
+    const allComments =   comments.map((data, index) =>
+    <Comments  key={index} id={data.user._id} name={data.user.firstName + " " + data.user.lastName} imageUrl={cloudinaryUrl(data.user.imageUrl)} createdAt={data.createdAt} comment={data.text} limit={200}/>)
+    const limitedComments =   comments.slice(0,3).map((data, index) =>
+    <Comments  key={index} id={data.user._id} name={data.user.firstName + " " + data.user.lastName} imageUrl={cloudinaryUrl(data.user.imageUrl)} createdAt={data.createdAt} comment={data.text} limit={200}/>)
     const {firstName, lastName, imageUrl, _id} = post.userId;
+    const mine = props.user === _id;
     const isImage = (/\.(gif|jpg|jfif|bmp|jpeg|tiff|png|svg)$/i).test(post.imageUrl[0]);
     const textInput = React.createRef()
     const date = new Date(post.createdAt).toDateString();
-    const limit = 300;
     const fetch = ()=>{
                   const obj = {text: textInput.current.value, _id: post._id, createdAt: new Date(), user:  getLocalStorage("user")};
                   api.comment({text: textInput.current.value, _id: post._id, token:  getLocalStorage("user")._id})
@@ -61,44 +81,78 @@ const Badge = styled.div`
                 api.savePost({_id: post._id})
                 .then(res => {
                     if(res.success){
-                    alert("Saved Successfully!");
+                  //  alert("Post Liked!");
                   }else{
                     alert(res.message);
-                }}).catch(err=>{alert(err)})
+                }}).catch(err=>{alert(err)});
+   }
+
+   const deletePost = ()=>{
+                api.deletePost({_id: post._id})
+                .then(res => {
+                    if(res.success){
+                    alert("Post deleted!");
+                  }else{
+                    alert(res.message);
+                }}).catch(err=>{alert(err)});
+
+                this.setState({modal: false});
    }
 
     return(
     <Post>
         <div style={{background: "linear-gradient(45deg, #E0E0E0, #BFC9CA)", paddingTop: "0.5em"}}>
+          <Modal show={this.state.modal}
+          text={modalText} buttonText={"Confirm"}
+          onConfirm={()=>{deletePost()}}
+          onClose={()=>{this.setState({modal:false})}}/>
+
         {post.category && post.category.length > 3? <Badge style={{float: "right"}}>{post.category}</Badge>: null}
          <User>
                 <SmImg className="sm" src={cloudinaryUrl(imageUrl)} alt="user" />
                 <div className="blue-txt bold txt-md capitalize align-end" style={{paddingTop: "0.5em"}}><a href={"/profile?user="+_id}> {firstName + " " + lastName}</a> </div>
                 <div className="" style={{alignSelf: "top", color: "gray"}}>{date}</div>
-
           </User>
-          {post.caption.length > 0? <div style={{padding: "0 0.7em 0.5em 0.7em", maxHeight: "20em",  overflow: "hidden",textOverflow: "ellipsis" ,whiteSpace: "pre-wrap"}}>{post.caption.substring(0, limit)}</div> : null}
-          {post.caption.length> limit?
-             <span style={{justifySelf: "end", cursor: "pointer"}} onClick={()=>{limit = 1000}} className="blue-txt bold"> See More&nbsp;<i className="material-icons br-50">expand_more</i>&nbsp; </span> : null}
+          {post.caption.length > 0? <div style={{padding: "0 0.7em 0.5em 0.7em", maxHeight: "20em",  overflow: "hidden",textOverflow: "ellipsis" ,whiteSpace: "pre-wrap"}}>{post.caption.substring(0, this.state.limit)}</div> : null}
+          {post.caption.length > this.state.limit && this.state.showMore?
+             <span style={{display:"block", textAlign:"center"}} onClick={()=>{this.setState({limit : 1000, showMore: false})}} className="blue-txt bold pointer"> See More&nbsp;<i className="material-icons br-50">expand_more</i>&nbsp; </span> : null}
+          {!this.state.showMore?
+             <span style={{display:"block", textAlign:"center"}} onClick={()=>{this.setState({limit : 200, showMore: true})}} className="blue-txt bold pointer"> See Less&nbsp;<i className="material-icons br-50">expand_less</i>&nbsp; </span> : null}
 
           {isImage && post.imageUrl && post.imageUrl.length > 0?  <img  src={cloudinaryUrl(post.imageUrl[0])} alt="user" /> : null}
           {!isImage? <a href={cloudinaryUrl(post.imageUrl[0])}>{post.imageUrl[0]}</a>: null}
           {post.videoUrl && post.videoUrl.length > 0? <Audio url={cloudinaryVideoUrl(post.videoUrl[0])} /> : null}
         </div>
         <div className="blue-bg ">
-              <button className="btn hoverr blue-bg half"><i className="material-icons">thumb_up</i></button>
-              <button className="btn hover blue-bg half" onClick={()=>savePost()} ><i className="material-icons">save</i></button>
+              <button className="btn hoverr blue-bg half" onClick={()=>savePost()}><i className="material-icons">thumb_up</i></button>
+              {mine?
+                <button className="btn hover blue-bg half" onClick={()=>{this.setState({modal: true})}}>
+                <i className="material-icons">delete</i>
+                </button>:
+                <button className="btn hover blue-bg half" >
+                  <i className="material-icons">report</i>
+                </button>}
         </div>
+
         <Grid>
           <SmImg className="sm" src={cloudinaryUrl(props.userImage)} alt="user" />
           <textarea className="materialize-textarea" placeholder="Type Your Comment Here..."  name="comment" ref={textInput}></textarea>
           <button className="btn" style={{alignSelf: "center"}} onClick={()=>fetch()}><i className="material-icons">add</i></button>
         </Grid>
-        {post.comments.map((data, index) =>
-          <Comments  key={index} id={data.user._id} name={data.user.firstName + " " + data.user.lastName} imageUrl={cloudinaryUrl(data.user.imageUrl)} createdAt={data.createdAt} comment={data.text} limit={200}/>
-        )}
+        {this.state.showMoreComments?
+        limitedComments:  allComments
+        }
+        {comments.length > this.state.commentLimit && this.state.showMoreComments?
+           <span style={{display:"block", textAlign:"center"}}
+           onClick={()=>{this.setState({showMoreComments: false})}} className="blue-txt bold pointer"> See More&nbsp;<i className="material-icons br-50">expand_more</i>&nbsp; </span> : null}
+        {!this.state.showMoreComments?
+           <span style={{display:"block", textAlign:"center"}}
+           onClick={()=>{this.setState({showMoreComments: true})}} className="blue-txt bold pointer "> See Less&nbsp;<i className="material-icons br-50">expand_less</i>&nbsp; </span> : null}
+
+
+
        </Post>
     );
   }
-
+}
   export default Posts;

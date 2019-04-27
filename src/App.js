@@ -24,6 +24,7 @@ class App extends React.Component {
       modal:{imageUrl:"", text: "", show: false},
       error: false
     };
+
     this.actions = {
       checkToken: this.changeToken, onChange: this.onChange,
       setPosts: this.setPosts, contentNotLoaded : this.contentNotLoaded,
@@ -53,13 +54,13 @@ class App extends React.Component {
   onChange = e => {
     const{target: {value, name}} = e;
     this.setState({
-  ...this.state,fields:{...this.state.fields, [name]: value}
+      ...this.state,fields:{...this.state.fields, [name]: value}
   });}
 
   clear = () => {this.setState({...this.state, fields:{}})};
 
   triggerModal = (content,action) => { this.setState({...this.state, modal: {show: true}})}
-  contentNotLoaded = () => { this.setState({contentLoaded: false})}
+  contentNotLoaded = () => {this.setState({contentLoaded: false})}
   setPosts= e => { this.setState({...this.state, data: {...this.state.data, post: e}});}
   submitPost = () => {
     this.setState({submitting: true})
@@ -80,6 +81,7 @@ class App extends React.Component {
    this.setState({...this.state, data: {...this.state.data, post: [...this.state.data.post, post]}})
 }
   refreshPosts = s => {
+  
     return api.getPosts(s)
     .then(res => {
       if (res.success) {
