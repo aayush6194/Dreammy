@@ -48,7 +48,6 @@ class Category extends React.Component {
                 <SelectInput arr={this.category}     action={(e)=>{this.setState({category: e.target.value})}} inputRef={this.textBox}/>
                <i className="material-icons txt-lg blue-txt bold v-center pointer center" onClick={()=>alert(this.textBox.current.value)}>search</i>
             </Post>
-
             {!contentLoaded? <div><Loader2 /><div style={{height: "80em"}}></div></div> : null}
             {contentLoaded && data.post.length == 0?
            <Post className="pad"><h4 className="center bold blue-txt">No Post to Show!</h4></Post> :

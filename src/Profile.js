@@ -62,7 +62,6 @@ class Profile extends React.Component {
     return (
       <div className="containerr">
         <ProfileHeader {...this.state.data} me={this.state.me} numPosts={this.props.data.post.length}/>
-
         <div className="main">
          <div className="txt-lg blue-txt bold center">2019</div>
          {!contentLoaded? <div><Loader2 /><div style={{height: "80em"}}></div></div> : null}

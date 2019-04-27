@@ -113,9 +113,9 @@ const Badge = styled.div`
                 <div className="blue-txt bold txt-md capitalize align-end" style={{paddingTop: "0.5em"}}><a href={"/profile?user="+_id}> {firstName + " " + lastName}</a> </div>
                 <div className="" style={{alignSelf: "top", color: "gray"}}>{date}</div>
           </User>
-          {post.caption.length > 0? <div style={{padding: "0 0.7em 0.5em 0.7em", maxHeight: "20em",  overflow: "hidden",textOverflow: "ellipsis" ,whiteSpace: "pre-wrap"}}>{post.caption.substring(0, this.state.limit)}</div> : null}
+          {post.caption.length > 0? <div style={{padding: "0 0.7em 0.5em 0.7em", maxHeight: "300em",  overflow: "hidden",textOverflow: "ellipsis" ,whiteSpace: "pre-wrap"}}>{post.caption.substring(0, this.state.limit)}</div> : null}
           {post.caption.length > this.state.limit && this.state.showMore?
-             <span style={{display:"block", textAlign:"center"}} onClick={()=>{this.setState({limit : 1000, showMore: false})}} className="blue-txt bold pointer"> See More&nbsp;<i className="material-icons br-50">expand_more</i>&nbsp; </span> : null}
+             <span style={{display:"block", textAlign:"center"}} onClick={()=>{this.setState({limit : 3000, showMore: false})}} className="blue-txt bold pointer"> See More&nbsp;<i className="material-icons br-50">expand_more</i>&nbsp; </span> : null}
           {!this.state.showMore?
              <span style={{display:"block", textAlign:"center"}} onClick={()=>{this.setState({limit : 200, showMore: true})}} className="blue-txt bold pointer"> See Less&nbsp;<i className="material-icons br-50">expand_less</i>&nbsp; </span> : null}
 

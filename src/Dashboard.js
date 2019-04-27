@@ -51,6 +51,9 @@ class Dashboard extends React.Component {
     this.cloudinaryRef2 = React.createRef();
     this.textBox = React.createRef();
     this.category = ["Dreams", "Thoughts","Meditation", "Altered states", "Help Me out"];
+    this.state ={
+      text: ""
+    };
   }
 
   componentWillMount(){
@@ -76,7 +79,8 @@ class Dashboard extends React.Component {
       this.props.onChange({target: { name: "imageUrl", value: [result] }});
     }
 
-  onAttachmentClick = () => {this.cloudinaryRef.current.openImagePicker();
+  onAttachmentClick = () => {
+    this.cloudinaryRef.current.openImagePicker();
   }
 
   render() {
@@ -89,11 +93,11 @@ class Dashboard extends React.Component {
           <div style={{gridRow: "1 / span 2", alignSelf: "end"}}>
             <label htmlFor="textarea2">Share Your Dreams</label>
 
-            <TextField defaultValue="" multiline  style={{width:"100%"}}
-               onChange={this.props.onChange}
+            <TextField  value={this.state.text}multiline  style={{width:"100%"}}
+               onChange={(e)=>{this.setState({text: e.target.value}); this.props.onChange(e)}}
                name="caption"
                inputRef={this.textBox}
-               margin="normal" />
+               margin="normal"  />
           </div>
             <div style={{height: "2em"}}>
               {submitting? <Loader text={"Uploading"}/> : <Cloudinary onResult={this.onCloudinaryResult.bind(this)} ref={this.cloudinaryRef}/>}
@@ -103,7 +107,7 @@ class Dashboard extends React.Component {
             <div><SelectInput arr={this.category} action={onChange}/></div>
             <div className="pointer end" style={{height: "2.7em"}} onClick={this.onAttachmentClick2} ><span className="hide-on-sm">Audio </span><i  className="material-icons blue-txt">audiotrack</i> &nbsp; </div>
             <div className="pointer end" style={{height: "2.7em"}} onClick={this.onAttachmentClick} ><span className="hide-on-sm">Photo </span><i  className="material-icons blue-txt">image</i> &nbsp; </div>
-            <button className="bordered" onClick={e =>{ this.textBox.current.value = ""; this.props.submitPost(); }}>Post</button>
+            <button className="bordered" onClick={e =>{this.setState({text: ""});   this.props.submitPost();}}>Post</button>
           </Grid3>
           </Grid>
         <div className="main full" >
