@@ -15,10 +15,12 @@ const Post = styled.div`
   border-radius: .5em;
   border: 3px solid transparent;`;
 
+  const Btn= styled.button`
+  `;
 class Category extends React.Component {
   constructor(props) {
     super(props);
-    this.category = ["Nature", "Meditation", "Outdoors", "Help Me out"]
+    this.category = ["Dreams", "Thoughts","Meditation", "Altered states", "Help Me out"];
     this.textBox = React.createRef();
     this.state ={
        category: ""
@@ -40,6 +42,7 @@ class Category extends React.Component {
     return (
        <div className="containerr">
         <div className="profile-box full">
+
         <div className="main full" >
             <Post style={{display: "grid", gridTemplateColumns: "1fr 45px"}}>
                 <SelectInput arr={this.category}     action={(e)=>{this.setState({category: e.target.value})}} inputRef={this.textBox}/>

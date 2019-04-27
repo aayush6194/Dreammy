@@ -76,7 +76,7 @@ fetch = () =>{
                   </div>
                  </div>
                 <div >
-                  <button  className="bordered" style={{width: "100%"}} onClick={()=>this.fetch()}>Submit</button>
+                  <button  className="bordered" style={{width: "100%", height: "3.4em"}} onClick={()=>this.fetch()}>Submit</button>
                 </div>
                 <Link to="/signup" className="dnthave" >Don’t have an account? Sign up</Link>
             </div>
