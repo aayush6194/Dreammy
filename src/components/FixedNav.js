@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import '../App.css';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+
 const Fixed = styled.div`
 border-top: 1px solid #2B547E;
 margin: 0.7em;
@@ -25,7 +26,7 @@ const Float = styled.a`
   right: 1.5em;
   background: #006666;
   border-radius: 50%;
-  padding: 1em
+  padding: 1.1em
 `;
 const Btn = styled.div`
 width: 100%;
@@ -39,10 +40,12 @@ text-align: center;
 margin: 0;
 padding: 0;`;
 
+
 const FixedNav = ()=>
              ( <div>
 
-                <Float className="hoverr white-txt pointer " onClick={()=>{alert("Feature Under Construction")}}><i className="material-icons white-txt">add</i></Float>
+                <Float className="hoverr white-txt pointer " onClick={()=>{alert("Feature Under Construction")}}>
+                <i className="material-icons white-txt txt-xl">mic</i></Float>
                 <Fixed className="blue-bg">
                    <Btn className="hoverr pointer grid"> <Link style={{display: "grid", placeItems: "center"}} to="/"><I  className="material-icons white-txt bold txt-xl">home</I></Link></Btn>
                     <Btn className="hover pointer grid"><Link style={{display: "grid", placeItems: "center"}} to="/chat"><I className="material-icons white-txt bold txt-xl disabled">chat_bubble</I></Link></Btn>

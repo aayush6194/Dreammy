@@ -81,7 +81,6 @@ class App extends React.Component {
    this.setState({...this.state, data: {...this.state.data, post: [...this.state.data.post, post]}})
 }
   refreshPosts = s => {
-  
     return api.getPosts(s)
     .then(res => {
       if (res.success) {

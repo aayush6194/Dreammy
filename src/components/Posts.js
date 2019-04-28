@@ -39,7 +39,7 @@ const Badge = styled.div`
   padding: 0.3em;
   display: inline-block;
   margin: 0.4em;
-  max-width: 7em;
+  max-width: 10em;
   text-align: center;
   border-radius: 7px;
   font-weight: bold`;
@@ -91,7 +91,7 @@ const Badge = styled.div`
                 api.deletePost({_id: post._id})
                 .then(res => {
                     if(res.success){
-                    alert("Post deleted!");
+                    this.props.refresh();
                   }else{
                     alert(res.message);
                 }}).catch(err=>{alert(err)});

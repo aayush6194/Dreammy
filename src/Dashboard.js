@@ -83,6 +83,10 @@ class Dashboard extends React.Component {
     this.cloudinaryRef.current.openImagePicker();
   }
 
+  refresh = ()=>{
+    this.props.refreshPosts("all");
+  }
+
   render() {
     const {contentLoaded, data, submitting, user, onChange} = this.props;
     return (
@@ -117,7 +121,7 @@ class Dashboard extends React.Component {
             </Post>
             {!contentLoaded? <div><Loader2 /><div style={{height: "80em"}}></div></div> : null}
             {contentLoaded && data.post.length == 0?
-          <Post className="pad"><h4 className="center bold blue-txt">No Post to Show!</h4></Post> : data.post.map((data, i) =><Posts key={i} addComments={this.props.addComments} user={user._id} userImage={user.imageUrl} post={data}/>)}
+          <Post className="pad"><h4 className="center bold blue-txt">No Post to Show!</h4></Post> : data.post.map((data, i) =><Posts key={i} refresh={this.refresh} addComments={this.props.addComments} user={user._id} userImage={user.imageUrl} post={data}/>)}
         </div>
          <div style={{ height: "9em"}}></div>
         </div>

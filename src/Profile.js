@@ -55,6 +55,9 @@ class Profile extends React.Component {
     });
     return vars;
  }
+ refresh = ()=>{
+   this.props.refreshPosts("me");
+ }
 
   render() {
     const {contentLoaded, data} = this.props;
@@ -67,7 +70,7 @@ class Profile extends React.Component {
          {!contentLoaded? <div><Loader2 /><div style={{height: "80em"}}></div></div> : null}
          {contentLoaded && data.post.length == 0?
         <Post className="pad"><h4 className="center bold blue-txt">No Post to Show!</h4></Post> :
-        data.post.map((data, i) =><Posts key={i} userImage={this.props.user.imageUrl} addComments={this.props.addComments} user={this.props.user._id} post={data}/>)}
+        data.post.map((data, i) =><Posts key={i} userImage={this.props.user.imageUrl} refresh={this.refresh} addComments={this.props.addComments} user={this.props.user._id} post={data}/>)}
         <div style={{ height: "9em"}}></div>
         </div>
         </div>
