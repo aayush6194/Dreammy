@@ -116,8 +116,8 @@ font-family: arial;
 }
 
 .sm-logo{
-  max-height: 9em;
-  max-width: 9em;
+  max-height: 12em;
+  max-width: 12em;
 }
 .img{
   place-self: center;
@@ -168,12 +168,15 @@ font-family: arial;
     font-size: 13px;
   }
   .img{
-    width: 100%;
+    width: 90%;
     height: auto;
   }
   .sm-logo{
-    width: 10em;
-    height: 10em;
+    width: 12em;
+    height: 12em;
+  }
+  h3{
+    font-size: 2.2em;
   }
 
   .grid-start{

@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import './start.css';
-import logo from './images/logo.png';
+import logo from './images/logo1.png';
 import img1 from './images/img.png'
 import img2 from './images/img .png'
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
@@ -24,7 +24,6 @@ grid-column: 1 / span 2;
 grid-template-columns: 1fr 1fr;
 @media(max-width: 800px){
   grid-column: 1 / span 1;
-
 }`;
 
 class Startpage extends React.Component {
@@ -33,7 +32,7 @@ class Startpage extends React.Component {
   }
   render() {
     return (
-      
+
       <div className="wrapper">
       <div className="grid-start">
         <Header>
@@ -44,11 +43,11 @@ class Startpage extends React.Component {
         </Header>
 
         <div style={{alignSelf:"center"}} >
-          <h3  className="blue-txt center stack">"We Live in Condesation of Our Imagination"</h3>
+          <h3  className="blue-txt center stack">"We Live in Condensation of Our Imagination"</h3>
 
           <div className="center" >
           <div style={{margin:"1em"}}>
-          <h5  style={{margin:".3em"}} className="blue-txt center stack">Join Dreammy Now!</h5>
+          <h5  style={{margin:".3em"}} className="blue-txt center stack">Join Dreammy Now! It's Free.</h5>
           <Link className="" to="/signup">  <button className="round">SIGN UP!</button></Link>
           </div>
           </div>
