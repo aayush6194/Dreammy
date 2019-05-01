@@ -99,6 +99,7 @@ onCloudinaryResult(result) {
                           options={countryList().getData()}/>
                 </div>
                 <div  style={{justifySelf: "stretch"}}>
+                 <div className="blue-txt" style={{marginBottom: ".5em"}}>By clicking Sign Up, you agree to our Terms, Data Policy and Cookies Policy.</div>
                   <button style={{ float: "right"}} className="bordered" onClick={()=>this.fetch()}>Submit</button>
                 </div>
             </div>

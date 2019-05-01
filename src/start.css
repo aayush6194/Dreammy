@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css?family=Montserrat');
+@import url('https://fonts.googleapis.com/css?family=Anton|Montserrat');
 body{
   font-size: 16px;
 }
@@ -47,23 +47,27 @@ font-size: 2.5em;
 }
 
 .wrapper{
-   background: linear-gradient(to top ,#B2BABB, #F7F9F9);
    position: absolute;
    max-height: 100vh;
-   min-height: 600px;
+   min-height: 700px;
    width: 100%;
-}
+   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100%25' height='100%25' viewBox='0 0 800 400'%3E%3Cdefs%3E%3CradialGradient id='a' cx='396' cy='281' r='514' gradientUnits='userSpaceOnUse'%3E%3Cstop offset='0' stop-color='%23f7f9f9'/%3E%3Cstop offset='1' stop-color='%23b2babb'/%3E%3C/radialGradient%3E%3ClinearGradient id='b' gradientUnits='userSpaceOnUse' x1='400' y1='148' x2='400' y2='333'%3E%3Cstop offset='0' stop-color='%23b2babb' stop-opacity='0'/%3E%3Cstop offset='1' stop-color='%23b2babb' stop-opacity='0.5'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect fill='url(%23a)' width='800' height='400'/%3E%3Cg fill-opacity='0.4'%3E%3Ccircle fill='url(%23b)' cx='267.5' cy='61' r='300'/%3E%3Ccircle fill='url(%23b)' cx='532.5' cy='61' r='300'/%3E%3Ccircle fill='url(%23b)' cx='400' cy='30' r='300'/%3E%3C/g%3E%3C/svg%3E");
+   background-size: 100% 100%;
+   background-size: cover;
+   background-attachment: scroll;
+ }
+
 
 h3{
   background: -webkit-linear-gradient(-150deg, #4fc3f7, #006666);
 -webkit-background-clip: text;
 -webkit-text-fill-color: transparent;
 font-weight: 900;
-line-height: 0.75;
+line-height: 1;
+font-size: 3em;
 text-transform: uppercase;
 color: #a483c5;
-font-weight: bolder;
-font-family: 'Montserrat';
+font-family: arial;
 }
 
 .stack{
@@ -77,11 +81,23 @@ font-family: 'Montserrat';
 }
 .grid-start{
   display: grid;
+  grid-template-columns: 1fr 1fr;
   grid-template-rows: auto auto 1fr;
   justify-items: center;
   grid-gap: 0px;
   height: 100vh;
-  min-height: 650px;
+  min-height: 700px;
+}
+.round{
+  border-radius: 2em;
+  color: white;
+  border: 2px solid #006666;
+  background: #006666;
+  font-weight: bold;
+  width: 10em;
+  font-size: 1em;
+  padding: 1em;
+  max-width: 87vw;
 }
 
 .long{
@@ -105,8 +121,8 @@ font-family: 'Montserrat';
 }
 .img{
   place-self: center;
-  max-height: 30em;
-  max-width: 30em;
+  max-height: 40em;
+  max-width: 40em;
 }
 
 .top{
@@ -139,6 +155,14 @@ font-family: 'Montserrat';
 }
 
 
+@media(max-width: 1200px){
+
+  .img{
+    width: 25em;
+  }
+
+}
+
 @media(max-width: 800px){
   body{
     font-size: 13px;
@@ -151,6 +175,11 @@ font-family: 'Montserrat';
     width: 10em;
     height: 10em;
   }
+
+  .grid-start{
+      grid-template-columns: 1fr;
+  }
+
 }
 
 @media(max-width: 400px){
@@ -160,4 +189,5 @@ font-family: 'Montserrat';
    h3{
      font-size: 200%;
    }
+
 }
