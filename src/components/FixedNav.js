@@ -46,7 +46,7 @@ padding: 0;`;
 const FixedNav = ()=>
              ( <div>
 
-                <Float className="hoverr white-txt pointer " onClick={()=>{alert("Feature Under Construction")}}>
+                <Float className="hoverr white-txt pointer ">
                 <i className="material-icons white-txt txt-xl">mic</i><AudioRecorder /></Float>
                 <Fixed className="blue-bg">
                    <Btn className="hoverr pointer grid"> <Link style={{display: "grid", placeItems: "center"}} to="/"><I  className="material-icons white-txt bold txt-xl">home</I></Link></Btn>
