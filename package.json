@@ -9,6 +9,7 @@
     "react": "^16.8.4",
     "react-audio-recorder": "^2.2.0",
     "react-dom": "^16.8.4",
+    "react-recorder": "^1.0.0",
     "react-responsive-carousel": "^3.1.49",
     "react-reveal": "^1.2.2",
     "react-router": "^5.0.0",

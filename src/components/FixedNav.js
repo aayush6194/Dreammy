@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import AudioRecorder from 'react-audio-recorder';
 
 
+
 const Fixed = styled.div`
 border-top: 1px solid #2B547E;
 margin: 0.7em;
@@ -43,11 +44,24 @@ margin: 0;
 padding: 0;`;
 
 
+const fun = ()=>{
+  navigator.mediaDevices.getUserMedia()
+.then(function(stream) {
+  /* use the stream */
+})
+.catch(function(err) {
+  /* handle the error */
+  alert(err)
+})
+
+}
 const FixedNav = ()=>
              ( <div>
+            <Float className="hoverr white-txt pointer ">
+                <i className="material-icons white-txt txt-xl">mic</i>
+                <AudioRecorder onChange={(e)=>{alert(e)}}/>
+                </Float>
 
-                <Float className="hoverr white-txt pointer ">
-                <i className="material-icons white-txt txt-xl">mic</i><AudioRecorder /></Float>
                 <Fixed className="blue-bg">
                    <Btn className="hoverr pointer grid"> <Link style={{display: "grid", placeItems: "center"}} to="/"><I  className="material-icons white-txt bold txt-xl">home</I></Link></Btn>
                     <Btn className="hover pointer grid"><Link style={{display: "grid", placeItems: "center"}} to="/chat"><I className="material-icons white-txt bold txt-xl disabled">chat_bubble</I></Link></Btn>

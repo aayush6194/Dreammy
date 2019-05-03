@@ -67,17 +67,17 @@ class Category extends React.Component {
        <div className="containerr">
         <div className="profile-box full">
         <Grid6>
-        <Btn className="hover"><Img src={dream} alt="Dream Icon"/><div className="bold center txt-md"> Dreams</div></Btn>
-        <Btn className="hover"><Img src={yoga} alt="Meditation Icon"/><div className="bold center txt-md">Meditation</div></Btn>
-        <Btn className="hover"><Img src={mortar} alt="Help Me out Icon"/><div className="bold center txt-md">Altered States</div></Btn>
-        <Btn className="hover"><Img src={thinking} alt="Thoughts Icon"/><div className="bold center txt-md">Thoughts</div></Btn>
-        <Btn className="hover"><Img src={charity} alt="Help Me out Icon"/><div className="bold center txt-md">Help Me out</div></Btn>
-        <Btn className="hover" onClick={()=>{this.setState({category:"various"})}}><Img src={ufo} alt="UFO Icon"/><div className="bold center txt-md">Various</div></Btn>
+        <Btn className="hover" onClick={()=>{this.setState({category:"Dreamm"})}}><Img src={dream} alt="Dream Icon"/><div className="bold center txt-md"> Dreams</div></Btn>
+        <Btn className="hover" onClick={()=>{this.setState({category:"Meditation"})}}><Img src={yoga} alt="Meditation Icon"/><div className="bold center txt-md">Meditation</div></Btn>
+        <Btn className="hover" onClick={()=>{this.setState({category:"Altered states"})}}><Img src={mortar} alt="Alter States"/><div className="bold center txt-md">Altered States</div></Btn>
+        <Btn className="hover" onClick={()=>{this.setState({category:"Thoughts"})}}><Img src={thinking} alt="Thoughts Icon"/><div className="bold center txt-md">Thoughts</div></Btn>
+        <Btn className="hover" onClick={()=>{this.setState({category:"Help Me out"})}}><Img src={charity} alt="Help Me out Icon"/><div className="bold center txt-md">Help Me out</div></Btn>
+        <Btn className="hover" onClick={()=>{this.setState({category:"Various"})}}><Img src={ufo} alt="UFO Icon"/><div className="bold center txt-md">Various</div></Btn>
 
         </Grid6>
         <div className="main full" >
             <Post style={{display: "grid", gridTemplateColumns: "1fr 45px"}}>
-                <SelectInput arr={this.category}     action={(e)=>{this.setState({category: e.target.value})}} inputRef={this.textBox}/>
+            <input/>
                <i className="material-icons txt-lg blue-txt bold v-center pointer center" onClick={()=>alert(this.textBox.current.value)}>search</i>
             </Post>
             {!contentLoaded? <div><Loader2 /><div style={{height: "80em"}}></div></div> : null}
