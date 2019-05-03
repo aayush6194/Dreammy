@@ -39,9 +39,19 @@ const Grid = styled(Post)`
   grid-row: 1 / span 3;`;
 
  const Grid3 = styled.div`
-justifySelf: stretch;
+justify-self: stretch;
 display: grid;
 grid-template-columns: 1fr auto auto auto;
+ `;
+
+ const Grid2 = styled.div`
+  display: grid;
+  margin: .5em;
+
+  color: #006666;
+  justify-items: start;
+  grid-column: 1 / span 3;
+  grid-template-columns: 1fr auto auto  auto;
  `;
 
 class Dashboard extends React.Component {
@@ -103,14 +113,22 @@ class Dashboard extends React.Component {
                inputRef={this.textBox}
                margin="normal"  />
           </div>
-            <div style={{height: "2em"}}>
-              {submitting? <Loader text={"Uploading"}/> : <Cloudinary onResult={this.onCloudinaryResult.bind(this)} ref={this.cloudinaryRef}/>}
-              {submitting? <Loader text={"Uploading"}/> :<CloudinaryAudio onResult={this.onCloudinaryResult2.bind(this)} ref={this.cloudinaryRef2}/>}
-            </div>
+
+            <Grid2>
+              <div className="stretch">Share &nbsp; &nbsp; &nbsp;<SelectInput arr={["Private", "Public"]} required={true} name={"visibility"} action={onChange}/></div>
+              <div>
+              <div style={{height: "2.4em"}}>
+                {submitting? <Loader text={"Uploading"}/> : <Cloudinary onResult={this.onCloudinaryResult.bind(this)} ref={this.cloudinaryRef}/>}
+                {submitting? <Loader text={"Uploading"}/> :<CloudinaryAudio onResult={this.onCloudinaryResult2.bind(this)} ref={this.cloudinaryRef2}/>}
+              </div>
+              </div>
+
+
+              <div className="pointer end" style={{height: "2.7em", paddingRight:"1em"}} onClick={this.onAttachmentClick2} ><span className="hide-on-sm">Audio </span><i  className="material-icons blue-txt">audiotrack</i> &nbsp; </div>
+              <div className="pointer end" style={{height: "2.7em"}} onClick={this.onAttachmentClick} ><span className="hide-on-sm">Photo </span><i  className="material-icons blue-txt">image</i> &nbsp; </div>
+           </Grid2>
           <Grid3   style={{gridColumn: "1 / span 2"}}  className="blue-txt">
-            <div><SelectInput arr={this.category} action={onChange}/></div>
-            <div className="pointer end" style={{height: "2.7em"}} onClick={this.onAttachmentClick2} ><span className="hide-on-sm">Audio </span><i  className="material-icons blue-txt">audiotrack</i> &nbsp; </div>
-            <div className="pointer end" style={{height: "2.7em"}} onClick={this.onAttachmentClick} ><span className="hide-on-sm">Photo </span><i  className="material-icons blue-txt">image</i> &nbsp; </div>
+            <div>Cateogry <SelectInput arr={this.category} required={false} name={"category"} action={onChange}/></div>
             <button className="bordered" onClick={e =>{this.setState({text: ""});   this.props.submitPost();}}>Post</button>
           </Grid3>
           </Grid>

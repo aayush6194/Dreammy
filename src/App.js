@@ -7,12 +7,12 @@ import Signup from './Signup.js';
 import Category from './Category';
 import Login from './Login.js';
 import FixedNav from './components/FixedNav.js';
-import Posts from  './components/Posts';
 import { BrowserRouter as Router,  Route, Link, Switch } from "react-router-dom";
+import { getLocalStorage, setLocalStorage } from './utils/utils';
 import {withRouter} from 'react-router';
 import Loader from  './components/Loader2';
 import api from './api';
-import { getLocalStorage, setLocalStorage }  from './utils/utils';
+
 
 class App extends React.Component {
   constructor(props) {
@@ -69,22 +69,25 @@ class App extends React.Component {
         if (res.success) {
           this.setState({fields: {}});
           this.refreshPosts("all");
+          if(res.modal){
+            alert("Your Post was Saved Privately.");
+          }
         }
       }).catch(err=>{alert("Could not submit your post!")});
     setTimeout(()=>{this.setState({submitting: false})}, 200);
   }
 
  addComments = (id, obj)=>{
-   const post = this.state.data.post.filter((i)=> i._id === id )[0];
-   const newComment = post.comments;
-   newComment.push(obj);
-   this.setState({...this.state, data: {...this.state.data, post: [...this.state.data.post, post]}})
+//   const post = this.state.data.post.filter((i)=> i._id === id )[0];
+//   const newComment = post.comments;
+  // newComment.push(obj);
+//   this.setState({...this.state, data: {...this.state.data, post: [...this.state.data.post, post]}})
 }
   refreshPosts = s => {
     return api.getPosts(s)
     .then(res => {
       if (res.success) {
-        console.log(res)
+
         this.setPosts(res.data);
         this.setState({contentLoaded: true});
       }

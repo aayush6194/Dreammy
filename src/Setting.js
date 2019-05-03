@@ -38,7 +38,7 @@ const Card = styled.div`
 class Setting extends React.Component {
 constructor(props){
   super(props);
-  console.log(props)
+
   this.state = {
     firstNameEdit: false, lastNameEdit: false,
     emailEdit: false, passwordEdit: false,

@@ -16,7 +16,7 @@ const ProfileImg = styled.img`;
 
 export const ProfileHeader = ({firstName, lastName, location, work, imageUrl, facebook, instagram, twitter, me, numPosts})=>(
   <div className="profile-box border">
-  {console.log(me)}
+
     <ProfileImg src={cloudinaryUrl(imageUrl)} alt="user" />
     <div className="bold blue-txt txt-mdd capitalize">{firstName + " "+ lastName}</div>
     {location? <div className="gray">Lives in <span className="blue-txt bold">{location}</span></div>:

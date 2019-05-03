@@ -8,13 +8,13 @@ const twitterUrl = "https://www.twitter.com/";
 const SocialLinks = ({facebook, instagram, twitter})=>(
   <div>
   {facebook?
-     <a  target="_blank" href={facebookUrl + facebook}><i className="fab fa-facebook txt-xl"></i></a>
+     <a  target="_blank" rel="noopener noreferrer" href={facebookUrl + facebook}><i className="fab fa-facebook txt-xl"></i></a>
      :<i className="fab fa-facebook txt-xl disabled"></i>}&nbsp;&nbsp;
   {instagram?
-   <a  target="_blank" href={instagramUrl + instagram}><i className="fab fa-instagram txt-xl"></i></a>
+   <a  target="_blank" rel="noopener noreferrer" href={instagramUrl + instagram}><i className="fab fa-instagram txt-xl"></i></a>
    :<i className="fab fa-instagram txt-xl"></i>}&nbsp;&nbsp;
    {twitter?
-    <a  target="_blank" href={twitterUrl + twitter}><i className="fab fa-twitter-square txt-xl"></i></a>
+    <a  target="_blank" rel="noopener noreferrer" href={twitterUrl + twitter}><i className="fab fa-twitter-square txt-xl"></i></a>
     :<i className="fab fa-twitter-square txt-xl disabled"></i>}&nbsp;&nbsp;
     </div>
 )

@@ -77,8 +77,9 @@ export default {
     return post(API.signup, { email, password, firstName, lastName, imageUrl });
   },
 
-  addPost: function({ caption, imageUrl , videoUrl, category}) {
-    return authPost(API.addPost, { caption, imageUrl, videoUrl, category });
+  addPost: function({ caption, imageUrl , videoUrl, category, visibility}) {
+    visibility = visibility=== undefined || visibility === null?  "private" : visibility.toLowerCase();
+    return authPost(API.addPost, { caption, imageUrl, videoUrl, category , visibility});
   },
 
   getPosts: function(s) {

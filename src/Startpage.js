@@ -36,7 +36,7 @@ class Startpage extends React.Component {
       <div className="wrapper">
       <div className="grid-start">
         <Header>
-        <div class="sm-logo-cont">
+        <div className="sm-logo-cont">
           <img className="sm-logo" src={logo} alt="Logo" style={{margin: 0}}/>
         </div>
           <div style={{margin:"1.5em", justifySelf:"end"}}>

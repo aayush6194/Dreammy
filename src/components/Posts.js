@@ -47,13 +47,13 @@ const Badge = styled.div`
   class Posts extends React.Component {
     constructor(props) {
       super(props);
-      this.state= {
+      this.state = {
         limit: 200,
         showMore: true,
         commentLimit: 3,
         showMoreComments: true,
         modal: false,
-        comments: this.props.post.comments
+        //comments: this.props.post.comments
       }
   }
 
@@ -62,8 +62,8 @@ const Badge = styled.div`
    const post = props.post;
 
     const modalText = "Do you want to Delete your Post?";
-//    const {comments} = post;
-    const comments = this.state.comments;
+    const {comments} = post;
+  //  const comments = this.state.comments;
     const allComments =   comments.map((data, index) =>
     <Comments  key={index} id={data.user._id} name={data.user.firstName + " " + data.user.lastName} imageUrl={cloudinaryUrl(data.user.imageUrl)} createdAt={data.createdAt} comment={data.text} limit={200}/>)
     const limitedComments =   comments.slice(0,3).map((data, index) =>
@@ -77,7 +77,9 @@ const Badge = styled.div`
                   const obj = {text: textInput.current.value, _id: post._id, createdAt: new Date(), user:  getLocalStorage("user")};
                   api.comment({text: textInput.current.value, _id: post._id, token:  getLocalStorage("user")._id})
                   .then(res => {if(res.success)
-                    {textInput.current.value = "";
+                    {
+                    this.props.refresh();
+                    textInput.current.value = "";
                         this.setState({comments: [...comments, obj] })}})
                   .catch(err => {alert(err)})
                 }

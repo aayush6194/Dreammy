@@ -1,11 +1,10 @@
 import React from 'react';
-import {Image, Video, Transformation, CloudinaryContext} from 'cloudinary-react'
+
 import Loader from  './components/Loader';
 const CLOUD_NAME = "dqklw4e9q",
   PRESET = "ncuacbjd";
 
 function uploadFile(file) {
-
   var url = `https://api.cloudinary.com/v1_1/${CLOUD_NAME}/video/upload`;
   var xhr = new XMLHttpRequest();
   var fd = new FormData();

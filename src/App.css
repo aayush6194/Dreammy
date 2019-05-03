@@ -155,7 +155,9 @@ a{
 .start{
   justify-self: start;
 }
-
+select{
+  width: 6em !important;
+}
 .end{
   justify-self: end;
 }
@@ -171,6 +173,10 @@ a{
 }
 .pointer{
   cursor: pointer;
+}
+
+.stretch{
+  justify-self: stretch;
 }
 
 .v-center{
