@@ -5,7 +5,7 @@ import { BrowserRouter as  Router, Route, Link } from "react-router-dom";
 import Zoom from 'react-reveal/Zoom';
 import api from './api';
 import { setLocalStorage, getLocalStorage } from './utils/utils';
-
+import logo from './images/logo1.png';
 const Grid = styled.div`
   display: grid;
   grid-template-rows: 20px 1fr  auto;
@@ -49,6 +49,7 @@ fetch = () =>{
 
           <Grid>
           <Link className="" to="/"> <i className="material-icons blue-txt pointer">arrow_back</i></Link>
+            <img className="sm-logo center" src={logo} alt="Logo" style={{margin: 0}}/>
           <h3 className="center bold" style={{fontSize: "3.5em"}}>Dreammy </h3>
           <div style={{padding: "1em", justifySelf:"top"}}>
            <div className="center bold blue-txt">Sign In </div>
@@ -75,7 +76,7 @@ fetch = () =>{
                   <a href="#" className="forgetpass" style={{float: "right"}}  onClick={()=>{alert("Feature Under Constuction")}}>Forgot Password?</a>
                   </div>
                  </div>
-                
+
                 <div >
                   <button  className="bordered" style={{width: "100%", height: "3.4em"}} onClick={()=>this.fetch()}>Submit</button>
                 </div>

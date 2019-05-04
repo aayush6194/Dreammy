@@ -22,6 +22,7 @@ const Card = styled.div`
   border-radius: .5em;
   border: 3px solid transparent;
   display: grid;
+  background: #D7DBDD  ;
   padding: 0.3em;
    grid-template-columns: 1fr 1fr 1fr;
   min-height: 3.8em;

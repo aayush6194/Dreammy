@@ -24,7 +24,11 @@ grid-column: 1 / span 2;
 grid-template-columns: 1fr 1fr;
 @media(max-width: 800px){
   grid-column: 1 / span 1;
-}`;
+}
+@media(max-width: 600px){
+  /* grid-template-columns: 1fr; */
+}
+`;
 
 class Startpage extends React.Component {
   constructor(props){
@@ -36,7 +40,7 @@ class Startpage extends React.Component {
       <div className="wrapper">
       <div className="grid-start">
         <Header>
-        <div className="sm-logo-cont">
+        <div className="sm-logo-cont down-on-sm">
           <img className="sm-logo" src={logo} alt="Logo" style={{margin: 0}}/>
         </div>
           <div style={{margin:"1.5em", justifySelf:"end"}}>

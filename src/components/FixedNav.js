@@ -54,8 +54,8 @@ class FixedNav extends React.Component{
     }
     this.play = React.createRef();
   }
- start = () =>{this.setState({recording: true})}
- stop = () =>{this.setState({recording: false})}
+ //start = () =>{this.setState({recording: true})}
+ //stop = () =>{this.setState({recording: false})}
 
  record = ()=>{
 //  this.setState({recording: true});
@@ -64,22 +64,22 @@ class FixedNav extends React.Component{
   const audioContext = window.AudioContext;
   const audioCtx = new AudioContext();
   let mediaRecorder;
-  function errorCallBack(streamError){ alert("Recording is supported not Supported. " + streamError);}
-  this.play.current.addEventListener('click', ()=>  {
+
+  function stop () {
+    if(mediaRecorder != null || mediaRecorder != undefined){
       mediaRecorder.stop();
+    }
       console.log("Stopped: 1");
-    });
+    //  this.play.current.removeEventListener('click', stop);
+    }
+  function errorCallBack(streamError){ alert("Recording is supported not Supported. " + streamError);}
+  this.play.current.addEventListener('click', stop);
 
   let successCallBack = function(audioStream) {
-  //  let start = this.start();
-    //let stop = this.stop();
     mediaRecorder = new MediaRecorder(audioStream);
     mediaRecorder.start();
-
-
      mediaRecorder.onstop = function(e) {
        console.log("Stopped: 2");
-    //   stop();
       let blob = new Blob(chunks, { 'type' : 'audio/ogg; codecs=opus' });
       chunks = [];
       var url = `https://api.cloudinary.com/v1_1/dqklw4e9q/video/upload`;
@@ -116,6 +116,7 @@ class FixedNav extends React.Component{
     alert("Recording is not supported on this browser");
   }
   }
+
 
 componentDidMount(){
 
