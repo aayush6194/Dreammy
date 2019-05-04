@@ -44,22 +44,66 @@ margin: 0;
 padding: 0;`;
 
 
-const fun = ()=>{
-  navigator.mediaDevices.getUserMedia()
-.then(function(stream) {
-  /* use the stream */
-})
-.catch(function(err) {
-  /* handle the error */
-  alert(err)
-})
-
+const record = ()=>{
+let chunks = [];
+function errorCallBack(streamError) {
+    alert("Recording is supported not Supported. " + streamError);
 }
+
+let successCallBack = function(audioStream) {
+  let mediaRecorder = new MediaRecorder(audioStream);
+
+    mediaRecorder.start();
+
+
+  setTimeout(()=> {
+    mediaRecorder.stop();
+  }, 1000);
+
+   mediaRecorder.onstop = function(e) {
+    let blob = new Blob(chunks, { 'type' : 'audio/ogg; codecs=opus' });
+    chunks = [];
+    var url = `https://api.cloudinary.com/v1_1/dqklw4e9q/video/upload`;
+    var xhr = new XMLHttpRequest();
+    var fd = new FormData();
+    xhr.open('POST', url, true);
+    xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+    fd.append('upload_preset', "ncuacbjd");
+    fd.append('file', blob);
+    xhr.send(fd);
+    return new Promise((resolve, reject) => {
+      xhr.onreadystatechange = function(e) {
+        if (xhr.readyState == 4) {
+          if (xhr.status < 200 || xhr.status > 299) {
+            return reject();
+          }
+          else {
+            var response = JSON.parse(xhr.responseText);
+            resolve(response);
+          }
+        }
+      };
+    });
+    }
+
+    mediaRecorder.ondataavailable = function(e) {
+      chunks.push(e.data);
+}
+}
+
+if (navigator.mediaDevices.getUserMedia) {
+  navigator.mediaDevices.getUserMedia({audio: true, video: false}).
+  then(successCallBack, errorCallBack);
+
+} else {
+  alert("Recording is not supported on this browser");
+}
+}
+
 const FixedNav = ()=>
              ( <div>
-            <Float className="hoverr white-txt pointer ">
+            <Float className="hoverr white-txt pointer " onClick={record}>
                 <i className="material-icons white-txt txt-xl">mic</i>
-                <AudioRecorder onChange={(e)=>{alert(e)}}/>
                 </Float>
 
                 <Fixed className="blue-bg">
