@@ -62,20 +62,20 @@ class FixedNav extends React.Component{
   let audio = new Audio();
   const audioContext = window.AudioContext;
   const audioCtx = new AudioContext();
-
+  let mediaRecorder;
   function errorCallBack(streamError){ alert("Recording is supported not Supported. " + streamError);}
+  this.play.current.addEventListener('click', ()=>  {
+      mediaRecorder.stop();
+    //  start();
+      console.log("Stopped: 1");
+    });
 
   let successCallBack = function(audioStream) {
   //  let start = this.start();
     //let stop = this.stop();
-    let mediaRecorder = new MediaRecorder(audioStream);
+    mediaRecorder = new MediaRecorder(audioStream);
     mediaRecorder.start();
 
-    this.play.current.addEventListener('click', ()=>  {
-        mediaRecorder.stop();
-      //  start();
-        console.log("Stopped: 1");
-      });
 
      mediaRecorder.onstop = function(e) {
        console.log("Stopped: 2");
