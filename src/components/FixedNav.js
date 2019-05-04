@@ -46,21 +46,31 @@ padding: 0;`;
 
 const record = ()=>{
 let chunks = [];
+let audio = new Audio();
+
+const audioContext = window.AudioContext;
+const audioCtx = new AudioContext();
+
 function errorCallBack(streamError) {
     alert("Recording is supported not Supported. " + streamError);
 }
 
 let successCallBack = function(audioStream) {
   let mediaRecorder = new MediaRecorder(audioStream);
-
+  setTimeout(()=> {
     mediaRecorder.start();
+    console.log("Start: 1");
+  }, 100);
+
 
 
   setTimeout(()=> {
     mediaRecorder.stop();
+    console.log("Stopped: 1");
   }, 1000);
 
    mediaRecorder.onstop = function(e) {
+     console.log("Stopped: 2");
     let blob = new Blob(chunks, { 'type' : 'audio/ogg; codecs=opus' });
     chunks = [];
     var url = `https://api.cloudinary.com/v1_1/dqklw4e9q/video/upload`;
