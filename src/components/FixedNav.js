@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import '../App.css';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import AudioRecorder from 'react-audio-recorder';
-
+import ReactDOM from 'react-dom'
 
 
 const Fixed = styled.div`
@@ -52,6 +52,7 @@ class FixedNav extends React.Component{
     this.state ={
       recording: false
     }
+    this.play = React.createRef();
   }
 
 stop = () =>{this.setState({recording: false})}
@@ -67,16 +68,13 @@ stop = () =>{this.setState({recording: false})}
   let successCallBack = function(audioStream) {
 
     let mediaRecorder = new MediaRecorder(audioStream);
-    setTimeout(()=> {
-      mediaRecorder.start();
-      console.log("Start: 1");
-    }, 100);
 
-    setTimeout(()=> {
+      mediaRecorder.start();
+
+  this.play.current.addEventListener('click', ()=>  {
       mediaRecorder.stop();
-        // this.setState({recording: false});
       console.log("Stopped: 1");
-    }, 5000);
+    });
 
      mediaRecorder.onstop = function(e) {
        console.log("Stopped: 2");
@@ -117,11 +115,14 @@ stop = () =>{this.setState({recording: false})}
   }
   }
 
+componentDidMount(){
+
+}
 
 
   render(){
           return( <div>
-                <Float className="hoverr white-txt pointer " onClick={this.record}>
+                <Float className="hoverr white-txt pointer " onClick={this.record} ref={this.play}>
                 {!this.state.recording? <i className="material-icons white-txt txt-xl">mic</i>: <i className="material-icons white-txt txt-xl">fiber_manual_record</i> }
                 </Float>
 
