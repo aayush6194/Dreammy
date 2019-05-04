@@ -44,76 +44,85 @@ margin: 0;
 padding: 0;`;
 
 
-const record = ()=>{
-let chunks = [];
-let audio = new Audio();
-
-const audioContext = window.AudioContext;
-const audioCtx = new AudioContext();
-
-function errorCallBack(streamError) {
-    alert("Recording is supported not Supported. " + streamError);
-}
-
-let successCallBack = function(audioStream) {
-  let mediaRecorder = new MediaRecorder(audioStream);
-  setTimeout(()=> {
-    mediaRecorder.start();
-    console.log("Start: 1");
-  }, 100);
 
 
-
-  setTimeout(()=> {
-    mediaRecorder.stop();
-    console.log("Stopped: 1");
-  }, 1000);
-
-   mediaRecorder.onstop = function(e) {
-     console.log("Stopped: 2");
-    let blob = new Blob(chunks, { 'type' : 'audio/ogg; codecs=opus' });
-    chunks = [];
-    var url = `https://api.cloudinary.com/v1_1/dqklw4e9q/video/upload`;
-    var xhr = new XMLHttpRequest();
-    var fd = new FormData();
-    xhr.open('POST', url, true);
-    xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
-    fd.append('upload_preset', "ncuacbjd");
-    fd.append('file', blob);
-    xhr.send(fd);
-    return new Promise((resolve, reject) => {
-      xhr.onreadystatechange = function(e) {
-        if (xhr.readyState == 4) {
-          if (xhr.status < 200 || xhr.status > 299) {
-            return reject();
-          }
-          else {
-            var response = JSON.parse(xhr.responseText);
-            resolve(response);
-          }
-        }
-      };
-    });
+class FixedNav extends React.Component{
+  constructor(props){
+    super(props);
+    this.state ={
+      recording: false
     }
+  }
 
-    mediaRecorder.ondataavailable = function(e) {
-      chunks.push(e.data);
-}
+
+ record = ()=>{
+
+  let chunks = [];
+  let audio = new Audio();
+  const audioContext = window.AudioContext;
+  const audioCtx = new AudioContext();
+
+  function errorCallBack(streamError){alert("Recording is supported not Supported. " + streamError);}
+
+  let successCallBack = function(audioStream) {
+       this.setState({recording: true});
+    let mediaRecorder = new MediaRecorder(audioStream);
+    setTimeout(()=> {
+      mediaRecorder.start();
+      console.log("Start: 1");
+    }, 100);
+
+    setTimeout(()=> {
+      mediaRecorder.stop();
+         this.setState({recording: false});
+      console.log("Stopped: 1");
+    }, 1000);
+
+     mediaRecorder.onstop = function(e) {
+       console.log("Stopped: 2");
+      let blob = new Blob(chunks, { 'type' : 'audio/ogg; codecs=opus' });
+      chunks = [];
+      var url = `https://api.cloudinary.com/v1_1/dqklw4e9q/video/upload`;
+      var xhr = new XMLHttpRequest();
+      var fd = new FormData();
+      xhr.open('POST', url, true);
+      xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+      fd.append('upload_preset', "ncuacbjd");
+      fd.append('file', blob);
+      xhr.send(fd);
+      return new Promise((resolve, reject) => {
+        xhr.onreadystatechange = function(e) {
+          if (xhr.readyState == 4) {
+            if (xhr.status < 200 || xhr.status > 299) {
+              return reject();
+            }
+            else {
+              var response = JSON.parse(xhr.responseText);
+              resolve(response);
+            }
+          }
+        };
+      });
+      }
+      mediaRecorder.ondataavailable = function(e) {
+        chunks.push(e.data);
+  }
 }
 
-if (navigator.mediaDevices.getUserMedia) {
-  navigator.mediaDevices.getUserMedia({audio: true, video: false}).
-  then(successCallBack, errorCallBack);
+  if (navigator.mediaDevices.getUserMedia) {
+    navigator.mediaDevices.getUserMedia({audio: true, video: false}).
+    then(successCallBack, errorCallBack);
+  } else {
+    alert("Recording is not supported on this browser");
+  }
+  }
 
-} else {
-  alert("Recording is not supported on this browser");
-}
-}
 
-const FixedNav = ()=>
-             ( <div>
-            <Float className="hoverr white-txt pointer " onClick={record}>
-                <i className="material-icons white-txt txt-xl">mic</i>
+
+  render(){
+          return( <div>
+                <Float className="hoverr white-txt pointer " onClick={this.record}>
+                {!this.state.recording? <i className="material-icons white-txt txt-xl">mic</i>: <i className="material-icons white-txt txt-xl">fiber_manual_record</i> }
                 </Float>
 
                 <Fixed className="blue-bg">
@@ -123,5 +132,6 @@ const FixedNav = ()=>
                    <Btn className="hover pointer grid"><Link style={{display: "grid", placeItems: "center"}} to="/profile?user=me"><I className="material-icons white-txt bold txt-xl">person</I></Link></Btn>
                   </Fixed>
                 </div>
-              );
+            )}
+  }
 export default FixedNav;
