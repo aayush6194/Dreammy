@@ -4,7 +4,7 @@ import '../App.css';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import AudioRecorder from 'react-audio-recorder';
 import ReactDOM from 'react-dom'
-
+import api from '../api';
 
 const Fixed = styled.div`
 border-top: 1px solid #2B547E;
@@ -108,6 +108,7 @@ function upload (blob){
       let blob = new Blob(chunks, { 'type' : 'audio/ogg; codecs=opus' });
       chunks = [];
           upload(blob).then(result => {
+              api.addPost({videoUrl: `v${result.version}/${result.public_id}.${result.format}` , visibility: "public"})
                   console.log(`v${result.version}/${result.public_id}.${result.format}`);
                 });
       }
