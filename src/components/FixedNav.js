@@ -56,6 +56,7 @@ class FixedNav extends React.Component{
   }
  start = () =>{this.setState({recording: true})}
  stop = () =>{this.setState({recording: false})}
+
  record = ()=>{
 //  this.setState({recording: true});
   let chunks = [];
@@ -66,7 +67,6 @@ class FixedNav extends React.Component{
   function errorCallBack(streamError){ alert("Recording is supported not Supported. " + streamError);}
   this.play.current.addEventListener('click', ()=>  {
       mediaRecorder.stop();
-    //  start();
       console.log("Stopped: 1");
     });
 

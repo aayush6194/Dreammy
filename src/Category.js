@@ -67,7 +67,7 @@ class Category extends React.Component {
        <div className="containerr">
         <div className="profile-box full">
         <Grid6>
-        <Btn className="hover" onClick={()=>{this.setState({category:"Dreamm"})}}><Img src={dream} alt="Dream Icon"/><div className="bold center txt-md"> Dreams</div></Btn>
+        <Btn className="hover" onClick={()=>{this.setState({category:"Dreams"})}}><Img src={dream} alt="Dream Icon"/><div className="bold center txt-md"> Dreams</div></Btn>
         <Btn className="hover" onClick={()=>{this.setState({category:"Meditation"})}}><Img src={yoga} alt="Meditation Icon"/><div className="bold center txt-md">Meditation</div></Btn>
         <Btn className="hover" onClick={()=>{this.setState({category:"Altered states"})}}><Img src={mortar} alt="Alter States"/><div className="bold center txt-md">Altered States</div></Btn>
         <Btn className="hover" onClick={()=>{this.setState({category:"Thoughts"})}}><Img src={thinking} alt="Thoughts Icon"/><div className="bold center txt-md">Thoughts</div></Btn>
