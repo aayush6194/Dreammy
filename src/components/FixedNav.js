@@ -72,6 +72,31 @@ class FixedNav extends React.Component{
       console.log("Stopped: 1");
     //  this.play.current.removeEventListener('click', stop);
     }
+
+function upload (blob){
+    var url = `https://api.cloudinary.com/v1_1/dqklw4e9q/video/upload`;
+    var xhr = new XMLHttpRequest();
+    var fd = new FormData();
+    xhr.open('POST', url, true);
+    xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+    fd.append('upload_preset', "ncuacbjd");
+    fd.append('file', blob);
+    xhr.send(fd);
+    return new Promise((resolve, reject) => {
+      xhr.onreadystatechange = function(e) {
+        if (xhr.readyState == 4) {
+          if (xhr.status < 200 || xhr.status > 299) {
+            return reject();
+          }
+          else {
+            var response = JSON.parse(xhr.responseText);
+            resolve(response);
+          }
+        }
+      };
+    });}
+
+
   function errorCallBack(streamError){ alert("Recording is supported not Supported. " + streamError);}
   this.play.current.addEventListener('click', stop);
 
@@ -82,27 +107,9 @@ class FixedNav extends React.Component{
        console.log("Stopped: 2");
       let blob = new Blob(chunks, { 'type' : 'audio/ogg; codecs=opus' });
       chunks = [];
-      var url = `https://api.cloudinary.com/v1_1/dqklw4e9q/video/upload`;
-      var xhr = new XMLHttpRequest();
-      var fd = new FormData();
-      xhr.open('POST', url, true);
-      xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
-      fd.append('upload_preset', "ncuacbjd");
-      fd.append('file', blob);
-      xhr.send(fd);
-      return new Promise((resolve, reject) => {
-        xhr.onreadystatechange = function(e) {
-          if (xhr.readyState == 4) {
-            if (xhr.status < 200 || xhr.status > 299) {
-              return reject();
-            }
-            else {
-              var response = JSON.parse(xhr.responseText);
-              resolve(response);
-            }
-          }
-        };
-      });
+          upload(blob).then(result => {
+                  console.log(`v${result.version}/${result.public_id}.${result.format}`);
+                });
       }
       mediaRecorder.ondataavailable = function(e) {
         chunks.push(e.data);

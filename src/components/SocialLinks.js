@@ -12,7 +12,7 @@ const SocialLinks = ({facebook, instagram, twitter})=>(
      :<i className="fab fa-facebook txt-xl disabled"></i>}&nbsp;&nbsp;
   {instagram?
    <a  target="_blank" rel="noopener noreferrer" href={instagramUrl + instagram}><i className="fab fa-instagram txt-xl"></i></a>
-   :<i className="fab fa-instagram txt-xl"></i>}&nbsp;&nbsp;
+   :<i className="fab fa-instagram txt-xl disabled"></i>}&nbsp;&nbsp;
    {twitter?
     <a  target="_blank" rel="noopener noreferrer" href={twitterUrl + twitter}><i className="fab fa-twitter-square txt-xl"></i></a>
     :<i className="fab fa-twitter-square txt-xl disabled"></i>}&nbsp;&nbsp;
