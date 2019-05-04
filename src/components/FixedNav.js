@@ -76,7 +76,7 @@ stop = () =>{this.setState({recording: false})}
       mediaRecorder.stop();
         // this.setState({recording: false});
       console.log("Stopped: 1");
-    }, 1000);
+    }, 5000);
 
      mediaRecorder.onstop = function(e) {
        console.log("Stopped: 2");
