@@ -54,18 +54,18 @@ class FixedNav extends React.Component{
     }
   }
 
-
+stop = () =>{this.setState({recording: false})}
  record = ()=>{
-
+//  this.setState({recording: true});
   let chunks = [];
   let audio = new Audio();
   const audioContext = window.AudioContext;
   const audioCtx = new AudioContext();
 
-  function errorCallBack(streamError){alert("Recording is supported not Supported. " + streamError);}
+  function errorCallBack(streamError){ alert("Recording is supported not Supported. " + streamError);}
 
   let successCallBack = function(audioStream) {
-       this.setState({recording: true});
+
     let mediaRecorder = new MediaRecorder(audioStream);
     setTimeout(()=> {
       mediaRecorder.start();
@@ -74,7 +74,7 @@ class FixedNav extends React.Component{
 
     setTimeout(()=> {
       mediaRecorder.stop();
-         this.setState({recording: false});
+        // this.setState({recording: false});
       console.log("Stopped: 1");
     }, 1000);
 
