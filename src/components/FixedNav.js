@@ -54,8 +54,8 @@ class FixedNav extends React.Component{
     }
     this.play = React.createRef();
   }
-
-stop = () =>{this.setState({recording: false})}
+ start = () =>{this.setState({recording: true})}
+ stop = () =>{this.setState({recording: false})}
  record = ()=>{
 //  this.setState({recording: true});
   let chunks = [];
@@ -66,18 +66,20 @@ stop = () =>{this.setState({recording: false})}
   function errorCallBack(streamError){ alert("Recording is supported not Supported. " + streamError);}
 
   let successCallBack = function(audioStream) {
-
+    let start = this.start();
+    let stop = this.stop();
     let mediaRecorder = new MediaRecorder(audioStream);
+    mediaRecorder.start();
 
-      mediaRecorder.start();
-
-  this.play.current.addEventListener('click', ()=>  {
-      mediaRecorder.stop();
-      console.log("Stopped: 1");
-    });
+    this.play.current.addEventListener('click', ()=>  {
+        mediaRecorder.stop();
+        start();
+        console.log("Stopped: 1");
+      });
 
      mediaRecorder.onstop = function(e) {
        console.log("Stopped: 2");
+       stop();
       let blob = new Blob(chunks, { 'type' : 'audio/ogg; codecs=opus' });
       chunks = [];
       var url = `https://api.cloudinary.com/v1_1/dqklw4e9q/video/upload`;
