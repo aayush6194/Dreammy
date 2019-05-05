@@ -58,7 +58,7 @@ constructor(props){
           setLocalStorage("user", this.state.user);
           this.setState({changed: false});
         } else{
-          
+
             alert(res.message);
         }
       }).catch(err=>{ alert("Error")});
@@ -131,7 +131,8 @@ constructor(props){
                    <span className="bold text-md">{data.email}</span> :
                    <input defaultValue={data.email}  name="email" onChange={this.onChange}/>}
                  {!this.state.emailEdit?
-                 <i  className="material-icons pointer end blue-txt"  onClick ={()=>this.toggleOn("emailEdit")}>edit</i> :
+                   //onClick ={()=>this.toggleOn("emailEdit")}
+                 <i  className="material-icons pointer end disabled"  >edit</i> :
                   <i className="material-icons pointer end blue-txt"  onClick ={()=>this.toggleOff("emailEdit")}>done</i>}
               </Card>
 
