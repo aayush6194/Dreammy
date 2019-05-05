@@ -58,7 +58,8 @@ constructor(props){
           setLocalStorage("user", this.state.user);
           this.setState({changed: false});
         } else{
-            alert("Error");
+          
+            alert(res.message);
         }
       }).catch(err=>{ alert("Error")});
   }

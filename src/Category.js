@@ -37,7 +37,6 @@ const Post = styled.div`
  display: grid;
  width: 100%;
  grid-template-columns: repeat(2, 1fr);
-
   `;
 class Category extends React.Component {
   constructor(props) {
@@ -67,12 +66,12 @@ class Category extends React.Component {
        <div className="containerr">
         <div className="profile-box full">
         <Grid6>
-        <Btn className="hover" onClick={()=>{this.setState({category:"Dreams"})}}><Img src={dream} alt="Dream Icon"/><div className="bold center txt-md"> Dreams</div></Btn>
-        <Btn className="hover" onClick={()=>{this.setState({category:"Meditation"})}}><Img src={yoga} alt="Meditation Icon"/><div className="bold center txt-md">Meditation</div></Btn>
-        <Btn className="hover" onClick={()=>{this.setState({category:"Altered states"})}}><Img src={mortar} alt="Alter States"/><div className="bold center txt-md">Altered States</div></Btn>
-        <Btn className="hover" onClick={()=>{this.setState({category:"Thoughts"})}}><Img src={thinking} alt="Thoughts Icon"/><div className="bold center txt-md">Thoughts</div></Btn>
-        <Btn className="hover" onClick={()=>{this.setState({category:"Help Me out"})}}><Img src={charity} alt="Help Me out Icon"/><div className="bold center txt-md">Help Me out</div></Btn>
-        <Btn className="hover" onClick={()=>{this.setState({category:"Various"})}}><Img src={ufo} alt="UFO Icon"/><div className="bold center txt-md">Various</div></Btn>
+        <Btn className="hover category" onClick={()=>{this.setState({category:"Dreams"})}}><Img src={dream} alt="Dream Icon"/><div className="bold center txt-md hover-1"> Dreams</div></Btn>
+        <Btn className="hover category" onClick={()=>{this.setState({category:"Meditation"})}}><Img src={yoga} alt="Meditation Icon"/><div className="bold center txt-md hover-1">Meditation</div></Btn>
+        <Btn className="hover category" onClick={()=>{this.setState({category:"Altered states"})}}><Img src={mortar} alt="Alter States"/><div className="bold center txt-md hover-1">Altered States</div></Btn>
+        <Btn className="hover category" onClick={()=>{this.setState({category:"Thoughts"})}}><Img src={thinking} alt="Thoughts Icon"/><div className="bold center txt-md hover-1">Thoughts</div></Btn>
+        <Btn className="hover category" onClick={()=>{this.setState({category:"Help Me out"})}}><Img src={charity} alt="Help Me out Icon"/><div className="bold center txt-md hover-1">Help Me out</div></Btn>
+        <Btn className="hover category" onClick={()=>{this.setState({category:"Various"})}}><Img src={ufo} alt="UFO Icon"/><div className="bold center txt-md hover-1">Various</div></Btn>
 
         </Grid6>
         <div className="main full" >

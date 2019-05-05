@@ -54,10 +54,10 @@ class FixedNav extends React.Component{
     }
     this.play = React.createRef();
   }
- //start = () =>{this.setState({recording: true})}
- //stop = () =>{this.setState({recording: false})}
+ start = () =>{this.setState({recording: true})}
+ stop = () =>{this.setState({recording: false})}
 
- record = ()=>{
+ record = (start, stopp, el)=>{
 //  this.setState({recording: true});
   let chunks = [];
   let audio = new Audio();
@@ -65,12 +65,13 @@ class FixedNav extends React.Component{
   const audioCtx = new AudioContext();
   let mediaRecorder;
 
-  function stop () {
+  function stop (el, stopp) {
     if(mediaRecorder != null || mediaRecorder != undefined){
       mediaRecorder.stop();
     }
+    stopp();
       console.log("Stopped: 1");
-    //  this.play.current.removeEventListener('click', stop);
+     el.current.removeEventListener('click', stop);
     }
 
 function upload (blob){
@@ -98,13 +99,15 @@ function upload (blob){
 
 
   function errorCallBack(streamError){ alert("Recording is supported not Supported. " + streamError);}
-  this.play.current.addEventListener('click', stop);
+  this.play.current.addEventListener('click', stop(el, stopp));
 
   let successCallBack = function(audioStream) {
+    start();
     mediaRecorder = new MediaRecorder(audioStream);
     mediaRecorder.start();
      mediaRecorder.onstop = function(e) {
        console.log("Stopped: 2");
+
       let blob = new Blob(chunks, { 'type' : 'audio/ogg; codecs=opus' });
       chunks = [];
           upload(blob).then(result => {
@@ -133,7 +136,7 @@ componentDidMount(){
 
   render(){
           return( <div>
-                <Float className="hoverr white-txt pointer " onClick={this.record} ref={this.play}>
+                <Float className="hoverr white-txt pointer " onClick={()=>{this.record(this.start, this.stop, this.play)}} ref={this.play}>
                 {!this.state.recording? <i className="material-icons white-txt txt-xl">mic</i>: <i className="material-icons white-txt txt-xl">fiber_manual_record</i> }
                 </Float>
 

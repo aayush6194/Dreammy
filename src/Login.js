@@ -49,8 +49,8 @@ fetch = () =>{
 
           <Grid>
           <Link className="" to="/"> <i className="material-icons blue-txt pointer">arrow_back</i></Link>
-            <img className="sm-logo center" src={logo} alt="Logo" style={{margin: 0}}/>
-          <h3 className="center bold" style={{fontSize: "3.5em"}}>Dreammy </h3>
+            <img className="sm-logo center" src={logo} alt="Logo"/>
+
           <div style={{padding: "1em", justifySelf:"top"}}>
            <div className="center bold blue-txt">Sign In </div>
             <div className="row">

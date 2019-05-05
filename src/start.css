@@ -81,8 +81,8 @@ font-family: arial;
 .grid-start{
   display: grid;
   grid-template-columns: 1fr 1fr;
-  grid-template-rows: auto auto 1fr;
-  justify-items: center;
+  grid-template-rows: auto auto auto;
+  justify-content: center;
   grid-gap: 0px;
   height: 100vh;
   min-height: 700px;

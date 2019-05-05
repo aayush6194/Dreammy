@@ -12,6 +12,7 @@ const Post = styled.div`
   margin: 2em 0.7em;
   box-shadow: 0 .25em .5em rgba(0,0,0,.5);
   border-radius: .5em;
+
   border: 3px solid transparent;
   `;
 
@@ -34,15 +35,16 @@ grid-template-columns: auto 1fr auto;`;
   grid-row: 1 / span 3;`;
 
 const Badge = styled.div`
-  color: white;
-  background: #42a5f5;
+  color: #55595A;
+  background: transparent;
   padding: 0.3em;
   display: inline-block;
   margin: 0.4em;
   max-width: 10em;
   text-align: center;
   border-radius: 7px;
-  font-weight: bold`;
+  /* border: 2px solid #55595A; */
+  font-weight: bolder`;
 
   class Posts extends React.Component {
     constructor(props) {
@@ -143,7 +145,7 @@ const Badge = styled.div`
         <Grid>
           <SmImg className="sm" src={cloudinaryUrl(props.userImage)} alt="user" />
           <textarea className="materialize-textarea" placeholder="Type Your Comment Here..."  name="comment" ref={textInput}></textarea>
-          <button className="btn" style={{alignSelf: "center"}} onClick={()=>fetch()}><i className="material-icons">add</i></button>
+          <button className="btn-sp" style={{alignSelf: "center"}} onClick={()=>fetch()}><i className="material-icons bold txt-md">add</i></button>
         </Grid>
         {this.state.showMoreComments?
         limitedComments:  allComments

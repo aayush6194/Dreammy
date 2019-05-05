@@ -104,7 +104,7 @@ class App extends React.Component {
   if(this.state.tokenChecked){
       if(this.state.loggedin){
       return (<Router>
-                 <FixedNav className="blue-bg"/>
+                 <FixedNav className="blue-bg"    refreshPosts={this.refreshPosts}/>
                  <Switch>
                    <Route path="/category" render={()=> <Category {...this.state} {...this.actions} />   }/>
                   <Route path="/profile" render={()=> <Profile {...this.state} {...this.actions}  />}  />
