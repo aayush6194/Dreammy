@@ -58,21 +58,13 @@ class FixedNav extends React.Component{
  stop = () =>{this.setState({recording: false})}
 
  record = (start, stopp, el)=>{
-//  this.setState({recording: true});
   let chunks = [];
   let audio = new Audio();
   const audioContext = window.AudioContext;
   const audioCtx = new AudioContext();
   let mediaRecorder;
 
-  function stop (el, stopp) {
-    if(mediaRecorder != null || mediaRecorder != undefined){
-      mediaRecorder.stop();
-    }
-    stopp();
-      console.log("Stopped: 1");
-     el.current.removeEventListener('click', stop);
-    }
+
 
 function upload (blob){
     var url = `https://api.cloudinary.com/v1_1/dqklw4e9q/video/upload`;
@@ -99,25 +91,41 @@ function upload (blob){
 
 
   function errorCallBack(streamError){ alert("Recording is supported not Supported. " + streamError);}
-  this.play.current.addEventListener('click', stop(el, stopp));
+
 
   let successCallBack = function(audioStream) {
     start();
+    console.log("Start");
     mediaRecorder = new MediaRecorder(audioStream);
     mediaRecorder.start();
+
+el.current.addEventListener('click', ()=>{ stop(stopp)});
      mediaRecorder.onstop = function(e) {
        console.log("Stopped: 2");
 
       let blob = new Blob(chunks, { 'type' : 'audio/ogg; codecs=opus' });
       chunks = [];
           upload(blob).then(result => {
-              api.addPost({videoUrl: `v${result.version}/${result.public_id}.${result.format}` , visibility: "public"})
+              api.addPost({videoUrl: `v${result.version}/${result.public_id}.${result.format}` , visibility: "private"})
                   console.log(`v${result.version}/${result.public_id}.${result.format}`);
-                });
+                })
+                .then(res=>{
+                 alert("You Recording Saved Privately. Please Refresh the page.");
+                 })
+                 .catch(err=>{alert("Error on Uploading the posts! ")});
       }
       mediaRecorder.ondataavailable = function(e) {
         chunks.push(e.data);
   }
+
+  function stop (stopp) {
+    if(mediaRecorder != null && mediaRecorder != undefined && mediaRecorder.state != "inactive"){
+      mediaRecorder.stop();
+    }
+    stopp();
+      console.log("Stopped: 1");
+  //   el.current.removeEventListener('click', stop);
+    }
 }
 
   if (navigator.mediaDevices.getUserMedia) {
@@ -136,9 +144,12 @@ componentDidMount(){
 
   render(){
           return( <div>
-                <Float className="hoverr white-txt pointer " onClick={()=>{this.record(this.start, this.stop, this.play)}} ref={this.play}>
-                {!this.state.recording? <i className="material-icons white-txt txt-xl">mic</i>: <i className="material-icons white-txt txt-xl">fiber_manual_record</i> }
+
+                <Float style={{display: !this.state.recording? "block": "none"}} className="hoverr white-txt pointer " onClick={()=>{this.record(this.start, this.stop, this.play)}}>
+                  <i className="material-icons white-txt txt-xl">mic</i>
                 </Float>
+
+                  <Float style={{display: this.state.recording? "block": "none"}} className="hoverr white-txt pointer " ref={this.play}>  <i className="material-icons white-txt txt-xl">fiber_manual_record</i> </Float>
 
                 <Fixed className="blue-bg">
                    <Btn className="hoverr pointer grid"> <Link style={{display: "grid", placeItems: "center"}} to="/"><I  className="material-icons white-txt bold txt-xl">home</I></Link></Btn>
