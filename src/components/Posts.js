@@ -38,11 +38,11 @@ const Badge = styled.div`
   color: #55595A;
   background: transparent;
   padding: 0.3em;
-  display: inline-block;
+  font-size: 1.2em,
+  display: inline-block,
   margin: 0.4em;
   max-width: 10em;
   text-align: center;
-
   font-weight: bolder`;
 
   class Posts extends React.Component {
@@ -114,8 +114,8 @@ const Badge = styled.div`
           onConfirm={()=>{deletePost()}}
           onClose={()=>{this.setState({modal:false})}}/>
           <div style={{float: "right" , display:"grid"}}>
-        {post.category && post.category.length > 3? <Badge>{post.category}</Badge>: null}
-        {post.visibility && post.visibility == "private"? <div className="white-txt" style={{color: "#55595A", justifySelf:"end", padding:".1em", marginRight: ".4em", textAlign:"center", width:"4em", borderRadius: "7px", border: "2px solid #55595A"}}>Private</div>: null}
+        {post.category && post.category.length > 3? <Badge><span style={{fontSize:"1.18em"}}>{post.category}</span></Badge>: null}
+        {post.visibility && post.visibility == "private"? <div className="white-txt" style={{color: "#55595A", fontSize:".92em", justifySelf:"end", padding:".1em", marginRight: ".4em", textAlign:"center", width:"4em", borderRadius: "7px", border: "2px solid #55595A"}}>Private</div>: null}
         </div>
          <User>
                 <SmImg className="sm" src={cloudinaryUrl(imageUrl)} alt="user" />
