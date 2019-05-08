@@ -29,6 +29,10 @@ const Grid = styled.div`
   display: block;
   margin: 1em auto;`;
 
+  // <Select name="country"
+  //         onChange={(e)=>{this.props.onChange({target:{name: "country", value: e.value}})}}
+  //         options={countryList().getData()}/>
+
 class Signup extends React.Component {
   constructor(props){
   super(props);
@@ -70,7 +74,7 @@ onCloudinaryResult(result) {
           <MdImg className="md" src={cloudinaryUrl(this.props.image)} alt="user" />
           <div >
           <div className="center" style={{height: "2em"}}> <Cloudinary ref={this.cloudinaryRef} onResult={this.onCloudinaryResult.bind(this)}/></div>
-            <button className="bordered" style={{display:"block", margin:"auto"}} onClick={this.onAttachmentClick}>Add a Picture </button>
+            <button className="bordered" style={{display:"block", margin:"auto", marginBottom:"1em"}} onClick={this.onAttachmentClick}>Add a Picture </button>
           </div>
             <div className="row" >
                 <div className="row">
@@ -94,9 +98,7 @@ onCloudinaryResult(result) {
                     <label className="active" htmlFor="password">Password</label>
                   </div>
                 </div>
-                  <Select name="country"
-                          onChange={(e)=>{this.props.onChange({target:{name: "country", value: e.value}})}}
-                          options={countryList().getData()}/>
+
                 </div>
                 <div  style={{justifySelf: "stretch"}}>
                  <div className="" style={{marginBottom: ".5em"}}>By clicking Sign Up, you agree to our <a className="blue-txt" href="https://res.cloudinary.com/dqklw4e9q/image/upload/v1557290019/a/y2sutapjd3v6ewjko3xx.pdf">Terms, Data Policy and Cookies Policy.</a></div>
