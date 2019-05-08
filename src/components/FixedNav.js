@@ -2,7 +2,6 @@ import React from 'react';
 import styled from 'styled-components';
 import '../App.css';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
-import AudioRecorder from 'react-audio-recorder';
 import ReactDOM from 'react-dom'
 import api from '../api';
 
