@@ -144,7 +144,7 @@ componentDidMount(){
   render(){
           return( <div>
                 <Float style={{display: !this.state.recording? "block": "none"}} className="hoverr white-txt pointer " href="mailto:dreammy.info@gmail.com" >
-                  <i className="material-icons white-txt txt-xl">message</i>
+                  <i className="material-icons white-txt txt-xl">email</i>
                 </Float>
 
                   <Float style={{display: this.state.recording? "block": "none"}} className="hoverr white-txt pointer " ref={this.play}>  <i className="material-icons white-txt txt-xl">fiber_manual_record</i> </Float>

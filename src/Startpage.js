@@ -62,7 +62,7 @@ class Startpage extends React.Component {
         <img  style={{maxWidth:"100%"}} src={img1} alt="pic"/>
 
         <a className="btn-floating blue-bg btn-large bottom" href="mailto:dreammy.help@gmail.com?Subject=Help">
-            <i className="material-icons font-lg">message</i>
+            <i className="material-icons font-lg">email</i>
         </a>
         </div>
         </div>
