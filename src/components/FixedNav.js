@@ -54,87 +54,87 @@ class FixedNav extends React.Component{
     }
     this.play = React.createRef();
   }
- start = () =>{this.setState({recording: true})}
- stop = () =>{this.setState({recording: false})}
-
- record = (start, stopp, el)=>{
-  let chunks = [];
-  let audio = new Audio();
-  const audioContext = window.AudioContext;
-  const audioCtx = new AudioContext();
-  let mediaRecorder;
-
-
-
-function upload (blob){
-    var url = `https://api.cloudinary.com/v1_1/dqklw4e9q/video/upload`;
-    var xhr = new XMLHttpRequest();
-    var fd = new FormData();
-    xhr.open('POST', url, true);
-    xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
-    fd.append('upload_preset', "ncuacbjd");
-    fd.append('file', blob);
-    xhr.send(fd);
-    return new Promise((resolve, reject) => {
-      xhr.onreadystatechange = function(e) {
-        if (xhr.readyState == 4) {
-          if (xhr.status < 200 || xhr.status > 299) {
-            return reject();
-          }
-          else {
-            var response = JSON.parse(xhr.responseText);
-            resolve(response);
-          }
-        }
-      };
-    });}
-
-
-  function errorCallBack(streamError){ alert("Recording is supported not Supported. " + streamError);}
-
-
-  let successCallBack = function(audioStream) {
-    start();
-    console.log("Start");
-    mediaRecorder = new MediaRecorder(audioStream);
-    mediaRecorder.start();
-
-el.current.addEventListener('click', ()=>{ stop(stopp)});
-     mediaRecorder.onstop = function(e) {
-       console.log("Stopped: 2");
-
-      let blob = new Blob(chunks, { 'type' : 'audio/ogg; codecs=opus' });
-      chunks = [];
-          upload(blob).then(result => {
-              api.addPost({videoUrl: `v${result.version}/${result.public_id}.${result.format}` , visibility: "private"})
-                  console.log(`v${result.version}/${result.public_id}.${result.format}`);
-                })
-                .then(res=>{
-                 alert("You Recording Saved Privately. Please Refresh the page.");
-                 })
-                 .catch(err=>{alert("Error on Uploading the posts! ")});
-      }
-      mediaRecorder.ondataavailable = function(e) {
-        chunks.push(e.data);
-  }
-
-  function stop (stopp) {
-    if(mediaRecorder != null && mediaRecorder != undefined && mediaRecorder.state != "inactive"){
-      mediaRecorder.stop();
-    }
-    stopp();
-      console.log("Stopped: 1");
-  //   el.current.removeEventListener('click', stop);
-    }
-}
-
-  if (navigator.mediaDevices.getUserMedia) {
-    navigator.mediaDevices.getUserMedia({audio: true, video: false}).
-    then(successCallBack, errorCallBack);
-  } else {
-    alert("Recording is not supported on this browser");
-  }
-  }
+//  start = () =>{this.setState({recording: true})}
+//  stop = () =>{this.setState({recording: false})}
+//
+//  record = (start, stopp, el)=>{
+//   let chunks = [];
+//   let audio = new Audio();
+//   const audioContext = window.AudioContext;
+//   const audioCtx = new AudioContext();
+//   let mediaRecorder;
+//
+//
+//
+// function upload (blob){
+//     var url = `https://api.cloudinary.com/v1_1/dqklw4e9q/video/upload`;
+//     var xhr = new XMLHttpRequest();
+//     var fd = new FormData();
+//     xhr.open('POST', url, true);
+//     xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+//     fd.append('upload_preset', "ncuacbjd");
+//     fd.append('file', blob);
+//     xhr.send(fd);
+//     return new Promise((resolve, reject) => {
+//       xhr.onreadystatechange = function(e) {
+//         if (xhr.readyState == 4) {
+//           if (xhr.status < 200 || xhr.status > 299) {
+//             return reject();
+//           }
+//           else {
+//             var response = JSON.parse(xhr.responseText);
+//             resolve(response);
+//           }
+//         }
+//       };
+//     });}
+//
+//
+//   function errorCallBack(streamError){ alert("Recording is supported not Supported. " + streamError);}
+//
+//
+//   let successCallBack = function(audioStream) {
+//     start();
+//     console.log("Start");
+//     mediaRecorder = new MediaRecorder(audioStream);
+//     mediaRecorder.start();
+//
+// el.current.addEventListener('click', ()=>{ stop(stopp)});
+//      mediaRecorder.onstop = function(e) {
+//        console.log("Stopped: 2");
+//
+//       let blob = new Blob(chunks, { 'type' : 'audio/ogg; codecs=opus' });
+//       chunks = [];
+//           upload(blob).then(result => {
+//               api.addPost({videoUrl: `v${result.version}/${result.public_id}.${result.format}` , visibility: "private"})
+//                   console.log(`v${result.version}/${result.public_id}.${result.format}`);
+//                 })
+//                 .then(res=>{
+//                  alert("You Recording Saved Privately. Please Refresh the page.");
+//                  })
+//                  .catch(err=>{alert("Error on Uploading the posts! ")});
+//       }
+//       mediaRecorder.ondataavailable = function(e) {
+//         chunks.push(e.data);
+//   }
+//
+//   function stop (stopp) {
+//     if(mediaRecorder != null && mediaRecorder != undefined && mediaRecorder.state != "inactive"){
+//       mediaRecorder.stop();
+//     }
+//     stopp();
+//       console.log("Stopped: 1");
+//   //   el.current.removeEventListener('click', stop);
+//     }
+// }
+//
+//   if (navigator.mediaDevices.getUserMedia) {
+//     navigator.mediaDevices.getUserMedia({audio: true, video: false}).
+//     then(successCallBack, errorCallBack);
+//   } else {
+//     alert("Recording is not supported on this browser");
+//   }
+//   }
 
 
 componentDidMount(){
@@ -144,9 +144,8 @@ componentDidMount(){
 
   render(){
           return( <div>
-
-                <Float style={{display: !this.state.recording? "block": "none"}} className="hoverr white-txt pointer " onClick={()=>{this.record(this.start, this.stop, this.play)}}>
-                  <i className="material-icons white-txt txt-xl">mic</i>
+                <Float style={{display: !this.state.recording? "block": "none"}} className="hoverr white-txt pointer " href="mailto:dreammy.info@gmail.com" >
+                  <i className="material-icons white-txt txt-xl">message</i>
                 </Float>
 
                   <Float style={{display: this.state.recording? "block": "none"}} className="hoverr white-txt pointer " ref={this.play}>  <i className="material-icons white-txt txt-xl">fiber_manual_record</i> </Float>
