@@ -50,7 +50,7 @@ class Startpage extends React.Component {
 
         <div style={{alignSelf:"center"}} >
           <h3  className="blue-txt center stack">"We Live in Condensation of Our Imagination"</h3>
-
+          <h6 className="blue-txt txt-md bold" style={{textAlign:"right", width:"100%", paddingRight:"2em"}}>- Terence McKenna</h6>
           <div className="center" >
           <div style={{margin:"1em"}}>
           <h5  style={{margin:".3em"}} className="blue-txt center stack">Join Dreammy Now! It's Free.</h5>
