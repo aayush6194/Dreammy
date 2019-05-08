@@ -23,6 +23,7 @@ const Grid = styled(Post)`
   display: grid;
   grid-template-columns: 8em 1fr;
   width: 100%;
+  min-height: 15em;
   border-color: #006666;
   padding: 0.5em;`;
 
