@@ -111,6 +111,7 @@ class App extends React.Component {
                   <Route path="/setting" render={()=> <Setting {...this.state} changeSucess={this.changeSucess} logout={this.logout}   />} />
                   <Route path="/" render={()=> <Dashboard {...this.state} {...this.actions} />   }/>
                   </Switch>
+                  
               </Router>
     )} else {return(<Router>
                     <Switch>

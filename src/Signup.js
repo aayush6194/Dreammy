@@ -99,8 +99,8 @@ onCloudinaryResult(result) {
                           options={countryList().getData()}/>
                 </div>
                 <div  style={{justifySelf: "stretch"}}>
-                 <div className="blue-txt" style={{marginBottom: ".5em"}}>By clicking Sign Up, you agree to our Terms, Data Policy and Cookies Policy.</div>
-                  <button style={{ float: "right"}} className="bordered" onClick={()=>this.fetch()}>Submit</button>
+                 <div className="" style={{marginBottom: ".5em"}}>By clicking Sign Up, you agree to our <a className="blue-txt" href="https://res.cloudinary.com/dqklw4e9q/image/upload/v1557290019/a/y2sutapjd3v6ewjko3xx.pdf">Terms, Data Policy and Cookies Policy.</a></div>
+                  <button style={{ float: "right"}} className="bordered" onClick={()=>this.fetch()}>Sign Up</button>
                 </div>
             </div>
             </div>

@@ -186,7 +186,7 @@ constructor(props){
            </Card>
 
 
-          <div style={{ height: "9em"}}></div>
+          <div className="center" style={{ height: "9em"}}> <a className="blue-txt" href="https://res.cloudinary.com/dqklw4e9q/image/upload/v1557290019/a/y2sutapjd3v6ewjko3xx.pdf">Terms, Data Policy and Cookies Policy.</a></div>
           </div>
         </div>
       </div>
