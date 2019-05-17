@@ -116,6 +116,7 @@ onCloudinaryResult(result) {
             </div>
           </Grid>
         </div>
+
       </div>
     );
   }

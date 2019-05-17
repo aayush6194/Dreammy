@@ -9,7 +9,7 @@ import { cloudinaryUrl } from './utils/utils';
 import { timingSafeEqual } from 'crypto';
 import Loader2 from  './components/Loader2';
 import Loader from  './components/Loader';
-import Modal from  './components/Modal';
+
 import SelectInput from './components/SelectInput';
 import TextField from '@material-ui/core/TextField';
 const Post = styled.div`

@@ -7,14 +7,11 @@ import img2 from './images/img .png'
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 const Post = styled.div`
   border-top: 1px solid #2B547E;
-  margin: 0.7em;
+  margin: 0.9em 1em 5em 1em;
   width: auto;
   box-shadow: 0 .25em .5em rgba(0,0,0,.5);
   border-radius: .5em;
   border: 3px solid transparent;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-
   `;
 
 
@@ -52,7 +49,7 @@ class Startpage extends React.Component {
           <h6 className="blue-txt txt-md bold" style={{textAlign:"right", width:"100%", paddingRight:"2em"}}>- Terence McKenna</h6>
           <div className="center" >
           <div style={{margin:"1em"}}>
-          <h5  style={{margin:".3em"}} className="blue-txt center stack">Join Dreammy Now! It's Free.</h5>
+          <h6  style={{margin:".3em"}} className="blue-txt center stack">Join Dreammy Now! It's Free.</h6>
           <Link className="" to="/signup">  <button className="round">SIGN UP!</button></Link>
           </div>
           </div>
@@ -64,7 +61,9 @@ class Startpage extends React.Component {
             <i className="material-icons font-lg">email</i>
         </a>
         </div>
-        </div>
+        </div><Post className="blue-txt txt-md">Dreammy is a personal diary that works as social media focused on dreams, meditation, experiences in the conciouness and spiritual realm.
+        By recording a dream or a personal experience, you will feed your database organised by categories toalways keep your memories together.
+         You can keep your notes private or share them with your friends. This is a basic version for testing and new features will come soon</Post>
         </div>
     );
   }
