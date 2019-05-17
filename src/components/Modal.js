@@ -20,7 +20,15 @@ border: 1px solid #888;
 width: 80%;
 padding: 0;
 max-width: 800px;
-color: black;`;
+color: black;
+
+@media(max-width: 600px){
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  -webkit-transform: translateX(-50%);
+  transform: translateX(-50%)
+}`;
 
 const Btn = styled.button`
 color: white;

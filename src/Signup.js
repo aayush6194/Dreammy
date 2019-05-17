@@ -3,9 +3,9 @@ import styled from 'styled-components';
 import './App.css';
 import Cloudinary from './Cloudinary';
 import { BrowserRouter as  Router, Route, Link } from "react-router-dom";
-import Zoom from 'react-reveal/Zoom';
 import { setLocalStorage, getLocalStorage } from './utils/utils';
 import api from './api';
+import Modal from  './components/Modal';
 import countryList from 'react-select-country-list';
 import Select from 'react-select'
 import { cloudinaryUrl } from './utils/utils';
@@ -40,6 +40,9 @@ class Signup extends React.Component {
   this.lastName = React.createRef();
   this.country = React.createRef();
   this.cloudinaryRef = React.createRef();
+  this.state ={
+    modal: true
+  }
 }
 
 fetch = () =>{
@@ -66,12 +69,17 @@ onCloudinaryResult(result) {
   render() {
     return (
        <div className="containerr">
-         <Zoom>
+       <Modal show={this.state.modal}
+       text={"Dreammy is a personal diary that works as social media focused on dreams, meditation, experiences in the conciouness and spiritual realm. By recording a dream or a personal experience, you will feed your database organised by categories toalways keep your memories together. You can keep your notes private or share them with your friends. This is a basic version for testing and new features will come soon."} buttonText={""}
+       onConfirm={()=>{console.log()}}
+       onClose={()=>{this.setState({modal:false})}}/>
+
         <div className="singup-box full">
         <Grid>
          <Link className="" to="/"> <i className="material-icons blue-txt pointer">arrow_back</i></Link>
           <div style={{alignSelf: "center" }}>
           <MdImg className="md" src={cloudinaryUrl(this.props.image)} alt="user" />
+
           <div >
           <div className="center" style={{height: "2em"}}> <Cloudinary ref={this.cloudinaryRef} onResult={this.onCloudinaryResult.bind(this)}/></div>
             <button className="bordered" style={{display:"block", margin:"auto", marginBottom:"1em"}} onClick={this.onAttachmentClick}>Add a Picture </button>
@@ -108,7 +116,6 @@ onCloudinaryResult(result) {
             </div>
           </Grid>
         </div>
-          </Zoom>
       </div>
     );
   }
