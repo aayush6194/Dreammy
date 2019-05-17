@@ -157,9 +157,6 @@ const Badge = styled.div`
         {!this.state.showMoreComments?
            <span style={{display:"block", textAlign:"center"}}
            onClick={()=>{this.setState({showMoreComments: true})}} className="blue-txt bold pointer "> See Less&nbsp;<i className="material-icons br-50">expand_less</i>&nbsp; </span> : null}
-
-
-
        </Post>
     );
   }

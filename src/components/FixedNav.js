@@ -4,7 +4,7 @@ import '../App.css';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import ReactDOM from 'react-dom'
 import api from '../api';
-
+import Modal from  './Modal';
 const Fixed = styled.div`
 border-top: 1px solid #2B547E;
 margin: 0.7em;
@@ -49,7 +49,8 @@ class FixedNav extends React.Component{
   constructor(props){
     super(props);
     this.state ={
-      recording: false
+      recording: false,
+      modal: false
     }
     this.play = React.createRef();
   }
@@ -143,6 +144,11 @@ componentDidMount(){
 
   render(){
           return( <div>
+
+            <Modal show={this.state.modal}
+            text={"Dreammy is a personal diary that works as social media focused on dreams, meditation, experiences in the conciouness and spiritual realm. By recording a dream or a personal experience, you will feed your database organised by categories toalways keep your memories together. You can keep your notes private or share them with your friends. This is a basic version for testing and new features will come soon."} buttonText={""}
+            onConfirm={()=>{console.log()}}
+            onClose={()=>{this.setState({modal:false})}}/>
                 <Float style={{display: !this.state.recording? "block": "none"}} className="hoverr white-txt pointer " href="mailto:dreammy.info@gmail.com" >
                   <i className="material-icons white-txt txt-xl">email</i>
                 </Float>
@@ -151,7 +157,7 @@ componentDidMount(){
 
                 <Fixed className="blue-bg">
                    <Btn className="hoverr pointer grid"> <Link style={{display: "grid", placeItems: "center"}} to="/"><I  className="material-icons white-txt bold txt-xl">home</I></Link></Btn>
-                    <Btn className="hover pointer grid"><Link style={{display: "grid", placeItems: "center"}} to="/chat"><I className="material-icons white-txt bold txt-xl disabled">chat_bubble</I></Link></Btn>
+                    <Btn className="hover pointer grid"><a onClick={()=>{this.setState({modal: true})}} style={{display: "grid", placeItems: "center"}} to="/"><I className="material-icons white-txt bold txt-xl">info</I></a></Btn>
                     <Btn className="hover pointer grid"><Link style={{display: "grid", placeItems: "center"}} to="/setting"><I className="material-icons white-txt bold txt-xl">settings</I></Link></Btn>
                    <Btn className="hover pointer grid"><Link style={{display: "grid", placeItems: "center"}} to="/profile?user=me"><I className="material-icons white-txt bold txt-xl">person</I></Link></Btn>
                   </Fixed>

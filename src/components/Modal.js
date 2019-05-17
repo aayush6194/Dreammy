@@ -14,7 +14,8 @@ background-color: rgba(0,0,0,0.4);
 
 const Modall = styled.div`
 background-color: #fefefe;
-margin: 10% auto;
+margin: 2% auto;
+
 border: 1px solid #888;
 width: 80%;
 padding: 0;
@@ -47,12 +48,14 @@ if(props.show){
                 <Btn style={{float: "right"}} onClick={props.close} className="bt right-corner"  onClick={props.onClose}> &nbsp;X&nbsp; </Btn>
               </Header>
                 <div >
-                <div style={{height: "5em", padding: "2em"}} className="blue-txt center bold txt-md">
+                <div style={{minheight: "5em", padding: "2em"}} className="blue-txt center bold txt-md">
                 {props.text}
                 </div>
                  <div>
-                  <button  className="btn hoverr blue-bg half" onClick={props.onConfirm}>{props.buttonText}</button>
-                   <button className="btn hoverr blue-bg half" onClick={props.onClose}>Cancel</button>
+                { props.buttonText && props.buttonText.length > 0?
+                  <button  className="btn hoverr blue-bg half" onClick={props.onConfirm}>{props.buttonText}</button>: null}
+                { props.buttonText && props.buttonText.length > 0?
+                   <button className="btn hoverr blue-bg half" onClick={props.onClose}>Cancel</button> :      <button className="btn hoverr blue-bg full" onClick={props.onClose}>Cancel</button>}
                 </div>
               </div>
               </Modall>

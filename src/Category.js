@@ -41,7 +41,7 @@ const Post = styled.div`
 class Category extends React.Component {
   constructor(props) {
     super(props);
-    this.category = ["Dreams", "Thoughts","Meditation", "Altered states", "Help Me out", "Various"];
+    this.category = ["Dreams", "Thoughts","Meditations", "Altered states", "Help me out", "Various"];
     this.textBox = React.createRef();
     this.state ={
        category: ""
@@ -67,10 +67,10 @@ class Category extends React.Component {
         <div className="profile-box full">
         <Grid6>
         <Btn className="hover category" onClick={()=>{this.setState({category:"Dreams"})}}><Img src={dream} alt="Dream Icon"/><div className="bold center txt-md hover-1"> Dreams</div></Btn>
-        <Btn className="hover category" onClick={()=>{this.setState({category:"Meditation"})}}><Img src={yoga} alt="Meditation Icon"/><div className="bold center txt-md hover-1">Meditation</div></Btn>
+        <Btn className="hover category" onClick={()=>{this.setState({category:"Meditations"})}}><Img src={yoga} alt="Meditation Icon"/><div className="bold center txt-md hover-1">Meditation</div></Btn>
         <Btn className="hover category" onClick={()=>{this.setState({category:"Altered states"})}}><Img src={mortar} alt="Alter States"/><div className="bold center txt-md hover-1">Altered States</div></Btn>
         <Btn className="hover category" onClick={()=>{this.setState({category:"Thoughts"})}}><Img src={thinking} alt="Thoughts Icon"/><div className="bold center txt-md hover-1">Thoughts</div></Btn>
-        <Btn className="hover category" onClick={()=>{this.setState({category:"Help Me out"})}}><Img src={charity} alt="Help Me out Icon"/><div className="bold center txt-md hover-1">Help Me out</div></Btn>
+        <Btn className="hover category" onClick={()=>{this.setState({category:"Help me out"})}}><Img src={charity} alt="Help Me out Icon"/><div className="bold center txt-md hover-1">Help Me out</div></Btn>
         <Btn className="hover category" onClick={()=>{this.setState({category:"Various"})}}><Img src={ufo} alt="UFO Icon"/><div className="bold center txt-md hover-1">Various</div></Btn>
 
         </Grid6>

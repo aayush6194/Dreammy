@@ -61,7 +61,7 @@ class Dashboard extends React.Component {
     this.cloudinaryRef = React.createRef();
     this.cloudinaryRef2 = React.createRef();
     this.textBox = React.createRef();
-    this.category = ["Dreams", "Thoughts","Meditation", "Altered states", "Help Me out"];
+    this.category = ["Dreams", "Thoughts","Meditations", "Altered states", "Help me out", "Various"];
     this.state ={
       text: ""
     };

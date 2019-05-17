@@ -67,7 +67,10 @@ class App extends React.Component {
     api.addPost(this.state.fields)
       .then(res => {
         if (res.success) {
-          this.setState({fields: {}});
+          let temp = this.state.fields.visibility? this.state.fields.visibility : "private";
+          let temp2 = this.state.fields.category? this.state.fields.category : "";
+          this.setState({fields: {visibility: temp, category: temp2}});
+
           this.refreshPosts("all");
           if(res.modal){
             alert("Your Post was Saved Privately.");
@@ -111,7 +114,6 @@ class App extends React.Component {
                   <Route path="/setting" render={()=> <Setting {...this.state} changeSucess={this.changeSucess} logout={this.logout}   />} />
                   <Route path="/" render={()=> <Dashboard {...this.state} {...this.actions} />   }/>
                   </Switch>
-                  
               </Router>
     )} else {return(<Router>
                     <Switch>
